@@ -1,9 +1,15 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# 顶部的 EditorConfig 文件
 root = true
 
 [*]
+# 设置默认字符集
 charset = utf-8
+# 每个文件以 unix 样式的换行
 end_of_line = lf
 insert_final_newline = true
+# 4 个空格缩进
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
@@ -11,5 +17,10 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
+# 可以使用大括号展开符号匹配多个文件
 [*.{yml,yaml}]
+indent_size = 2
+
+[*.{js,html,blade.php,css,scss}]
+indent_style = space
 indent_size = 2
