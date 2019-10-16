@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Support\Code;
 
 class TestsController extends Controller
 {
@@ -13,6 +14,9 @@ class TestsController extends Controller
      */
     public function index()
     {
+        Code::setCode(Code::SUCC);
+        $msg = Code::getErrMsg();
+        dump($msg);
     }
 
     /**
