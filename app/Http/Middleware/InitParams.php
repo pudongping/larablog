@@ -70,6 +70,10 @@ class InitParams
     public static function getCurrentAction()
     {
         $action = \Route::current()->getActionName();
+        if (!strstr($action, '@')) {
+            // 防止直接返回视图
+            return ['controller' => false, 'method' => false];
+        }
         list($controller, $method) = explode('@', $action);
         return compact('controller', 'method');
     }
