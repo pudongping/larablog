@@ -29,13 +29,17 @@ class InitParams
         TempValue::$currentUser = Auth::user();
         // 是否开启 debug
         TempValue::$debug = $debug = $request->input('debug', 0);
-        // 当前 http 请求方法
-        TempValue::$httpMethod = $request->getMethod();
+        // 当前 http 请求方式
+        TempValue::$httpMethod = strtolower($request->getMethod());
+        // 当前控制器名称
+        TempValue::$controller = $this->getCurrentControllerName();
+        // 当前方法名称
+        TempValue::$action = $this->getCurrentMethodName();
 
         // 是否分页，默认不分页
         TempValue::$nopage = $request->input('nopage', 0);
         // 当前页码，默认为第一页
-        TempValue::$page = $request->input('page', 1);
+        TempValue::$page = (int)$request->input('page', 1);
         // 分页显示数量
         TempValue::$perPage = $request->input('per_page');
         /**
@@ -56,6 +60,38 @@ class InitParams
         }
 
         return $next($request);
+    }
+
+    /**
+     * 获取当前控制器与方法
+     *
+     * @return array
+     */
+    public static function getCurrentAction()
+    {
+        $action = \Route::current()->getActionName();
+        list($controller, $method) = explode('@', $action);
+        return compact('controller', 'method');
+    }
+
+    /**
+     * 获取当前控制器名
+     *
+     * @return mixed
+     */
+    public function getCurrentControllerName()
+    {
+        return self::getCurrentAction()['controller'];
+    }
+
+    /**
+     * 获取当前方法名
+     *
+     * @return mixed
+     */
+    public function getCurrentMethodName()
+    {
+        return self::getCurrentAction()['method'];
     }
 
 

@@ -118,7 +118,7 @@ class Code
     }
 
     /**
-     * 获取提示信息
+     * 获取提示信息，带错误码
      *
      * @return array 提示代码，提示信息
      */
@@ -128,6 +128,16 @@ class Code
             self::setCode(self::SUCC);
         }
         return [self::$code, self::$msg];
+    }
+
+    /**
+     * 获取提示信息，不带错误码
+     *
+     * @return mixed
+     */
+    public static function getErrMsg()
+    {
+        return self::$msg;
     }
 
     /**

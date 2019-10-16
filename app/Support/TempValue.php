@@ -78,6 +78,8 @@ class TempValue
     public static $perPage;
 
     /**
+     * 排序规则
+     *
      * @var
      */
     public static $orderBy;
@@ -92,9 +94,9 @@ class TempValue
     /**
      * 设置「内存缓存」
      *
-     * @param $key  缓存键名
-     * @param $value  缓存值
-     * @param null $group  支持设置多组
+     * @param $key 缓存键名
+     * @param $value 缓存值
+     * @param null $group 支持设置多组
      * @return bool
      */
     public static function setCache($key, $value, $group = null)
