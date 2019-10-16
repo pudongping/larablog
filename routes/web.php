@@ -11,13 +11,10 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+// 首页路由
+Route::get('/', 'Portal\HomeController@root')->name('root');
 
 
 Route::resource('tests', 'TestsController');
