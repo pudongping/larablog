@@ -14,6 +14,7 @@ class TestsController extends Controller
      */
     public function index()
     {
+        $test = '/theme/startbootstrap-sb-admin-2/';
         Code::setCode(Code::SUCC);
         $msg = Code::getErrMsg();
         dump($msg);
