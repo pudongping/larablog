@@ -1,0 +1,85 @@
+{
+  "_from": "startbootstrap-sb-admin-2",
+  "_id": "startbootstrap-sb-admin-2@4.0.7",
+  "_inBundle": false,
+  "_integrity": "sha1-Zt73j1HcMzsh0Prl/km7WldDDso=",
+  "_location": "/startbootstrap-sb-admin-2",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "startbootstrap-sb-admin-2",
+    "name": "startbootstrap-sb-admin-2",
+    "escapedName": "startbootstrap-sb-admin-2",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/startbootstrap-sb-admin-2/download/startbootstrap-sb-admin-2-4.0.7.tgz",
+  "_shasum": "66def78f51dc333b21d0fae5fe49bb5a57430eca",
+  "_spec": "startbootstrap-sb-admin-2",
+  "_where": "G:\\laragon\\wwwroot\\larablog",
+  "author": {
+    "name": "Start Bootstrap"
+  },
+  "bugs": {
+    "url": "https://github.com/BlackrockDigital/startbootstrap-sb-admin-2/issues",
+    "email": "feedback@startbootstrap.com"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "David Miller",
+      "url": "http://davidmiller.io/"
+    }
+  ],
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.10.2",
+    "bootstrap": "4.3.1",
+    "chart.js": "2.8.0",
+    "datatables.net-bs4": "1.10.19",
+    "jquery": "3.4.1",
+    "jquery.easing": "^1.4.1"
+  },
+  "deprecated": false,
+  "description": "An open source Bootstrap 4 admin theme.",
+  "devDependencies": {
+    "browser-sync": "2.26.7",
+    "del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "7.0.0",
+    "gulp-clean-css": "4.2.0",
+    "gulp-header": "2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify": "3.0.2",
+    "merge-stream": "2.0.0"
+  },
+  "homepage": "https://startbootstrap.com/template-overviews/sb-admin-2",
+  "keywords": [
+    "css",
+    "sass",
+    "html",
+    "responsive",
+    "theme",
+    "template",
+    "admin",
+    "app"
+  ],
+  "license": "MIT",
+  "name": "startbootstrap-sb-admin-2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackrockDigital/startbootstrap-sb-admin-2.git"
+  },
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "title": "SB Admin 2",
+  "version": "4.0.7"
+}
