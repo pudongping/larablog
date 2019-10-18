@@ -37,7 +37,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
             \App\Http\Middleware\InitParams::class,
-            \App\Http\Middleware\LogInfo::class
+            \App\Http\Middleware\LogInfo::class,
+            \App\Http\Middleware\EnsureEmailIsVerified::class,
         ],
 
         'api' => [
