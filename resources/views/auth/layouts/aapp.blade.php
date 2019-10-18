@@ -9,7 +9,7 @@
   @include('shared._common_meta')
 
   {{-- css 样式 --}}
-  @include('admin.layouts.css-js._s_css')
+  @include('shared.sb-css-js._s_css')
 
 </head>
 
@@ -21,7 +21,7 @@
   </div>
 
 {{-- js --}}
-@include('admin.layouts.css-js._s_js')
+@include('shared.sb-css-js._s_js')
 
 </body>
 
