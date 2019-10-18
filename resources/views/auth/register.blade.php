@@ -38,6 +38,7 @@
                 @enderror
               </div>
 
+              {{-- 密码和确认密码 --}}
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" id="exampleInputPassword" placeholder="{{ __('Password') }}">
@@ -47,6 +48,19 @@
                 </div>
                 <div class="col-sm-6">
                   <input type="password" class="form-control form-control-user" name="password_confirmation" required autocomplete="new-password" id="exampleRepeatPassword" placeholder="{{ __('Confirm Password') }}">
+                </div>
+              </div>
+
+              {{-- 图片验证码 --}}
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <img src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码" style="cursor: pointer; border: 1px solid #ced4da; border-radius: 4px; padding: 3px; ">
+                </div>
+                <div class="col-md-6">
+                  <input id="captcha" class="form-control form-control-user {{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" required>
+                  @if ($errors->has('captcha'))
+                    <div class="text-center " style="color: #d9534f">{{ $errors->first('captcha') }}</div>
+                  @endif
                 </div>
               </div>
 
@@ -60,9 +74,9 @@
                 <i class="fab fa-google fa-fw"></i> Register with Google
               </a>
 
-              <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-              </a>
+              {{--<a href="index.html" class="btn btn-facebook btn-user btn-block">--}}
+                {{--<i class="fab fa-facebook-f fa-fw"></i> Register with Facebook--}}
+              {{--</a>--}}
 
             </form>
 
