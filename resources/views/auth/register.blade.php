@@ -57,7 +57,7 @@
                   <img src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码" style="cursor: pointer; border: 1px solid #ced4da; border-radius: 4px; padding: 3px; ">
                 </div>
                 <div class="col-md-6">
-                  <input id="captcha" class="form-control form-control-user {{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" required>
+                  <input id="captcha" class="form-control form-control-user {{ $errors->has('captcha') ? ' is-invalid' : '' }}" name="captcha" required placeholder="{{ __('captcha') }}">
                   @if ($errors->has('captcha'))
                     <div class="text-center " style="color: #d9534f">{{ $errors->first('captcha') }}</div>
                   @endif
