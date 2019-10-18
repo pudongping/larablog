@@ -1,5 +1,10 @@
 {
-  "Login": "登录",
-  "Password": "密码",
-  "Remember Me": "记住我"
+    "Login": "登录",
+    "Password": "密码",
+    "Remember Me": "记住我",
+    "Create an Account!": "创建一个账户！",
+    "Forgot Password?": "密码忘记了？",
+    "Already have an account? Please Login!": "已经有账户了？请直接登录！",
+    "Register Account": "注册账户"
+
 }
