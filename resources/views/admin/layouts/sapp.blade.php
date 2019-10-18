@@ -17,15 +17,8 @@
 
     <title>@yield('title', config('app.name', 'warmwave'))-Alex的个人博客</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('/theme/startbootstrap-sb-admin-2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    {{-- css 样式 --}}
+    @include('admin.layouts.css-js._s_css')
 
 </head>
 
@@ -79,15 +72,8 @@
 <!-- Logout Modal-->
 @include('admin.layouts._suser_logout_modal')
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{{ asset('/theme/startbootstrap-sb-admin-2/js/sb-admin-2.min.js') }}"></script>
+{{-- js --}}
+@include('admin.layouts.css-js._s_js')
 
 </body>
 
