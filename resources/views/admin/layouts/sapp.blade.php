@@ -17,9 +17,6 @@
 
     <title>@yield('title', config('app.name', 'warmwave'))-Alex的个人博客</title>
 
-    <!-- Scripts -->
-    {{--<script src="{{ asset('js/app.js') }}" defer></script>--}}
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
@@ -38,7 +35,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-{{--        @include('admin.layouts._menu')--}}
+        @include('admin.layouts._menu')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -48,7 +45,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('shared._stopbar')
+                @include('admin.layouts._stopbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -63,7 +60,7 @@
 
             {{-- 底部 --}}
             <!-- Footer -->
-            @include('shared._sfooter')
+            @include('admin.layouts._sfooter')
             <!-- End of Footer -->
 
         </div>
@@ -80,10 +77,7 @@
 </a>
 
 <!-- Logout Modal-->
-@include('shared._suser_logout_modal')
-
-{{-- Scripts --}}
-{{--<script src="{{ mix('js/app.js') }}"></script>--}}
+@include('admin.layouts._suser_logout_modal')
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>

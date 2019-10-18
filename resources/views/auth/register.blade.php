@@ -1,4 +1,4 @@
-@extends('shared.sapp')
+@extends('portal.layouts.app')
 
 @section('content')
 
