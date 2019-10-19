@@ -11,6 +11,9 @@ class User extends Authenticatable implements MustVerifyEmailContract
 {
     use Notifiable, MustVerifyEmailTrait;
 
+    // 用户默认头像
+    const DEFAULT_HEADER = '/uploads/portal/img/auth/default-header.png';
+
     /**
      * 防止用户随意修改模型数据，只有在此属性里定义的字段，才允许修改，否则更新时会被忽略
      *
@@ -46,6 +49,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      */
     public function getAvatarAttribute($value)
     {
+        if (!$value) $value = self::DEFAULT_HEADER;
         return config('app.url') . $value;
     }
 
