@@ -19,8 +19,8 @@ trim_trailing_whitespace = false
 
 # 可以使用大括号展开符号匹配多个文件
 [*.{yml,yaml}]
-indent_size = 2
+indent_size = 4
 
 [*.{js,html,blade.php,css,scss}]
 indent_style = space
-indent_size = 2
+indent_size = 4
