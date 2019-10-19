@@ -26,6 +26,12 @@ class UsersRepository extends BaseRepository
         $this->imageUploadHandler = $imageUploadHandler;
     }
 
+    /**
+     * 用户个人资料修改
+     *
+     * @param $request
+     * @return mixed  object  当前用户实例
+     */
     public function modify($request)
     {
         $data = $request->only(['name', 'email', 'introduction']);

@@ -44,7 +44,6 @@ class UsersController extends Controller
      * 更新个人信息数据处理
      *
      * @param UserRequest $request
-     * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request)
