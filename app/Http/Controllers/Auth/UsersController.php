@@ -47,9 +47,9 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request)
     {
-        $user->update($request->all());
+        $user = $this->usersRepository->modify($request);
         return redirect()->route('users.show', $user->id)
                          ->with('success', $user->name . '的个人资料更新成功！');
     }

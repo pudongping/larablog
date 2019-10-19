@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'introduction'
+        'name', 'email', 'password', 'introduction', 'avatar'
     ];
 
     /**
@@ -37,4 +37,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 获取用户的头像路径
+     *
+     * @param $value  string  用户头像相对路径
+     * @return string  用户头像带 url 链接的绝对路径
+     */
+    public function getAvatarAttribute($value)
+    {
+        return config('app.url') . $value;
+    }
+
 }
