@@ -35,7 +35,9 @@ class EnsureEmailIsVerified
         ) {
             // 根据客户端返回相应的内容
             return $request->expectsJson()
+                    // 如果是 Ajax 请求
                     ? abort(403, '您的邮箱还没有验证，请先验证邮箱！')
+                    // 如果是正常的 URL 访问则直接重定向到邮箱验证页面
                     : redirect()->route('verification.notice');
         }
 
