@@ -6,6 +6,10 @@
     "Forgot Password?": "密码忘记了？",
     "Already have an account? Please Login!": "已经有账户了？请直接登录！",
     "Register Account": "注册账户",
-    "captcha": "验证码"
+    "captcha": "验证码",
+    "Welcome Back!": "欢迎回来！",
+    "Just enter your email address below and we'll send you a link to reset your password!": "请在下面输入您的邮件地址，我们就会给您发送一个重置密码的链接！",
+    "Enter Email Address": "请输入您的邮箱地址",
+    "Enter Password": "请输入密码"
 
 }
