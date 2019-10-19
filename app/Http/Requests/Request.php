@@ -9,11 +9,11 @@ class Request extends FormRequest
 {
 
     /**
-     * Get the validation rules that apply to the request.
+     * 获取已定义验证规则的错误消息
      *
      * @return array
      */
-    public function rules()
+    public function messages()
     {
         return [
             'required'       => '缺少必要参数，请检查',
