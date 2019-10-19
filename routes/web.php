@@ -35,11 +35,11 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 // Email 认证相关路由
-// 1、提示 「需要验证 Email」 界面
+// 1、提示 「需要验证 Email」 界面，返回 「auth.verify」 视图
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-// 2、点击 「重新发送 Email 按钮」 发送验证邮箱的邮件到指定邮箱
+// 2、点击 「重新发送 Email 按钮」 发送验证邮箱的邮件到指定邮箱，再次返回 「auth.verify」 视图
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-// 3、点击 「验证 Email」 按钮，验证邮箱（在指定邮箱中可见此按钮）
+// 3、点击 「验证 Email」 按钮，验证邮箱（在指定邮箱中可见此按钮），返回认证前的当前页面
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
 
