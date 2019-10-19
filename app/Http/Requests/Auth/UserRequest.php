@@ -28,6 +28,7 @@ class UserRequest extends Request
                 'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . \Auth::id(),
                 'email' => 'required|email',
                 'introduction' => 'max:80',
+                'avatar' => 'mimes:jpeg,bmp,png,gif|dimensions:min_width=208,min_height=208',
             ],
         ];
 
@@ -43,6 +44,8 @@ class UserRequest extends Request
             'name.required' => '用户名不能为空。',
             'email.required' => '邮箱不能为空。',
             'introduction.max' => '个人简介不能多于 80 个字符。',
+            'avatar.mimes' =>'头像必须是 jpeg, bmp, png, gif 格式的图片',
+            'avatar.dimensions' => '图片的清晰度不够，宽和高需要 208px 以上',
         ];
 
         $messages = array_merge(parent::messages(), $messages);
