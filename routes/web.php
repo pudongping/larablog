@@ -55,9 +55,15 @@ Route::post('email/resend', 'Auth\VerificationController@resend')->name('verific
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
 // 『用户相关路由』
-Route::resource('users', 'Auth\UsersController', ['only' => ['show', 'update', 'edit']]);
-// 等同于
-// Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show');  // 显示用户个人信息页面
-// Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
-// Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
+Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show');  // 显示用户个人信息页面
 
+
+Route::group(
+    [
+        'middleware' => ['auth']
+    ],
+    function () {
+        Route::resource('users', 'Auth\UsersController', ['only' => ['update', 'edit']]);
+        // Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
+        // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
+    });
