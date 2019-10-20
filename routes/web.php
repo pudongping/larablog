@@ -69,3 +69,5 @@ Route::group(
     });
 
 Route::resource('articles', 'Portal\Article\ArticlesController');
+
+Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
