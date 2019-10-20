@@ -67,3 +67,5 @@ Route::group(
         // Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
         // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
     });
+
+Route::resource('articles', 'Portal\Article\ArticlesController');

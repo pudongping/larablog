@@ -17,12 +17,7 @@ class UsersTableSeeder extends Seeder
 
         // 头像假数据
         $avatars = [
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/s5ehp11z6s.png',
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/Lhd1SHqu86.png',
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/LOnMrqbHJn.png',
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/xAuDMxteQy.png',
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png',
-            'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/NDnzMutoxX.png',
+            'https://cdn.learnku.com/uploads/images/201801/03/1/8uNnIba2M2.jpg'
         ];
 
         // 生成数据集合
@@ -51,7 +46,8 @@ class UsersTableSeeder extends Seeder
         $user = User::find(1);
         $user->name = 'alex';
         $user->email = '1414818093@qq.com';
-        $user->avatar = 'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png';
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->avatar = 'https://cdn.learnku.com/uploads/images/201801/03/1/8uNnIba2M2.jpg';
         $user->password = bcrypt('123456');
         $user->save();
 

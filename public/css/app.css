@@ -16582,3 +16582,42 @@ body {
   color: inherit;
 }
 
+/* Article Index Page */
+
+.articles-index-page .article-list .nav > li > a {
+  position: relative;
+  display: block;
+  padding: 5px 14px;
+  font-size: 0.9em;
+}
+
+.articles-index-page .article-list a {
+  color: #444444;
+}
+
+.articles-index-page .article-list .meta {
+  font-size: 0.9em;
+  color: #b3b3b3;
+}
+
+.articles-index-page .article-list .meta a {
+  color: #b3b3b3;
+}
+
+.articles-index-page .article-list .badge {
+  background-color: #d8d8d8;
+}
+
+.articles-index-page .article-list hr {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  border: 0;
+  border-top: 1px solid #dcebf5;
+}
+
+/* Add container and footer space */
+
+#app > div.container {
+  margin-bottom: 100px;
+}
+
