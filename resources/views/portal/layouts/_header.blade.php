@@ -9,8 +9,24 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @php
+                    $baseActive = !isset($category) ? 'active' : '';
+                @endphp
+                <li class="nav-item {{ $baseActive ?? '' }}"><a class="nav-link" href="{{ route('articles.index') }}">文章</a></li>
+
+                @if (isset($allCategories))
+                    @foreach ($allCategories as $cId => $cName)
+                        @php
+                            if (isset($category)) {
+                                $isActive = $cId == $category->id ? 'active' : '';
+                            }
+                        @endphp
+                        <li class="nav-item {{ $isActive ?? '' }}"><a class="nav-link" href="{{ route('categories.show', $cId) }}">{{ $cName }}</a></li>
+                    @endforeach
+                @endif
 
             </ul>
 

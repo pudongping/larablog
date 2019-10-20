@@ -11,9 +11,17 @@ namespace App\Http\Controllers\Portal\Article;
 use App\Http\Controllers\Controller;
 use App\Models\Portal\Article\Category;
 use App\Models\Portal\Article\Article;
+use App\Repositories\Portal\Article\CategoriesRepository;
 
 class CategoriesController extends Controller
 {
+
+    protected $categoriesRepository;
+
+    public function __construct(CategoriesRepository $categoriesRepository)
+    {
+        $this->categoriesRepository = $categoriesRepository;
+    }
 
     /**
      * 根据分类查看文章
@@ -23,10 +31,13 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
+
+        $allCategories = $this->categoriesRepository->getAllCategories();
+
         // 读取分类 id 相关的文章
         $articles = Article::where('category_id', $category->id)->paginate(\ConstCustom::PAGE_NUM);
 
-        return view('portal.article.index', compact('articles', 'category'));
+        return view('portal.article.index', compact('articles', 'allCategories', 'category'));
     }
 
 }
