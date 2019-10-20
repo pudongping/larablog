@@ -22,9 +22,15 @@ class ArticlesRepository extends BaseRepository
         $this->model = $article;
     }
 
+    /**
+     * 文章列表
+     *
+     * @return mixed
+     */
     public function index()
     {
-        return $this->usePage($this->model);
+        $model = Article::with('category', 'user');
+        return $this->usePage($model);
     }
 
 }

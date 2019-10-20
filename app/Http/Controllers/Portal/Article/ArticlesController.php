@@ -17,6 +17,11 @@ class ArticlesController extends Controller
         $this->articlesRepository = $articlesRepository;
     }
 
+    /**
+     * 文章列表
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $articles = $this->articlesRepository->index();
