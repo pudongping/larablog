@@ -37,7 +37,7 @@ class UsersRepository extends BaseRepository
         $data = $request->only(['name', 'email', 'introduction']);
 
         if ($request->avatar) {
-            $result = $this->imageUploadHandler->save($request->avatar, 'avatars', $request->id);
+            $result = $this->imageUploadHandler->save($request->avatar, 'avatars', $request->id, 'avatar', 416);
             if ($result) {
                 // 存入头像相对路径
                 $data['avatar'] = $result['relativePath'];
