@@ -35,4 +35,17 @@ class ArticlesRepository extends BaseRepository
         return $this->usePage($model);
     }
 
+    /**
+     * 新建文章-保存数据
+     *
+     * @param $request  请求实例
+     * @return object  已保存的文章对象
+     */
+    public function storage($request)
+    {
+        $input = $request->only(['title', 'category_id', 'body']);
+        $input['user_id'] = \Auth::id();
+        return $this->store($input);
+    }
+
 }

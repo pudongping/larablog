@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Portal\Article;
 
 use App\Http\Controllers\Controller;
+use App\Models\Portal\Article\Article;
+use App\Models\Portal\Article\Category;
 use Illuminate\Http\Request;
 use App\Repositories\Portal\Article\ArticlesRepository;
 use App\Repositories\Portal\Article\CategoriesRepository;
+use App\Http\Requests\Portal\Article\ArticleRequest;
 
 class ArticlesController extends Controller
 {
@@ -32,6 +35,35 @@ class ArticlesController extends Controller
         $articles = $this->articlesRepository->index($request);
         $allCategories = $this->categoriesRepository->getAllCategories();
         return view('portal.article.index', compact('articles', 'allCategories'));
+    }
+
+    /**
+     * 新建-编辑 文章显示页面
+     *
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create(Article $article)
+    {
+        $categories = Category::all();
+        return view('portal.article.create_and_edit', compact('article', 'categories'));
+    }
+
+    /**
+     * 新建文章-数据处理
+     *
+     * @param ArticleRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(ArticleRequest $request)
+    {
+        $article = $this->articlesRepository->storage($request);
+        return redirect()->route('articles.show', $article->id)->with('success', '文章创建成功！');
+    }
+
+    public function show()
+    {
+        dump(7979);
     }
 
 }

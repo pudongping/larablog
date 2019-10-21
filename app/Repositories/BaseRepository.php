@@ -112,6 +112,8 @@ abstract class BaseRepository
      */
     public function store($input)
     {
+        // fill 方法会将传参的键值数组填充到模型的属性中
+        // 类似于：$modelObject->column = value;
         $this->model->fill($input);
         $this->model->save();
         return $this->model;
@@ -127,6 +129,8 @@ abstract class BaseRepository
     public function update($id, $input)
     {
         $this->model = $this->getById($id);
+        // fill 方法会将传参的键值数组填充到模型的属性中
+        // 类似于：$modelObject->column = value;
         $this->model->fill($input);
         $this->model->save();
         return $this->model;
