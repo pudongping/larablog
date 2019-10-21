@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * 注册服务提供者
      * Register any application services.
      *
      * @return void
@@ -20,12 +21,14 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
+     * 引导应用程序服务
      * Bootstrap any application services.
      *
      * @return void
      */
     public function boot()
     {
-        //
+        // 注册观察者
+        \App\Models\Portal\Article\Article::observe(\App\Observers\Portal\Article\ArticleObserver::class);
     }
 }
