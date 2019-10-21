@@ -39,6 +39,13 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登录</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">注册</a></li>
                 @else
+                    {{-- 发布文章按钮 --}}
+                    <li class="nav-item">
+                        <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('articles.create') }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
+
                     {{-- 用户已经登陆 --}}
                     <li class="nav-item dropdown">
 
