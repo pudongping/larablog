@@ -66,8 +66,11 @@ Route::group(
         Route::resource('users', 'Auth\UsersController', ['only' => ['update', 'edit']]);
         // Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
         // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
+        // 需要登录之后才允许操作的文章类方法
+        Route::resource('articles', 'Portal\Article\ArticlesController', ['except' => ['index', 'show']]);
     });
 
+// 不需要登录就可以访问的文章类方法，亦即 ['only' => ['index', 'show']]
 Route::resource('articles', 'Portal\Article\ArticlesController');
 
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');

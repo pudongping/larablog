@@ -23,8 +23,27 @@ class ArticleRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [
+            'store' => [
+                'title'       => 'required|min:2',
+                'body'        => 'required|min:3',
+                'category_id' => 'required|numeric',
+            ],
         ];
+
+        return $this->useRule($rules);
     }
+
+    public function messages()
+    {
+        $messages = [
+            'title.min' => '标题必须至少两个字符',
+            'body.min'  => '文章内容必须至少三个字符',
+        ];
+
+        $messages = array_merge(parent::messages(), $messages);
+
+        return $messages;
+    }
+
 }
