@@ -36,5 +36,50 @@ class Article extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * 排序规则动态作用域
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $order
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithOrder($query, $order)
+    {
+        switch ($order) {
+            case 'recent':
+                $query->recent();
+                break;
+
+            default:
+                $query->recentReplied();
+                break;
+        }
+
+        // 预加载防止 N+1 问题
+        return $query->with('category', 'user');
+    }
+
+    /**
+     * 「最后回复」的本地作用域
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecentReplied($query)
+    {
+        return $query->orderBy('updated_at', 'desc');
+    }
+
+    /**
+     * 「最新发布」的本地作用域
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
+
 
 }

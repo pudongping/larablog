@@ -1,6 +1,6 @@
 @extends('portal.layouts.app')
 
-@section('title', isset($category) ? $category->name : '话题列表')
+@section('title', isset($category) ? $category->name : '文章列表')
 
 @section('content')
 
@@ -18,13 +18,13 @@
 
                 <div class="card-header bg-transparent">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link active" href="#">最后回复</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">最新发布</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ Request::url() }}?order=default">最后回复</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ Request::url() }}?order=recent">最新发布</a></li>
                     </ul>
                 </div>
 
                 <div class="card-body">
-                    {{-- 话题列表 --}}
+                    {{-- 文章列表 --}}
                     @include('portal.article._article_list', ['articles' => $articles])
                     {{-- 分页 --}}
                     <div class="mt-5">

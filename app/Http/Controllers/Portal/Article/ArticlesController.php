@@ -24,11 +24,12 @@ class ArticlesController extends Controller
     /**
      * 文章列表
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = $this->articlesRepository->index();
+        $articles = $this->articlesRepository->index($request);
         $allCategories = $this->categoriesRepository->getAllCategories();
         return view('portal.article.index', compact('articles', 'allCategories'));
     }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Portal\Article\Category;
 use App\Models\Portal\Article\Article;
 use App\Repositories\Portal\Article\CategoriesRepository;
+use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
@@ -29,13 +30,15 @@ class CategoriesController extends Controller
      * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Category $category)
+    public function show(Category $category, Request $request)
     {
 
         $allCategories = $this->categoriesRepository->getAllCategories();
 
         // 读取分类 id 相关的文章
-        $articles = Article::where('category_id', $category->id)->paginate(\ConstCustom::PAGE_NUM);
+        $articles = Article::withOrder($request->order)
+                            ->where('category_id', $category->id)
+                            ->paginate(\ConstCustom::PAGE_NUM);
 
         return view('portal.article.index', compact('articles', 'allCategories', 'category'));
     }

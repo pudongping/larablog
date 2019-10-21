@@ -25,11 +25,13 @@ class ArticlesRepository extends BaseRepository
     /**
      * 文章列表
      *
+     * @param $request  请求实例
      * @return mixed
      */
-    public function index()
+    public function index($request)
     {
-        $model = Article::with('category', 'user');
+        // 使用了「Article」模型中的排序规则动态作用域
+        $model = Article::withOrder($request->order);
         return $this->usePage($model);
     }
 
