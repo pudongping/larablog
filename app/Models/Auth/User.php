@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use App\Models\Portal\Article\Article;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
@@ -51,6 +52,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
     {
         if (!$value) $value = self::DEFAULT_HEADER;
         return config('app.url') . $value;
+    }
+
+    /**
+     * 用户-文章 一对多关系
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'user_id', 'id');
     }
 
 }
