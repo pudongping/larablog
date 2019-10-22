@@ -61,9 +61,15 @@ class ArticlesController extends Controller
         return redirect()->route('articles.show', $article->id)->with('success', '文章创建成功！');
     }
 
-    public function show()
+    /**
+     * 文章详情
+     *
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Article $article)
     {
-        dump(7979);
+        return view('portal.article.show', compact('article'));
     }
 
     /**

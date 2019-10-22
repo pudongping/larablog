@@ -14,10 +14,42 @@ class TestsController extends Controller
      */
     public function index()
     {
-        $test = '/theme/startbootstrap-sb-admin-2/';
-        Code::setCode(Code::SUCC);
-        $msg = Code::getErrMsg();
-        dump($msg);
+
+        $data = [
+            '1',
+            '2',
+            '3',
+            [
+                'a' => '333',
+                ['b' => '111']
+            ]
+        ];
+
+        $result = $this->recursion($data);
+        dump($result);
+
+    }
+
+
+//    public function fetchArr($data)
+//    {
+//        if () {}
+//    }
+
+    public function recursion($data)
+    {
+        static $res = [];
+        foreach ($data as $k => $v) {
+
+            if (is_array($v)) {
+                $this->recursion($v);
+            } else {
+                $res[] = (int)$v;
+            }
+        }
+
+        return $res;
+
     }
 
     /**

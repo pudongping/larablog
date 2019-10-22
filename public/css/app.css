@@ -16627,3 +16627,471 @@ body {
   margin-bottom: 100px;
 }
 
+.simditor-body img {
+  max-width: 100%;
+}
+
+/* Topic Show Page */
+
+.simditor-body,
+.article-body {
+  font-size: 15px;
+  line-height: 1.3;
+  overflow: hidden;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.simditor-body a,
+.article-body a {
+  background: transparent;
+}
+
+.simditor-body a:active,
+.simditor-body a:hover,
+.article-body a:active,
+.article-body a:hover {
+  outline: 0;
+}
+
+.simditor-body ol li,
+.article-body ol li {
+  margin: 8px 0;
+}
+
+.simditor-body pre[class*=language-],
+.article-body pre[class*=language-] {
+  margin: 1.2em 0 !important;
+}
+
+.simditor-body strong,
+.article-body strong {
+  font-weight: bold;
+}
+
+.simditor-body h1,
+.article-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.simditor-body img,
+.article-body img {
+  border: 0;
+}
+
+.simditor-body hr,
+.article-body hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+.simditor-body table,
+.article-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.simditor-body td,
+.simditor-body th,
+.article-body td,
+.article-body th {
+  padding: 0;
+}
+
+.simditor-body *,
+.article-body * {
+  box-sizing: border-box;
+}
+
+.simditor-body a,
+.article-body a {
+  text-decoration: none;
+}
+
+.simditor-body a:hover,
+.simditor-body a:focus,
+.simditor-body a:active,
+.article-body a:hover,
+.article-body a:focus,
+.article-body a:active {
+  text-decoration: none;
+}
+
+.simditor-body hr,
+.article-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.simditor-body hr:before,
+.simditor-body hr:after,
+.article-body hr:before,
+.article-body hr:after {
+  display: table;
+  content: " ";
+}
+
+.simditor-body hr:after,
+.article-body hr:after {
+  clear: both;
+}
+
+.simditor-body blockquote,
+.article-body blockquote {
+  margin: 0;
+}
+
+.simditor-body ul,
+.simditor-body ol,
+.article-body ul,
+.article-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.simditor-body ol ol,
+.article-body ol ol {
+  list-style-type: lower-roman;
+}
+
+.simditor-body dd,
+.article-body dd {
+  margin-left: 0;
+}
+
+.simditor-body code,
+.simditor-body pre,
+.article-body code,
+.article-body pre {
+  font-family: monaco, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 1em;
+}
+
+.simditor-body pre,
+.article-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: auto;
+}
+
+.simditor-body .article-body > *:first-child,
+.article-body .article-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.simditor-body .article-body > *:last-child,
+.article-body .article-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.simditor-body .anchor,
+.article-body .anchor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.simditor-body .anchor:focus,
+.article-body .anchor:focus {
+  outline: none;
+}
+
+.simditor-body h1,
+.simditor-body h2,
+.simditor-body h3,
+.simditor-body h4,
+.simditor-body h5,
+.simditor-body h6,
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4,
+.article-body h5,
+.article-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.simditor-body h1,
+.article-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.simditor-body h2,
+.article-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.3em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.simditor-body h3,
+.article-body h3 {
+  font-size: 1.2em;
+  line-height: 1.43;
+}
+
+.simditor-body h4,
+.article-body h4 {
+  font-size: 1.1em;
+}
+
+.simditor-body h5,
+.article-body h5 {
+  font-size: 1em;
+}
+
+.simditor-body h6,
+.article-body h6 {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.simditor-body p,
+.simditor-body blockquote,
+.simditor-body ul,
+.simditor-body ol,
+.simditor-body dl,
+.simditor-body table,
+.simditor-body pre,
+.article-body p,
+.article-body blockquote,
+.article-body ul,
+.article-body ol,
+.article-body dl,
+.article-body table,
+.article-body pre {
+  margin-top: 0;
+  margin-bottom: 0px;
+  line-height: 30px;
+}
+
+.simditor-body hr,
+.article-body hr {
+  border: 2px dashed #F0F4F6;
+  border-bottom: 0px;
+  margin: 18px auto;
+  width: 50%;
+}
+
+.simditor-body ul,
+.simditor-body ol,
+.article-body ul,
+.article-body ol {
+  padding-left: 2em;
+  padding: 10px 20px 10px 30px;
+  color: #7d8688;
+}
+
+.simditor-body ol ol,
+.simditor-body ol ul,
+.article-body ol ol,
+.article-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.simditor-body li > p,
+.article-body li > p {
+  margin-top: 6px;
+}
+
+.simditor-body dl,
+.article-body dl {
+  padding: 0;
+}
+
+.simditor-body dl dt,
+.article-body dl dt {
+  padding: 0;
+  margin-top: 6px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.simditor-body dl dd,
+.article-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.simditor-body blockquote,
+.article-body blockquote {
+  font-size: inherit;
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.simditor-body blockquote > :first-child,
+.article-body blockquote > :first-child {
+  margin-top: 20px;
+}
+
+.simditor-body blockquote > :last-child,
+.article-body blockquote > :last-child {
+  margin-bottom: 20px;
+}
+
+.simditor-body blockquote,
+.article-body blockquote {
+  margin: 20px 0 !important;
+  background-color: #f5f8fc;
+  padding: 1rem;
+  color: #8796A8;
+  border-left: none;
+}
+
+.simditor-body table,
+.article-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  margin: 25px 0;
+}
+
+.simditor-body table th,
+.article-body table th {
+  font-weight: bold;
+}
+
+.simditor-body table th,
+.simditor-body table td,
+.article-body table th,
+.article-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.simditor-body table tr,
+.article-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.simditor-body table tr:nth-child(2n),
+.article-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.simditor-body img,
+.article-body img {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.simditor-body img,
+.article-body img {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 30px #ccc;
+  -moz-box-shadow: 0 0 30px #ccc;
+  -webkit-box-shadow: 0 0 30px #ccc;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.simditor-body code,
+.article-body code {
+  background: rgba(90, 87, 87, 0);
+  margin: 5px;
+  color: #858080;
+  border-radius: 4px;
+  background-color: #f9fafa;
+  border: 1px solid #e4e4e4;
+  max-width: 740px;
+  overflow-x: auto;
+  font-size: 0.9em;
+  padding: 1px 2px 1px;
+}
+
+.simditor-body code:before,
+.simditor-body code:after,
+.article-body code:before,
+.article-body code:after {
+  letter-spacing: -0.2em;
+  content: "\A0";
+}
+
+.simditor-body pre > code,
+.article-body pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.simditor-body .highlight,
+.article-body .highlight {
+  margin-bottom: 16px;
+}
+
+.simditor-body .highlight pre,
+.simditor-body pre,
+.article-body .highlight pre,
+.article-body pre {
+  padding: 14px;
+  overflow: auto;
+  line-height: 1.45;
+  border-radius: 3px;
+  color: inherit;
+  border: none;
+}
+
+.simditor-body .highlight pre,
+.article-body .highlight pre {
+  margin-bottom: 0;
+}
+
+.simditor-body pre,
+.article-body pre {
+  word-wrap: normal;
+}
+
+.simditor-body pre code,
+.article-body pre code {
+  display: block;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.simditor-body pre code:before,
+.simditor-body pre code:after,
+.article-body pre code:before,
+.article-body pre code:after {
+  content: normal;
+}
+
+.articles-show-page .card {
+  padding: 15px;
+}
+
+.articles-show-page .card h1 {
+  margin: 0.4em auto 0.6em;
+  font-size: 28px;
+  line-height: 38px;
+}
+
