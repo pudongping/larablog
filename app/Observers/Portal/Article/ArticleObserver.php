@@ -17,6 +17,9 @@ class ArticleObserver
 
     public function saving(Article $article)
     {
+        // 使用 「HTMLPurifier for Laravel」 对文章内容进行 XSS 过滤
+        $article->body = clean($article->body, 'user_article_body');
+
         // 截取文章内容以生成摘录
         $article->excerpt = make_excerpt($article->body);
     }
