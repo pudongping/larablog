@@ -64,4 +64,15 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return $this->hasMany(Article::class, 'user_id', 'id');
     }
 
+    /**
+     * 授权验证
+     *
+     * @param $model  需要检验的模型实例
+     * @return bool  当前用户可以操作则为 true，反之为 false
+     */
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
+    }
+
 }

@@ -92,7 +92,7 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article)
     {
-        // 添加授权策略
+        // 查看编辑授权策略
         $this->authorize('updatePolicy', $article);
 
         $categories = Category::all();
@@ -108,11 +108,27 @@ class ArticlesController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        // 添加授权策略
+        // 提交修改授权策略
         $this->authorize('updatePolicy', $article);
 
         $article = $this->articlesRepository->modify($request);
         return redirect()->route('articles.show', $article->id)->with('success', '更新成功！');
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(Article $article)
+    {
+        // 删除文章授权策略
+        $this->authorize('destroyPolicy', $article);
+
+        $article->delete();
+        return redirect()->route('articles.index')->with('success', '成功删除！');
     }
 
 }
