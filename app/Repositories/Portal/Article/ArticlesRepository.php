@@ -8,6 +8,7 @@
 
 namespace App\Repositories\Portal\Article;
 
+use App\Handlers\ImageUploadHandler;
 use App\Repositories\BaseRepository;
 use App\Models\Portal\Article\Article;
 
@@ -15,11 +16,14 @@ class ArticlesRepository extends BaseRepository
 {
 
     protected $model;
+    protected $imageUploadHandler;
 
     public function __construct(
-        Article $article
+        Article $article,
+        ImageUploadHandler $imageUploadHandler
     ) {
         $this->model = $article;
+        $this->imageUploadHandler = $imageUploadHandler;
     }
 
     /**
@@ -47,5 +51,35 @@ class ArticlesRepository extends BaseRepository
         $input['user_id'] = \Auth::id();
         return $this->store($input);
     }
+
+    /**
+     * 「Simditor」富文本编辑器上传图片
+     *
+     * @link  https://simditor.tower.im//docs/doc-config.html
+     * @param $request  请求实例
+     * @return array  按照 simditor 文档要求返回的数据格式
+     */
+    public function uploadImage($request)
+    {
+        $data = [
+            'success'   => false,
+            'msg'       => '上传失败！',
+            'file_path' => ''
+        ];
+
+        // 判断是否有上传文件
+        if ($file = $request->image) {
+            $result = $this->imageUploadHandler->save($file, 'articles', \Auth::id(), 'image', 1024);
+            if ($result) {
+                $data['success'] = true;
+                $data['msg'] = '上传成功！';
+                $data['file_path'] = $result['path']; // 带 url 的绝对路径
+            }
+        }
+
+        return $data;
+    }
+
+
 
 }

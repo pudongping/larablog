@@ -66,4 +66,16 @@ class ArticlesController extends Controller
         dump(7979);
     }
 
+    /**
+     * 「Simditor」富文本编辑器上传图片
+     *
+     * @param Request $request  请求实例
+     * @return array
+     */
+    public function uploadImage(Request $request)
+    {
+        $data = $this->articlesRepository->uploadImage($request);
+        return $data;
+    }
+
 }

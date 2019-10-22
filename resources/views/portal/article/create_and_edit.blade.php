@@ -92,11 +92,15 @@
                 'alignment'  // 水平对齐
                 ]
                 ,upload:{
-                    url: ''
+                    url: '{{ route('articles.upload_image') }}'
+                    ,params: {
+                        _token: '{{ csrf_token() }}'
+                    }
                     ,fileKey: 'image'
                     ,connectionCount: 3
-                    ,leaveConfirm: '文件正在上传中，你确定要离开当前页面吗？'
+                    ,leaveConfirm: '文件上传中，关闭此页面将取消上传。'
                 }
+                ,pasteImage: true  // 支持图片黏贴上传
             });
         });
     </script>

@@ -68,6 +68,8 @@ Route::group(
         // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
         // 需要登录之后才允许操作的文章类方法
         Route::resource('articles', 'Portal\Article\ArticlesController', ['except' => ['index', 'show']]);
+        // Simditor html 编辑器图片上传
+        Route::post('upload_image', 'Portal\Article\ArticlesController@uploadImage')->name('articles.upload_image');
     });
 
 // 不需要登录就可以访问的文章类方法
