@@ -25,6 +25,7 @@
                     @if($article->id)
                         <form action="{{ route('articles.update', $article->id) }}" method="POST" accept-charset="UTF-8">
                             <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="id" value="{{ $article->id }}">
                     @else
                         <form action="{{ route('articles.store') }}" method="POST" accept-charset="UTF-8">
                     @endif
@@ -39,9 +40,11 @@
 
                             <div class="form-group">
                                 <select class="form-control" name="category_id" required>
-                                    <option value="" hidden disabled selected>请选择分类</option>
+                                    <option value="" hidden disabled {{ $article->id ? '' : 'selected' }}>请选择分类</option>
                                     @foreach ($categories as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                        <option value="{{ $value->id }}" {{ $article->category_id == $value->id ? 'selected' : '' }}>
+                                            {{ $value->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

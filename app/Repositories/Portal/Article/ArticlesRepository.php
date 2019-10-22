@@ -80,6 +80,19 @@ class ArticlesRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * 编辑文章-数据处理
+     *
+     * @param $request  请求实例
+     * @return mixed  当前更新文章实例
+     */
+    public function modify($request)
+    {
+        $input = $request->only('title', 'category_id', 'body');
+        $data = $this->update($request->id, $input);
+        return $data;
+    }
+
 
 
 }

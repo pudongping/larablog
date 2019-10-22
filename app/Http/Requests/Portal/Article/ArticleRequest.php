@@ -29,6 +29,12 @@ class ArticleRequest extends Request
                 'body'        => 'required|min:3',
                 'category_id' => 'required|numeric',
             ],
+            'update' => [
+                'id'       => 'required|min:1',
+                'title'       => 'required|min:2',
+                'body'        => 'required|min:3',
+                'category_id' => 'required|numeric',
+            ],
         ];
 
         return $this->useRule($rules);

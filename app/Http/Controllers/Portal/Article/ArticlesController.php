@@ -38,7 +38,7 @@ class ArticlesController extends Controller
     }
 
     /**
-     * 新建-编辑 文章显示页面
+     * 新建文章显示页面
      *
      * @param Article $article
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -82,6 +82,37 @@ class ArticlesController extends Controller
     {
         $data = $this->articlesRepository->uploadImage($request);
         return $data;
+    }
+
+    /**
+     * 编辑文章显示页面
+     *
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Article $article)
+    {
+        // 添加授权策略
+        $this->authorize('updatePolicy', $article);
+
+        $categories = Category::all();
+        return view('portal.article.create_and_edit', compact('article', 'categories'));
+    }
+
+    /**
+     * 编辑文章-数据处理
+     *
+     * @param ArticleRequest $request
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(ArticleRequest $request, Article $article)
+    {
+        // 添加授权策略
+        $this->authorize('updatePolicy', $article);
+
+        $article = $this->articlesRepository->modify($request);
+        return redirect()->route('articles.show', $article->id)->with('success', '更新成功！');
     }
 
 }
