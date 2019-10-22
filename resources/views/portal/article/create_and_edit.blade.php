@@ -1,5 +1,9 @@
 @extends('portal.layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
+@stop
+
 @section('content')
 
     <div class="container">
@@ -56,3 +60,44 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var editor = new Simditor({
+                textarea: $('#editor')
+                ,toolbar: [
+                'title',  // 标题
+                'bold',  // 加粗
+                'italic',  // 斜体
+                'underline',  // 下划线文字
+                // 'strikethrough',  // 删除线文字
+                'fontScale',  // 字体大小
+                'color',  // 文字颜色
+                'ol',  // 有序列表
+                'ul',  // 无序列表
+                'blockquote',  // 引用
+                'code', // 代码
+                'table',  // 表格
+                'link',  // 链接
+                'image',  // 图片
+                'hr',  // 下划线
+                'indent',  // 向右缩进
+                'outdent',  // 向左缩进
+                'alignment'  // 水平对齐
+                ]
+                ,upload:{
+                    url: ''
+                    ,fileKey: 'image'
+                    ,connectionCount: 3
+                    ,leaveConfirm: '文件正在上传中，你确定要离开当前页面吗？'
+                }
+            });
+        });
+    </script>
+@stop
