@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Support\Code;
+use App\Handlers\SlugTranslateHandler;
 
 class TestsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,42 +15,9 @@ class TestsController extends Controller
      */
     public function index()
     {
-
-        $data = [
-            '1',
-            '2',
-            '3',
-            [
-                'a' => '333',
-                ['b' => '111']
-            ]
-        ];
-
-        $result = $this->recursion($data);
-        dump($result);
-
-    }
-
-
-//    public function fetchArr($data)
-//    {
-//        if () {}
-//    }
-
-    public function recursion($data)
-    {
-        static $res = [];
-        foreach ($data as $k => $v) {
-
-            if (is_array($v)) {
-                $this->recursion($v);
-            } else {
-                $res[] = (int)$v;
-            }
-        }
-
-        return $res;
-
+        $trans = new SlugTranslateHandler();
+        $s = $trans->translate('我是番茄炖土豆');
+        dump($s);
     }
 
     /**

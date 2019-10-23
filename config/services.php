@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // 百度翻译 「APP ID」 和 「密钥」 key
+    'baidu_translate' => [
+        'appid' => env('BAIDU_TRANSLATE_APPID'),
+        'key'   => env('BAIDU_TRANSLATE_KEY'),
+    ],
+
 ];
