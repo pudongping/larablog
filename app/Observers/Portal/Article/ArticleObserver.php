@@ -3,7 +3,7 @@
 namespace App\Observers\Portal\Article;
 
 use App\Models\Portal\Article\Article;
-use App\Handlers\SlugTranslateHandler;
+use App\Jobs\TranslateSlug;
 
 class ArticleObserver
 {
@@ -16,6 +16,11 @@ class ArticleObserver
      * 在以上两种情况下都会触发 saving 和 saved 事件
      */
 
+    /**
+     * 此时数据还没有在数据库中创建
+     *
+     * @param Article $article
+     */
     public function saving(Article $article)
     {
         // 使用 「HTMLPurifier for Laravel」 对文章内容进行 XSS 过滤
@@ -24,14 +29,17 @@ class ArticleObserver
         // 截取文章内容以生成摘录
         $article->excerpt = make_excerpt($article->body);
 
-        // 使用 app() 方法生成 SlugTranslateHandler 实例
-        // https://xueyuanjun.com/post/19920.html
-        $article->slug = app(SlugTranslateHandler::class)->translate($article->title);
-        // 当文章含有「edit」或者「编辑」时，添加文章时，会直接到文章编辑页，因此
-        if ('edit' === trim($article->slug)) {
-            $article->slug = 'edit-slug';
-        }
+    }
 
+    /**
+     * 此时已经在数据库中已经创建好了数据
+     *
+     * @param Article $article
+     */
+    public function saved(Article $article)
+    {
+        // 推送任务到队列，翻译文章标题
+        dispatch(new TranslateSlug($article));
     }
 
     /**
