@@ -23,6 +23,7 @@ class SlugTranslateHandler
     /**
      * 百度翻译文本
      *
+     * @link  http://api.fanyi.baidu.com/api/trans/product/apidoc
      * @param string  $text  需要翻译的文本内容
      * @param string  $from  需要翻译的语言，默认为中文
      * @param string  $to  期待翻译成的语言

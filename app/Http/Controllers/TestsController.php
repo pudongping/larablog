@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Handlers\SlugTranslateHandler;
+use App\Models\Portal\Article\Article;
 
 class TestsController extends Controller
 {
@@ -15,9 +15,8 @@ class TestsController extends Controller
      */
     public function index()
     {
-        $trans = new SlugTranslateHandler();
-        $s = $trans->translate('我是番茄炖土豆');
-        dump($s);
+        $article = Article::find(103);
+        dump($article->user->id);
     }
 
     /**

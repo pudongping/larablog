@@ -58,7 +58,7 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request)
     {
         $article = $this->articlesRepository->storage($request);
-        return redirect()->route('articles.show', $article->id)->with('success', '文章创建成功！');
+        return redirect()->to($article->link())->with('success', '文章创建成功！');
     }
 
     /**
@@ -67,8 +67,13 @@ class ArticlesController extends Controller
      * @param Article $article
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Article $article)
+    public function show(Request $request, Article $article)
     {
+        // url 矫正 （强制跳转到带有 slug 的 url）
+        if ((!empty($article->slug)) && ($article->slug != $request->slug)) {
+            return redirect($article->link(), 301);
+        }
+
         return view('portal.article.show', compact('article'));
     }
 
@@ -112,7 +117,7 @@ class ArticlesController extends Controller
         $this->authorize('updatePolicy', $article);
 
         $article = $this->articlesRepository->modify($request);
-        return redirect()->route('articles.show', $article->id)->with('success', '更新成功！');
+        return redirect()->to($article->link())->with('success', '更新成功！');
     }
 
     /**

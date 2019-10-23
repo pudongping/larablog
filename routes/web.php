@@ -73,6 +73,7 @@ Route::group(
     });
 
 // 不需要登录就可以访问的文章类方法
-Route::resource('articles', 'Portal\Article\ArticlesController', ['only' => ['index', 'show']]);
+Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articles.index');
+Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
 
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');

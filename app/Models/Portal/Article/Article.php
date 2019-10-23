@@ -81,5 +81,16 @@ class Article extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
+    /**
+     * 返回 SEO 友好的 URL
+     *
+     * @param array $params  附加 url 的其它参数
+     * @return string  文章详情路由
+     */
+    public function link($params = [])
+    {
+        return route('articles.show', array_merge([$this->id, $this->slug], $params));
+    }
+
 
 }
