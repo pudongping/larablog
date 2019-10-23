@@ -16,11 +16,18 @@ class SlugTranslateHandler
 {
 
     // 需要翻译的语言
-    const FROM_LANG = 'zh';
+    const FROM_LANG = 'zh'; // eg：auto（自动检测）、zh（中文）、th（泰语）、cht（繁体中文）
     // 期待翻译成的语言
     const TO_LANG = 'en';
 
-
+    /**
+     * 百度翻译文本
+     *
+     * @param string  $text  需要翻译的文本内容
+     * @param string  $from  需要翻译的语言，默认为中文
+     * @param string  $to  期待翻译成的语言
+     * @return mixed
+     */
     public function translate($text, $from = self::FROM_LANG, $to = self::TO_LANG)
     {
         $api = \ConstCustom::BAIDU_TRANSLATE_API;
