@@ -102,5 +102,14 @@ class Article extends Model
         return route('articles.show', array_merge([$this->id, $this->slug], $params));
     }
 
+    /**
+     * 计算文章回复总数
+     */
+    public function upadteReplyCount()
+    {
+        $this->reply_count = $this->replies->count();
+        $this->save();
+    }
+
 
 }
