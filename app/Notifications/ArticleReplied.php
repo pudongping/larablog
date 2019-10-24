@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Portal\Article\Reply;
 
-class ArticleReplied extends Notification
+class ArticleReplied extends Notification implements ShouldQueue
 {
     use Queueable;
 
