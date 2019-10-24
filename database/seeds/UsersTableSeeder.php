@@ -15,10 +15,13 @@ class UsersTableSeeder extends Seeder
         // 获取 Faker 实例
         $faker = app(Faker\Generator::class);
 
+        $ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
         // 头像假数据
-        $avatars = [
-            'https://cdn.learnku.com/uploads/images/201801/03/1/8uNnIba2M2.jpg'
-        ];
+        $avatars = [];
+        foreach ($ids as $id) {
+            $avatars[] = "/uploads/portal/img/auth/users/{$id}.jpg";
+        }
 
         // 生成数据集合
         // 根据指定的 User 生成模型工厂构造器，对应加载 UserFactory.php 中的工厂设置
@@ -47,7 +50,7 @@ class UsersTableSeeder extends Seeder
         $user->name = 'alex';
         $user->email = '1414818093@qq.com';
         $user->email_verified_at = date('Y-m-d H:i:s');
-        $user->avatar = 'https://cdn.learnku.com/uploads/images/201801/03/1/8uNnIba2M2.jpg';
+        $user->avatar = '/uploads/portal/img/auth/users/21.jpg';
         $user->password = bcrypt('123456');
         $user->save();
 
