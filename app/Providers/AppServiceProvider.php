@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Portal\Article\Reply;
+use App\Observers\Portal\Article\ReplyObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // 注册观察者
         \App\Models\Portal\Article\Article::observe(\App\Observers\Portal\Article\ArticleObserver::class);
+        // 注册发布评论的观察者
+        Reply::observe(ReplyObserver::class);
     }
 }
