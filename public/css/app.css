@@ -16537,6 +16537,10 @@ body {
 
 /* header */
 
+a:hover {
+  text-decoration: none;
+}
+
 .navbar-static-top {
   border-color: #e7e7e7;
   background-color: #fff;
@@ -17093,5 +17097,16 @@ body {
   margin: 0.4em auto 0.6em;
   font-size: 28px;
   line-height: 38px;
+}
+
+/* 回复列表 */
+
+.topic-reply a {
+  color: inherit;
+}
+
+.topic-reply .meta {
+  font-size: 0.9em;
+  color: #b3b3b3;
 }
 

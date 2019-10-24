@@ -26,6 +26,7 @@
         </div>
 
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 article-content">
+
             <div class="card ">
                 <div class="card-body">
                     <h1 class="text-center mt-3 mb-3">
@@ -63,6 +64,15 @@
 
                 </div>
             </div>
+
+            {{-- 用户回复列表 --}}
+            <div class="card topic-reply mt-4">
+                <div class="card-body">
+                    @include('portal.article._reply_box', ['article' => $article])
+                    @include('portal.article._reply_list', ['replies' => $article->replies()->with('user')->get()])
+                </div>
+            </div>
+
         </div>
     </div>
 @stop
