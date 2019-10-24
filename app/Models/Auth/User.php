@@ -11,7 +11,35 @@ use App\Models\Portal\Article\Article;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, MustVerifyEmailTrait;
+    use Notifiable,MustVerifyEmailTrait;
+
+
+//    use Notifiable {
+//        notify as protected laravelNotify; // 给 Notifiable Trait 中的 notify 方法起别名
+//    }
+//
+//    /**
+//     * 每次调用 notify 方法时，自动将 users 表里的 notification_count +1
+//     * 重写了 Notifiable Trait 中的 notify 方法
+//     * 『\Illuminate\Notifications\RoutesNotifications::notify』
+//     *
+//     * @param $instance
+//     */
+//    public function notify($instance)
+//    {
+//        // 如果要通知的人是当前用户，就不必通知了
+//        if ($this->id == \Auth::id()) return;
+//
+//        // 只有数据库类型通知才需提醒，直接发送 Email 或者其他的都 Pass
+//        if (method_exists($instance, 'toDatabase')) {
+//            $this->increment('notification_count');
+//        }
+//
+//        // 最后还是需要调用 Notifiable Trait 中的 notify 方法来发送通知
+//        $this->laravelNotify($instance);
+//    }
+
+
 
     // 用户默认头像
     const DEFAULT_HEADER = '/uploads/portal/img/auth/default-header.png';

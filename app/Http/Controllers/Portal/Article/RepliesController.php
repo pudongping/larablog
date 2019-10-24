@@ -41,7 +41,7 @@ class RepliesController extends Controller
     public function destroy(Reply $reply)
     {
         // 删除评论策略
-//        $this->authorize('destroyPolicy', $reply);
+        $this->authorize('destroyPolicy', $reply);
 
         $reply->delete();
 
