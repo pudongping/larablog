@@ -29,6 +29,7 @@ class RepliesRepository extends BaseRepository
     public function storage($request)
     {
         $input = $request->only(['article_id', 'content']);
+        if (empty(clean($input['content']))) abort(404);
         $input['user_id'] = \Auth::id();
         return $this->store($input);
     }
