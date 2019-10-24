@@ -70,6 +70,8 @@ Route::group(
         Route::resource('articles', 'Portal\Article\ArticlesController', ['except' => ['index', 'show']]);
         // Simditor html 编辑器图片上传
         Route::post('upload_image', 'Portal\Article\ArticlesController@uploadImage')->name('articles.upload_image');
+        // 文章回复
+        Route::resource('replies', 'Portal\Article\RepliesController', ['only' => ['store', 'destroy']]);
     });
 
 // 不需要登录就可以访问的文章类方法

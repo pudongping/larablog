@@ -12,7 +12,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $fillable = ['content'];
+    protected $fillable = ['article_id', 'user_id', 'content'];
 
     /**
      * 一条回复评论对应一篇文章

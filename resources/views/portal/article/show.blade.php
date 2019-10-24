@@ -68,8 +68,11 @@
             {{-- 用户回复列表 --}}
             <div class="card topic-reply mt-4">
                 <div class="card-body">
-                    @include('portal.article._reply_box', ['article' => $article])
-                    @include('portal.article._reply_list', ['replies' => $article->replies()->with('user')->get()])
+
+                    {{-- 当用户已经登录之后，才显示评论框 --}}
+                    @includeWhen(Auth::check(), 'portal.article._reply_box', ['article' => $article])
+
+                    @include('portal.article._reply_list', ['replies' => $article->replies()->with('user')->orderBy('replies.id', 'desc')->get()])
                 </div>
             </div>
 
