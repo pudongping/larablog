@@ -34,7 +34,7 @@ class ArticleReplied extends Notification
     public function via($notifiable)
     {
         // return ['mail'];
-        return ['database']; // 开启通知频道
+        return ['database', 'mail']; // 开启通知频道
     }
 
     /**
@@ -61,6 +61,21 @@ class ArticleReplied extends Notification
             'article_id' => $article->id,
             'article_title' => $article->title,
         ];
+    }
+
+    /**
+     * 邮件通知
+     *
+     * @param $notifiable
+     * @return MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        $url = $this->reply->article->link(['#reply' . $this->reply->id]);
+
+        return (new MailMessage)
+            ->line('你的文章有新回复！')
+            ->action('查看回复', $url);
     }
 
     /**
