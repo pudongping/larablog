@@ -115,4 +115,15 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return $this->id == $model->user_id;
     }
 
+    /**
+     * 标记通知消息为已读
+     */
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        // 该方法来自 「Illuminate\Notifications\HasDatabaseNotifications::unreadNotifications」 Trait
+        $this->unreadNotifications->markAsRead();
+    }
+
 }
