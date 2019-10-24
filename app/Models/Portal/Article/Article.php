@@ -37,6 +37,16 @@ class Article extends Model
     }
 
     /**
+     * 一篇文章对应多条回复
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'id', 'article_id');
+    }
+
+    /**
      * 排序规则动态作用域
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

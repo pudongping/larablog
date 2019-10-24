@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Portal\Article\Reply;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +63,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function articles()
     {
         return $this->hasMany(Article::class, 'user_id', 'id');
+    }
+
+    /**
+     * 一个用户可以拥有多条评论
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'id', 'user_id');
     }
 
     /**
