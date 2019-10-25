@@ -74,8 +74,11 @@ class ArticleReplied extends Notification implements ShouldQueue
         $url = $this->reply->article->link(['#reply' . $this->reply->id]);
 
         return (new MailMessage)
-            ->line('你的文章有新回复！')
-            ->action('查看回复', $url);
+            ->subject(config('app.name', 'Alex的个人博客'))
+            ->greeting('Hello!')
+            ->line('您的文章有新回复！')
+            ->action('查看回复', $url)
+            ->line('感谢您使用我们的博客程序！');
     }
 
     /**
