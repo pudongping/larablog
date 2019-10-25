@@ -17,6 +17,10 @@
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
     @yield('styles')
 </head>
 <body>
