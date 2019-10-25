@@ -81,3 +81,9 @@ Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articl
 Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
 
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
+
+// 后台管理
+Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
+// 后台菜单列表
+Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
+
