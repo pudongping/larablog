@@ -30,7 +30,7 @@ class ReplyPolicy
     public function destroyPolicy(User $user, Reply $reply)
     {
         // 文章作者和发布评论的本人才可以删除评论
-        return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->article());
+        return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->article);
     }
 
 }

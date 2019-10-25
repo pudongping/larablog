@@ -42,5 +42,16 @@ class ReplyObserver
         }
     }
 
+    /**
+     * 模型删除时，调用 deleted 方法
+     *
+     * @param Reply $reply
+     */
+    public function deleted(Reply $reply)
+    {
+        // 当评论有删除时，更新文章评论数
+        $reply->article->upadteReplyCount();
+    }
+
 
 }

@@ -72,7 +72,10 @@ class ArticleObserver
      */
     public function deleted(Article $article)
     {
-        //
+        // 当文章删除后，该文章所对应的评论也全部被删除
+        // 避免再次触发 Eloquent 事件，以免造成联动逻辑冲突。所以这里我们使用了 DB 类进行操作
+        // deleted 方法只对 「Eloquent 模型」 有效
+        \DB::table('replies')->where('article_id', $article->id)->delete();
     }
 
     /**

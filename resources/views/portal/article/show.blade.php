@@ -72,7 +72,7 @@
                     {{-- 当用户已经登录之后，才显示评论框 --}}
                     @includeWhen(Auth::check(), 'portal.article._reply_box', ['article' => $article])
 
-                    @include('portal.article._reply_list', ['replies' => $article->replies()->with('user')->orderBy('replies.id', 'desc')->get()])
+                    @include('portal.article._reply_list', ['replies' => $article->replies()->with('user', 'article')->orderBy('replies.id', 'desc')->paginate(5)])
                 </div>
             </div>
 
