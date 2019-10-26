@@ -1,9 +1,11 @@
 <?php
+/**
+ * 菜单表填充默认数据
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Menu;
 
 class SeedMenusData extends Migration
 {
@@ -15,20 +17,22 @@ class SeedMenusData extends Migration
     public function up()
     {
         $menu1 = [
-            'pid' => 0,
-            'name' => '用户与权限',
+            'pid'         => 0,
+            'name'        => '用户与权限',
+            'icon'        => 'fa fa-key',
+            'description' => 'rbac',
         ];
 
-        $m1 = Menu::insert($menu1);
+        $id1 = \DB::table('menus')->insertGetId($menu1);
 
         $menu2 = [
             [
-                'pid' => 1,
+                'pid'  => $id1,
                 'name' => '权限与角色',
                 'icon' => 'fa fa-key'
             ],
             [
-                'pid' => 1,
+                'pid' => $id1,
                 'name' => '用户',
                 'icon' => 'fa fa-user-friends'
             ],
@@ -38,13 +42,15 @@ class SeedMenusData extends Migration
 
         $menu3 = [
             'pid' => 0,
-            'name' => '设置',
+            'name' => '系统设置',
+            'icon' => 'fas fa-fw fa-cog',
+            'description' => 'setting',
         ];
 
-        $m3 = \DB::table('menus')->insert($menu3);
+        $id3 = \DB::table('menus')->insertGetId($menu3);
 
         $menu4 = [
-            'pid' => 4,
+            'pid' => $id3,
             'name' => '站点设置',
         ];
 

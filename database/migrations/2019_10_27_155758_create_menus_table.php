@@ -19,7 +19,8 @@ class CreateMenusTable extends Migration
             $table->string('name', 100)->default('')->comment('菜单名称');
             $table->string('link')->default('')->comment('跳转连接');
             $table->string('auth')->default('')->comment('权限影响');
-            $table->string('icon', 100)->default('fas fa-fw fa-cog')->comment('图标');
+            $table->string('icon', 100)->default('')->comment('图标');
+            $table->text('description')->nullable()->comment('描述');
             $table->smallInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
         });

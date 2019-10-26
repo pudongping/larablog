@@ -18,9 +18,13 @@ class MenusController extends Controller
 
     public function index()
     {
-        $data = $this->menusRepository->index();
-        dump($data);die;
-        return view('admin.layouts.sapp');
+
+    }
+
+    public function menusTree()
+    {
+        $data = $this->menusRepository->menusTree();
+        return $data;
     }
 
 }

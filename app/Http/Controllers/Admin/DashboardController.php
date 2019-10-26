@@ -9,9 +9,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Admin\Menu\MenusRepository;
 
 class DashboardController extends Controller
 {
+
+    protected $menusRepository;
+
+    public function __construct(MenusRepository $menusRepository)
+    {
+        $this->menusRepository = $menusRepository;
+    }
 
     /**
      * 后台管理仪表盘
@@ -20,7 +28,8 @@ class DashboardController extends Controller
      */
     public function root()
     {
-        return view('admin.layouts.sapp');
+        $menusTree = $this->menusRepository->menusTree();
+        return view('admin.layouts.sapp', compact('menusTree'));
     }
 
 

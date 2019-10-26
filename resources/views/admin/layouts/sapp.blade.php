@@ -19,7 +19,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('admin.layouts._menu')
+        @include('admin.layouts._menu', ['menusTree' => $menusTree])
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
