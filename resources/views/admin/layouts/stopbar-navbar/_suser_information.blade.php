@@ -18,14 +18,22 @@
             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
             访问日志
         </a>
+
         <div class="dropdown-divider"></div>
+        @role('Founder')
+            <a class="dropdown-item" href="{{ url('horizon') }}">
+                <i class="fas fa-clock fa-sm fa-fw mr-2 text-gray-400"></i>
+                队列监控
+            </a>
+        @endrole
         @can('manage_contents')
             <a class="dropdown-item" href="{{ route('dashboard') }}">
-                <i class="fas fa-tachometer-alt mr-2"></i>
+                <i class="fas fa-tachometer-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 管理后台
             </a>
             <div class="dropdown-divider"></div>
         @endcan
+        
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
             退出
