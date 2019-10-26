@@ -20,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
+
+        // 调试模式才注册以下服务
+        if (config('app.debug')) {
+            $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+        }
+
     }
 
     /**
