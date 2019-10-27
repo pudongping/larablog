@@ -86,4 +86,10 @@ Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')
 Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
 // 后台菜单列表
 Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
+// 角色
+Route::resource('roles', 'Admin\Authorize\RolesController');
+// 权限
+Route::resource('permissions', 'Admin\Authorize\PermissionsController');
+// 用户
+Route::get('users', 'Auth\UsersController@index')->name('users.index');
 

@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 
 {{-- 根据 config/app.php => locale 切换语言 --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -19,7 +19,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('admin.layouts._menu', ['menusTree' => $menusTree])
+        @include('admin.layouts._menu')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
