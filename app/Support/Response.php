@@ -84,8 +84,46 @@ class Response
      */
     private $_output;
 
+    protected $menuRepository;
+
     public function __construct()
     {
+        $this->menuRepository = \App::make('App\Repositories\Admin\Menu\MenusRepository');
+    }
+
+    /**
+     * 添加后台菜单
+     *
+     * @param null $menu
+     */
+    public function setMenu($menu = null)
+    {
+        if (is_null($menu)) {
+            $menu = $this->menuRepository->menusTree();
+        }
+
+        $this->addMeta(['menusTree' => $menu]);
+    }
+
+    /**
+     * 添加元数据
+     *
+     * @param array $value
+     */
+    public function addMeta(array $value)
+    {
+        $this->meta = array_merge($this->meta, $value);
+    }
+
+    /**
+     * 获取后台通用变量
+     *
+     * @return array
+     */
+    public function getAdminMeta()
+    {
+        $this->setMenu();
+        return $this->meta;
     }
 
 }

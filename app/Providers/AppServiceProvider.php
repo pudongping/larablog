@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Portal\Article\Reply;
 use App\Observers\Portal\Article\ReplyObserver;
+use App\Support\Response;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,5 +41,12 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Portal\Article\Article::observe(\App\Observers\Portal\Article\ArticleObserver::class);
         // 注册发布评论的观察者
         Reply::observe(ReplyObserver::class);
+
+        // 向管理后台所有视图传递通用变量
+        $adminInitParams = app(Response::class)->getAdminMeta();
+        view()->composer('admin.layouts.*', function ($view) use ($adminInitParams) {
+            $view->with($adminInitParams);
+        });
+
     }
 }
