@@ -18,6 +18,12 @@ class UsersController extends Controller
         $this->usersRepository = $usersRepository;
     }
 
+    public function index()
+    {
+        $users = User::all();
+        dump($users);
+    }
+
     /**
      * 个人信息显示页面
      *

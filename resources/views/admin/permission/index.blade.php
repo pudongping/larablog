@@ -21,10 +21,10 @@
                 <span class="text">添加权限</span>
             </a>
 
-            <a href="#" class="btn btn-success btn-icon-split">
+            <a href="{{ route('users.index') }}" class="btn btn-success btn-icon-split">
                 <span class="text">用户</span>
             </a>
-            <a href="#" class="btn btn-success btn-icon-split">
+            <a href="{{ route('roles.index') }}" class="btn btn-success btn-icon-split">
                 <span class="text">角色</span>
             </a>
         </div>
@@ -37,7 +37,6 @@
                         <th>id</th>
                         <th>权限</th>
                         <th>名称</th>
-                        <th>守卫名称</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,7 +45,6 @@
                         <th>id</th>
                         <th>权限</th>
                         <th>名称</th>
-                        <th>守卫名称</th>
                         <th>操作</th>
                     </tr>
                     </tfoot>
@@ -56,7 +54,6 @@
                         <td>{{ $permission['id'] }}</td>
                         <td>{{ $permission['name'] }}</td>
                         <td>{{ $permission['cn_name'] }}</td>
-                        <td>{{ $permission['guard_name'] }}</td>
                         <td>
 
                             <a href="{{ route('permissions.edit', $permission['id']) }}" class="btn btn-info btn-circle btn-sm" style="float: left; margin-right: 8px;">

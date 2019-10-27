@@ -53,7 +53,7 @@ class PermissionsController extends Controller
     public function update(PermissionRequest $request)
     {
         $permission = $this->permissionsRepository->modify($request);
-        return redirect()->route('permissions.index')->with('success', $permission->name . ' 修改成功！');
+        return redirect()->route('permissions.index')->with('success', '权限「 ' . $permission->name . ' 」修改成功！');
     }
 
     /**

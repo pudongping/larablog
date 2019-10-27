@@ -52,7 +52,7 @@
                         {{-- 如果当前已经存在角色的话 --}}
                         @if(!$roles->isEmpty())
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">角色</label>
+                            <label for="inputPassword3" class="col-sm-3 control-label">为角色分配权限</label>
                             <div class="col-sm-10">
                                 {{-- 复选框 --}}
                                 <div class="checkbox">
@@ -60,6 +60,7 @@
                                         @foreach($roles as $role)
                                             <input type="checkbox"  name="roles[]" value="{{ $role->id }}">
                                             {{ $role->cn_name }} - {{ $role->name }}
+                                            <br>
                                         @endforeach
                                     </label>
                                 </div>
