@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // 一小时执行一次『生成活跃用户』的命令
+        $schedule->command('larablog:calculate-active-user')->hourly();
+
     }
 
     /**
