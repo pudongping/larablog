@@ -36,6 +36,7 @@
 
         </div>
 
+        {{-- 文章列表右侧部分 --}}
         <div class="col-lg-3 col-md-3 sidebar">
             @include('portal.article._sidebar')
         </div>
