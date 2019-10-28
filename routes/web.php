@@ -12,7 +12,7 @@
 */
 
 // 首页路由
-Route::get('/', 'Portal\HomeController@root')->name('root');
+Route::get('/', 'Portal\Article\ArticlesController@index')->name('root');
 // 测试路由
 Route::resource('tests', 'TestsController');
 
