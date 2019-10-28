@@ -42,11 +42,14 @@ class AppServiceProvider extends ServiceProvider
         // 注册发布评论的观察者
         Reply::observe(ReplyObserver::class);
 
-        // 向管理后台所有视图传递通用变量
-        $adminInitParams = app(Response::class)->getAdminMeta();
-        view()->composer('admin.layouts.*', function ($view) use ($adminInitParams) {
-            $view->with($adminInitParams);
-        });
+        // 因为生命周期的原因，需要先判断菜单表是否存在，存在才能够从菜单中取值，否则当 menus 表不存在时，执行 artisan 命令会报错
+        if (\Schema::hasTable('menus')) {
+            // 向管理后台所有视图传递通用变量
+            $adminInitParams = app(Response::class)->getAdminMeta();
+            view()->composer('admin.layouts.*', function ($view) use ($adminInitParams) {
+                $view->with($adminInitParams);
+            });
+        }
 
     }
 }
