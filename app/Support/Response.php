@@ -87,12 +87,14 @@ class Response
     protected $menuRepository;
     protected $categoriesRepository;
     protected $user;
+    protected $linksRepository;
 
     public function __construct()
     {
         $this->menuRepository = \App::make('App\Repositories\Admin\Menu\MenusRepository');
         $this->categoriesRepository = \App::make('App\Repositories\Portal\Article\CategoriesRepository');
         $this->user = \App::make('App\Models\Auth\User');
+        $this->linksRepository = \App::make('App\Repositories\Admin\Setting\LinksRepository');
     }
 
     /**
@@ -138,6 +140,20 @@ class Response
     }
 
     /**
+     * 门户右侧栏添加资源推荐
+     *
+     * @param null $links
+     */
+    public function setLinks($links = null)
+    {
+        if (is_null($links)) {
+            $links = $this->linksRepository->getAllLinksInCache();
+        }
+
+        $this->addMeta(['links' => $links]);
+    }
+
+    /**
      * 添加元数据
      *
      * @param array $value
@@ -165,8 +181,9 @@ class Response
      */
     public function getPortalMeta()
     {
-        $this->setCategories();
-        $this->setActiveUsers();
+        $this->setCategories();  // 文章分类
+        $this->setActiveUsers();  // 活跃用户排名
+        $this->setLinks();  // 资源推荐
         return $this->meta;
     }
 

@@ -82,6 +82,9 @@ Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@sho
 
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
 
+// 右侧资源栏
+Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index');
+
 // 后台管理
 Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
 // 后台菜单列表
