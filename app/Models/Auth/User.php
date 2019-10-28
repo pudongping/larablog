@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use App\Models\Portal\Article\Article;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\ActiveUserHelper;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, MustVerifyEmailTrait, HasRoles;
+    use Notifiable, MustVerifyEmailTrait, HasRoles, ActiveUserHelper;
 
 
 //    use Notifiable {
