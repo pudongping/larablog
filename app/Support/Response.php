@@ -85,10 +85,14 @@ class Response
     private $_output;
 
     protected $menuRepository;
+    protected $categoriesRepository;
+    protected $user;
 
     public function __construct()
     {
         $this->menuRepository = \App::make('App\Repositories\Admin\Menu\MenusRepository');
+        $this->categoriesRepository = \App::make('App\Repositories\Portal\Article\CategoriesRepository');
+        $this->user = \App::make('App\Models\Auth\User');
     }
 
     /**
@@ -103,6 +107,34 @@ class Response
         }
 
         $this->addMeta(['menusTree' => $menu]);
+    }
+
+    /**
+     * 门户头部添加文章分类
+     *
+     * @param null $categories
+     */
+    public function setCategories($categories = null)
+    {
+        if (is_null($categories)) {
+            $categories = $this->categoriesRepository->getAllCategories();
+        }
+
+        $this->addMeta(['allCategories' => $categories]);
+    }
+
+    /**
+     * 门户右侧栏添加活跃用户
+     *
+     * @param null $activeUsers
+     */
+    public function setActiveUsers($activeUsers = null)
+    {
+        if (is_null($activeUsers)) {
+            $activeUsers = $this->user->getActiveUsersFromCache();
+        }
+
+        $this->addMeta(['activeUsers' => $activeUsers]);
     }
 
     /**
@@ -123,6 +155,18 @@ class Response
     public function getAdminMeta()
     {
         $this->setMenu();
+        return $this->meta;
+    }
+
+    /**
+     * 获取门户通用变量
+     *
+     * @return array
+     */
+    public function getPortalMeta()
+    {
+        $this->setCategories();
+        $this->setActiveUsers();
         return $this->meta;
     }
 

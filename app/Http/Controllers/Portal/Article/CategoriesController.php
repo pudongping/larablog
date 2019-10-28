@@ -32,15 +32,12 @@ class CategoriesController extends Controller
      */
     public function show(Category $category, Request $request)
     {
-
-        $allCategories = $this->categoriesRepository->getAllCategories();
-
         // 读取分类 id 相关的文章
         $articles = Article::withOrder($request->order)
                             ->where('category_id', $category->id)
                             ->paginate(\ConstCustom::PAGE_NUM);
 
-        return view('portal.article.index', compact('articles', 'allCategories', 'category'));
+        return view('portal.article.index', compact('articles', 'category'));
     }
 
 }

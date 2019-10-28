@@ -9,23 +9,19 @@ use Illuminate\Http\Request;
 use App\Repositories\Portal\Article\ArticlesRepository;
 use App\Repositories\Portal\Article\CategoriesRepository;
 use App\Http\Requests\Portal\Article\ArticleRequest;
-use App\Models\Auth\User;
 
 class ArticlesController extends Controller
 {
 
     protected $articlesRepository;
     protected $categoriesRepository;
-    protected $userModel;
 
     public function __construct(
         ArticlesRepository $articlesRepository,
-        CategoriesRepository $categoriesRepository,
-        User $userModel
+        CategoriesRepository $categoriesRepository
     ) {
         $this->articlesRepository = $articlesRepository;
         $this->categoriesRepository = $categoriesRepository;
-        $this->userModel = $userModel;
     }
 
     /**
@@ -37,9 +33,7 @@ class ArticlesController extends Controller
     public function index(Request $request)
     {
         $articles = $this->articlesRepository->index($request);
-        $allCategories = $this->categoriesRepository->getAllCategories();
-        $activeUsers = $this->userModel->getActiveUsersFromCache();
-        return view('portal.article.index', compact('articles', 'allCategories', 'activeUsers'));
+        return view('portal.article.index', compact('articles'));
     }
 
     /**

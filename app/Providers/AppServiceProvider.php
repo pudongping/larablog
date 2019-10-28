@@ -51,5 +51,16 @@ class AppServiceProvider extends ServiceProvider
             });
         }
 
+        // 向门户指定视图传递通用变量
+        if (\Schema::hasTable('categories') && \Schema::hasTable('users')) {
+            $portalInitParams = app(Response::class)->getPortalMeta();
+            view()->composer('portal.*', function ($vp) use ($portalInitParams) {
+                $vp->with($portalInitParams);
+            });
+            view()->composer('auth.*', function ($va) use ($portalInitParams) {
+                $va->with($portalInitParams);
+            });
+        }
+
     }
 }
