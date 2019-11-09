@@ -55,6 +55,12 @@
 
                             <div class="well well-sm">
                                 <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i> 保存</button>
+
+                                <div class="btn-group" role="group" aria-label="">
+                                    <button type="button" class="btn btn-success" onclick="choiceEditor(true)"><i class="far fa-save mr-2" aria-hidden="true"></i> markdown</button>
+                                    <button type="button" class="btn btn-success" onclick="choiceEditor(false)"><i class="far fa-save mr-2" aria-hidden="true"></i> 富文本</button>
+                                </div>
+
                             </div>
                         </form>
                 </div>
@@ -69,30 +75,44 @@
     <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/simplemde.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
+
+        function choiceEditor(editorCategory) {
+            var markdownEditor = $('#markdownEditor');
+            var htmlEditor = $('#htmlEditor');
+            if (editorCategory) {
+                console.log('预计触发markdown');
+                markdown_editor();
+            } else {
+                console.log('预计触发html');
+                useHtml();
+            }
+        }
+
+        function useHtml() {
             var editor = new Simditor({
                 textarea: $('#editor')
                 ,toolbar: [
-                'title',  // 标题
-                'bold',  // 加粗
-                'italic',  // 斜体
-                'underline',  // 下划线文字
-                // 'strikethrough',  // 删除线文字
-                'fontScale',  // 字体大小
-                'color',  // 文字颜色
-                'ol',  // 有序列表
-                'ul',  // 无序列表
-                'blockquote',  // 引用
-                'code', // 代码
-                'table',  // 表格
-                'link',  // 链接
-                'image',  // 图片
-                'hr',  // 下划线
-                'indent',  // 向右缩进
-                'outdent',  // 向左缩进
-                'alignment'  // 水平对齐
+                    'title',  // 标题
+                    'bold',  // 加粗
+                    'italic',  // 斜体
+                    'underline',  // 下划线文字
+                    // 'strikethrough',  // 删除线文字
+                    'fontScale',  // 字体大小
+                    'color',  // 文字颜色
+                    'ol',  // 有序列表
+                    'ul',  // 无序列表
+                    'blockquote',  // 引用
+                    'code', // 代码
+                    'table',  // 表格
+                    'link',  // 链接
+                    'image',  // 图片
+                    'hr',  // 下划线
+                    'indent',  // 向右缩进
+                    'outdent',  // 向左缩进
+                    'alignment'  // 水平对齐
                 ]
                 ,upload:{
                     url: '{{ route('articles.upload_image') }}'
@@ -105,6 +125,7 @@
                 }
                 ,pasteImage: true  // 支持图片黏贴上传
             });
-        });
+        }
+
     </script>
 @stop

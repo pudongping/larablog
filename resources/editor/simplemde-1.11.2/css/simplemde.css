@@ -1,0 +1,13 @@
+/*
+ * Simple Markdown
+ */
+
+.CodeMirror-fullscreen,
+.editor-preview-side,
+.editor-toolbar.fullscreen {
+    z-index: 1030;
+}
+
+.editor-preview {
+    z-index: 1030;
+}
