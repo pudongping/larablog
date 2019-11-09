@@ -23,4 +23,4 @@ indent_size = 4
 
 [*.{js,html,blade.php,css,scss}]
 indent_style = space
-indent_size = 4
+indent_size = 2
