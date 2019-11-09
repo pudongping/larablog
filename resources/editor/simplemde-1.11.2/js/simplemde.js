@@ -1,5 +1,7 @@
 // 引入 node_modules 中 「simplemde」 markdown 编辑器必要 js
 require('simplemde/dist/simplemde.min.js');
+// 引入 node_modules 中 「highlight」 highlight.js 语法高亮工具
+require('highlight.js/lib/highlight.js');
 
 window.markdown_editor = function () {
     window.SimpleMDE = require('simplemde');
@@ -19,7 +21,7 @@ window.markdown_editor = function () {
             link: ["[", "](https://)"],
             table: ["", "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"],
         },
-        placeholder: "Type here...",
+        placeholder: "请使用 Markdown 格式书写 ;-)，代码片段粘贴时请注意使用高亮语法。",
         spellChecker: false,
         renderingConfig: {
             codeSyntaxHighlighting: true
