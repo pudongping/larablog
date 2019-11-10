@@ -11,13 +11,13 @@ require('inline-attachment/src/codemirror-4.inline-attachment');
 window.markdown_editor = function () {
     window.SimpleMDE = require('simplemde'); // 引入 simplemde
     // Most options demonstrate the non-default behavior
-    var unique_id = $('#slug').val() ? $('#slug').val() : 'markdown';
+    var unique_id = $('#title').val() ? $('#title').val() : 'markdown';
     var markdown = new SimpleMDE({
         autofocus: true, // 自动对焦编辑器
-        autosave: { // 临时保存文本内容
-            enabled: false,
-            uniqueId: unique_id,
-            delay: 1000
+        autosave: { // 临时保存文本内容 （已经在页面中使用了 old() 辅助函数，因此可以不开启临时保存内容）
+            enabled: false, // 如果设置为真，则自动保存文本。默认值为 false。
+            uniqueId: unique_id, // 必须设置唯一的字符串标识符，以便 SimpleMDE 可以自动保存。它与网站上其他 SimpleMDE 实例的区别就在于此。
+            delay: 1000 // 保存之间的延迟，以毫秒为单位。默认为 10000(10秒)。
         },
         element: document.getElementById("markdownTextarea"), // 要使用的文本区域的DOM元素。默认设置为页面上的第一个文本区域。
         // 自定义某些插入文本的按钮的行为方式。获取一个包含两个元素的数组。第一个元素将是插入光标之前或突出显示之前的文本，第二个元素将插入光标之后。

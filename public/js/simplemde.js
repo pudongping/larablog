@@ -19548,15 +19548,18 @@ window.markdown_editor = function () {
   window.SimpleMDE = __webpack_require__(/*! simplemde */ "./node_modules/simplemde/src/js/simplemde.js"); // 引入 simplemde
   // Most options demonstrate the non-default behavior
 
-  var unique_id = $('#slug').val() ? $('#slug').val() : 'markdown';
+  var unique_id = $('#title').val() ? $('#title').val() : 'markdown';
   var markdown = new SimpleMDE({
     autofocus: true,
     // 自动对焦编辑器
     autosave: {
-      // 临时保存文本内容
+      // 临时保存文本内容 （已经在页面中使用了 old() 辅助函数，因此可以不开启临时保存内容）
       enabled: false,
+      // 如果设置为真，则自动保存文本。默认值为 false。
       uniqueId: unique_id,
-      delay: 1000
+      // 必须设置唯一的字符串标识符，以便 SimpleMDE 可以自动保存。它与网站上其他 SimpleMDE 实例的区别就在于此。
+      delay: 1000 // 保存之间的延迟，以毫秒为单位。默认为 10000(10秒)。
+
     },
     element: document.getElementById("markdownTextarea"),
     // 要使用的文本区域的DOM元素。默认设置为页面上的第一个文本区域。
