@@ -95,12 +95,10 @@
             var markdownEditor = $('#markdownEditor');
             var htmlEditor = $('#htmlEditor');
             if (editorCategory) {
-                console.log('预计触发markdown');
                 markdownEditor.css('display', 'block');
                 htmlEditor.css("display","none");
                 $('input[name="is_markdown"]').val(1); // 标识当前编辑器为 markdown
             } else {
-                console.log('预计触发html');
                 markdownEditor.css("display","none");
                 htmlEditor.css('display', 'block');
                 $('input[name="is_markdown"]').val(0); // 标识当前编辑器为 html
