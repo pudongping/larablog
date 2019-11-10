@@ -51,3 +51,34 @@ if (! function_exists('http_get')) {
         return $result;
     }
 }
+
+if (! function_exists('html_2_markdown')) {
+    /**
+     * 将 HTML 文本转换为 Markdown 文本
+     *
+     * @param $html
+     * @return string
+     */
+    function html_2_markdown($html)
+    {
+        $converter = new \League\HTMLToMarkdown\HtmlConverter();
+        $markdown = $converter->convert($html);
+        return $markdown;
+    }
+}
+
+if (! function_exists('markdown_2_html')) {
+    /**
+     * 将 markdown 文本转换成 html 文本
+     *
+     * @param $markdown
+     * @return string
+     */
+    function markdown_2_html($markdown)
+    {
+        $parsedown = new Parsedown();
+        $parsedown->setSafeMode(true);
+        $html = $parsedown->parse($markdown);
+        return $html;
+    }
+}
