@@ -58,43 +58,43 @@ Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->na
 Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show');  // 显示用户个人信息页面
 
 
-Route::group(
-    [
-        'middleware' => ['auth']
-    ],
-    function () {
-        Route::resource('users', 'Auth\UsersController', ['only' => ['update', 'edit']]);
-        // Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
-        // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
-        // 需要登录之后才允许操作的文章类方法
-        Route::resource('articles', 'Portal\Article\ArticlesController', ['except' => ['index', 'show']]);
-        // Simditor html 编辑器图片上传
-        Route::post('upload_image', 'Portal\Article\ArticlesController@uploadImage')->name('articles.upload_image');
-        // simplemde markdown 编辑器图片上传
-        Route::post('markdown_upload_image', 'Portal\Article\ArticlesController@uploadMarkdownImage')->name('articles.markdown_upload_image');
-        // 文章回复
-        Route::resource('replies', 'Portal\Article\RepliesController', ['only' => ['store', 'destroy']]);
-        // 评论通知列表
-        Route::get('notifications', 'Portal\Article\NotificationsController@index')->name('notifications.index');
-    });
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('users', 'Auth\UsersController', ['only' => ['update', 'edit']]);
+    // Route::get('/users/{user}/edit', 'Auth\UsersController@edit')->name('users.edit');    // 显示编辑个人资料页面
+    // Route::patch('/users/{user}', 'Auth\UsersController@update')->name('users.update');   // 处理 edit 页面提交的更改
+    // 需要登录之后才允许操作的文章类方法
+    Route::resource('articles', 'Portal\Article\ArticlesController', ['except' => ['index', 'show']]);
+    // Simditor html 编辑器图片上传
+    Route::post('upload_image', 'Portal\Article\ArticlesController@uploadImage')->name('articles.upload_image');
+    // simplemde markdown 编辑器图片上传
+    Route::post('markdown_upload_image', 'Portal\Article\ArticlesController@uploadMarkdownImage')->name('articles.markdown_upload_image');
+    // 文章回复
+    Route::resource('replies', 'Portal\Article\RepliesController', ['only' => ['store', 'destroy']]);
+    // 评论通知列表
+    Route::get('notifications', 'Portal\Article\NotificationsController@index')->name('notifications.index');
+});
 
 // 不需要登录就可以访问的文章类方法
 Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articles.index');
 Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
-
+// 文章分类
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
 
 // 右侧资源栏
 Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index');
 
-// 后台管理
-Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
-// 后台菜单列表
-Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
-// 角色
-Route::resource('roles', 'Admin\Authorize\RolesController');
-// 权限
-Route::resource('permissions', 'Admin\Authorize\PermissionsController');
-// 用户
-Route::get('users', 'Auth\UsersController@index')->name('users.index');
+// 「后台管理相关路由」
+Route::group(['middleware' => ['auth']], function() {
+    // 后台管理
+    Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
+    // 后台菜单列表
+    Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
+    // 角色
+    Route::resource('roles', 'Admin\Authorize\RolesController');
+    // 权限
+    Route::resource('permissions', 'Admin\Authorize\PermissionsController');
+    // 用户
+    Route::get('users', 'Auth\UsersController@index')->name('users.index');
+});
+
 
