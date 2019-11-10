@@ -47,8 +47,10 @@ class ArticlesRepository extends BaseRepository
      */
     public function storage($request)
     {
-        $input = $request->only(['title', 'category_id', 'body']);
+        $input = $request->only(['title', 'category_id']);
+        $input['body'] = $this->getBody($request);
         $input['user_id'] = \Auth::id();
+
         return $this->store($input);
     }
 
@@ -88,9 +90,33 @@ class ArticlesRepository extends BaseRepository
      */
     public function modify($request)
     {
-        $input = $request->only('title', 'category_id', 'body');
+        $input = $request->only('title', 'category_id');
+        $input['body'] = $this->getBody($request);
         $data = $this->update($request->id, $input);
         return $data;
+    }
+
+    /**
+     *  获取文章内容
+     *
+     * @param $request  当前请求实例
+     * @return string  html 格式的文章内容
+     * @throws \Exception
+     */
+    private function getBody($request)
+    {
+        // 判断当前提交的文章是否是 markdown 文本内容
+        if ($request->is_markdown) {
+            $html = markdown_2_html($request->markdownbody);
+        } else {
+            $html = $request->htmlbody;
+        }
+
+        if (empty(trim($html))) {
+            throw new \Exception('文章内容不能为空');
+        }
+
+        return $html;
     }
 
 

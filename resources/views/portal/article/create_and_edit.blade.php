@@ -49,16 +49,23 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('body', $article->body ) }}</textarea>
+                            {{-- 采用 markdown 文本 --}}
+                            <div class="form-group" id="markdownEditor">
+                                <textarea name="markdownbody" class="form-control" id="markdownTextarea" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('body', html_2_markdown($article->body) ) }}</textarea>
+                                <input type="hidden" name="is_markdown" value="1">
+                            </div>
+
+                            {{-- 采用 html 文本 --}}
+                            <div class="form-group" id="htmlEditor" style="display: none;">
+                                <textarea name="htmlbody" class="form-control" id="htmlTextarea" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('body', $article->body ) }}</textarea>
                             </div>
 
                             <div class="well well-sm">
                                 <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i> 保存</button>
 
                                 <div class="btn-group" role="group" aria-label="">
-                                    <button type="button" class="btn btn-success" onclick="choiceEditor(true)"><i class="far fa-save mr-2" aria-hidden="true"></i> markdown</button>
-                                    <button type="button" class="btn btn-success" onclick="choiceEditor(false)"><i class="far fa-save mr-2" aria-hidden="true"></i> 富文本</button>
+                                    <button type="button" class="btn btn-success" onclick="choice_editor(true)"><i class="fab fa-markdown mr-2" aria-hidden="true"></i> markdown</button>
+                                    <button type="button" class="btn btn-success" onclick="choice_editor(false)"><i class="fas fa-code mr-2" aria-hidden="true"></i> 富文本</button>
                                 </div>
 
                             </div>
@@ -79,21 +86,30 @@
 
     <script>
 
-        function choiceEditor(editorCategory) {
+        $(document).ready(function() {
+            markdown_editor();
+            html_editor();
+        })
+
+        function choice_editor(editorCategory) {
             var markdownEditor = $('#markdownEditor');
             var htmlEditor = $('#htmlEditor');
             if (editorCategory) {
                 console.log('预计触发markdown');
-                markdown_editor();
+                markdownEditor.css('display', 'block');
+                htmlEditor.css("display","none");
+                $('input[name="is_markdown"]').val(1);
             } else {
                 console.log('预计触发html');
-                useHtml();
+                markdownEditor.css("display","none");
+                htmlEditor.css('display', 'block');
+                $('input[name="is_markdown"]').val(0);
             }
         }
 
-        function useHtml() {
+        function html_editor() {
             var editor = new Simditor({
-                textarea: $('#editor')
+                textarea: $('#htmlTextarea')
                 ,toolbar: [
                     'title',  // 标题
                     'bold',  // 加粗
