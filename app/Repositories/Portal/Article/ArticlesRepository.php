@@ -83,6 +83,30 @@ class ArticlesRepository extends BaseRepository
     }
 
     /**
+     * 「simplemde」 markdown 编辑器拖拽上传图片
+     *
+     * @param $request  请求实例
+     * @return array  参照 node_modules/inline-attachment/demo/upload_attachment.php 返回的格式
+     */
+    public function uploadMarkdownImage($request)
+    {
+        $data = [
+            'filename' => '',
+            'error'    => '上传失败！'
+        ];
+
+        if ($file = $request->file) {
+            $result = $this->imageUploadHandler->save($file, 'articles', \Auth::id(), 'file', 1024);
+            if ($result) {
+                $data['error'] = '上传成功！';
+                $data['filename'] = $result['path']; // 必须为带 url 的绝对路径
+            }
+        }
+
+        return $data;
+    }
+
+    /**
      * 编辑文章-数据处理
      *
      * @param $request  请求实例

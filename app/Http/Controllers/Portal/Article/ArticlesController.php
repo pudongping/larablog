@@ -89,6 +89,18 @@ class ArticlesController extends Controller
     }
 
     /**
+     * 「simplemde」 markdown 编辑器拖拽上传图片
+     *
+     * @param Request $request  请求实例
+     * @return array
+     */
+    public function uploadMarkdownImage(Request $request)
+    {
+        $data = $this->articlesRepository->uploadMarkdownImage($request);
+        return $data;
+    }
+
+    /**
      * 编辑文章显示页面
      *
      * @param Article $article

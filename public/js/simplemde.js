@@ -14198,6 +14198,515 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
+/***/ "./node_modules/inline-attachment/src/codemirror-4.inline-attachment.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/inline-attachment/src/codemirror-4.inline-attachment.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*jslint newcap: true */
+/*global inlineAttachment: false */
+/**
+ * CodeMirror version for inlineAttachment
+ *
+ * Call inlineAttachment.attach(editor) to attach to a codemirror instance
+ */
+(function() {
+  'use strict';
+
+  var codeMirrorEditor = function(instance) {
+
+    if (!instance.getWrapperElement) {
+      throw "Invalid CodeMirror object given";
+    }
+
+    this.codeMirror = instance;
+  };
+
+  codeMirrorEditor.prototype.getValue = function() {
+    return this.codeMirror.getValue();
+  };
+
+  codeMirrorEditor.prototype.insertValue = function(val) {
+    this.codeMirror.replaceSelection(val);
+  };
+
+  codeMirrorEditor.prototype.setValue = function(val) {
+    var cursor = this.codeMirror.getCursor();
+    this.codeMirror.setValue(val);
+    this.codeMirror.setCursor(cursor);
+  };
+
+  /**
+   * Attach InlineAttachment to CodeMirror
+   *
+   * @param {CodeMirror} codeMirror
+   */
+  codeMirrorEditor.attach = function(codeMirror, options) {
+
+    options = options || {};
+
+    var editor = new codeMirrorEditor(codeMirror),
+      inlineattach = new inlineAttachment(options, editor),
+      el = codeMirror.getWrapperElement();
+
+    el.addEventListener('paste', function(e) {
+      inlineattach.onPaste(e);
+    }, false);
+
+    codeMirror.setOption('onDragEvent', function(data, e) {
+      if (e.type === "drop") {
+        e.stopPropagation();
+        e.preventDefault();
+        return inlineattach.onDrop(e);
+      }
+    });
+  };
+
+  var codeMirrorEditor4 = function(instance) {
+    codeMirrorEditor.call(this, instance);
+  };
+
+  codeMirrorEditor4.attach = function(codeMirror, options) {
+
+    options = options || {};
+
+    var editor = new codeMirrorEditor(codeMirror),
+      inlineattach = new inlineAttachment(options, editor),
+      el = codeMirror.getWrapperElement();
+
+    el.addEventListener('paste', function(e) {
+      inlineattach.onPaste(e);
+    }, false);
+
+    codeMirror.on('drop', function(data, e) {
+      if (inlineattach.onDrop(e)) {
+        e.stopPropagation();
+        e.preventDefault();
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
+
+  inlineAttachment.editors.codemirror4 = codeMirrorEditor4;
+
+})();
+
+/***/ }),
+
+/***/ "./node_modules/inline-attachment/src/inline-attachment.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/inline-attachment/src/inline-attachment.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*jslint newcap: true */
+/*global XMLHttpRequest: false, FormData: false */
+/*
+ * Inline Text Attachment
+ *
+ * Author: Roy van Kaathoven
+ * Contact: ik@royvankaathoven.nl
+ */
+(function(document, window) {
+  'use strict';
+
+  var inlineAttachment = function(options, instance) {
+    this.settings = inlineAttachment.util.merge(options, inlineAttachment.defaults);
+    this.editor = instance;
+    this.filenameTag = '{filename}';
+    this.lastValue = null;
+  };
+
+  /**
+   * Will holds the available editors
+   *
+   * @type {Object}
+   */
+  inlineAttachment.editors = {};
+
+  /**
+   * Utility functions
+   */
+  inlineAttachment.util = {
+
+    /**
+     * Simple function to merge the given objects
+     *
+     * @param {Object[]} object Multiple object parameters
+     * @returns {Object}
+     */
+    merge: function() {
+      var result = {};
+      for (var i = arguments.length - 1; i >= 0; i--) {
+        var obj = arguments[i];
+        for (var k in obj) {
+          if (obj.hasOwnProperty(k)) {
+            result[k] = obj[k];
+          }
+        }
+      }
+      return result;
+    },
+
+    /**
+     * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+     *
+     * @param {String} appended Current content
+     * @param {String} previous Value which should be appended after the current content
+     */
+    appendInItsOwnLine: function(previous, appended) {
+      return (previous + "\n\n[[D]]" + appended)
+        .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
+        .replace(/^(\n*)/, "");
+    },
+
+    /**
+     * Inserts the given value at the current cursor position of the textarea element
+     *
+     * @param  {HtmlElement} el
+     * @param  {String} value Text which will be inserted at the cursor position
+     */
+    insertTextAtCursor: function(el, text) {
+      var scrollPos = el.scrollTop,
+        strPos = 0,
+        browser = false,
+        range;
+
+      if ((el.selectionStart || el.selectionStart === '0')) {
+        browser = "ff";
+      } else if (document.selection) {
+        browser = "ie";
+      }
+
+      if (browser === "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        strPos = range.text.length;
+      } else if (browser === "ff") {
+        strPos = el.selectionStart;
+      }
+
+      var front = (el.value).substring(0, strPos);
+      var back = (el.value).substring(strPos, el.value.length);
+      el.value = front + text + back;
+      strPos = strPos + text.length;
+      if (browser === "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        range.moveStart('character', strPos);
+        range.moveEnd('character', 0);
+        range.select();
+      } else if (browser === "ff") {
+        el.selectionStart = strPos;
+        el.selectionEnd = strPos;
+        el.focus();
+      }
+      el.scrollTop = scrollPos;
+    }
+  };
+
+  /**
+   * Default configuration options
+   *
+   * @type {Object}
+   */
+  inlineAttachment.defaults = {
+    /**
+     * URL where the file will be send
+     */
+    uploadUrl: 'upload_attachment.php',
+
+    /**
+     * Which method will be used to send the file to the upload URL
+     */
+    uploadMethod: 'POST',
+
+    /**
+     * Name in which the file will be placed
+     */
+    uploadFieldName: 'file',
+
+    /**
+     * Extension which will be used when a file extension could not
+     * be detected
+     */
+    defaultExtension: 'png',
+
+    /**
+     * JSON field which refers to the uploaded file URL
+     */
+    jsonFieldName: 'filename',
+
+    /**
+     * Allowed MIME types
+     */
+    allowedTypes: [
+      'image/jpeg',
+      'image/png',
+      'image/jpg',
+      'image/gif'
+    ],
+
+    /**
+     * Text which will be inserted when dropping or pasting a file.
+     * Acts as a placeholder which will be replaced when the file is done with uploading
+     */
+    progressText: '![Uploading file...]()',
+
+    /**
+     * When a file has successfully been uploaded the progressText
+     * will be replaced by the urlText, the {filename} tag will be replaced
+     * by the filename that has been returned by the server
+     */
+    urlText: "![file]({filename})",
+
+    /**
+     * Text which will be used when uploading has failed
+     */
+    errorText: "Error uploading file",
+
+    /**
+     * Extra parameters which will be send when uploading a file
+     */
+    extraParams: {},
+
+    /**
+     * Extra headers which will be send when uploading a file
+     */
+    extraHeaders: {},
+
+    /**
+     * Before the file is send
+     */
+    beforeFileUpload: function() {
+      return true;
+    },
+
+    /**
+     * Triggers when a file is dropped or pasted
+     */
+    onFileReceived: function() {},
+
+    /**
+     * Custom upload handler
+     *
+     * @return {Boolean} when false is returned it will prevent default upload behavior
+     */
+    onFileUploadResponse: function() {
+      return true;
+    },
+
+    /**
+     * Custom error handler. Runs after removing the placeholder text and before the alert().
+     * Return false from this function to prevent the alert dialog.
+     *
+     * @return {Boolean} when false is returned it will prevent default error behavior
+     */
+    onFileUploadError: function() {
+      return true;
+    },
+
+    /**
+     * When a file has succesfully been uploaded
+     */
+    onFileUploaded: function() {}
+  };
+
+  /**
+   * Uploads the blob
+   *
+   * @param  {Blob} file blob data received from event.dataTransfer object
+   * @return {XMLHttpRequest} request object which sends the file
+   */
+  inlineAttachment.prototype.uploadFile = function(file) {
+    var me = this,
+      formData = new FormData(),
+      xhr = new XMLHttpRequest(),
+      settings = this.settings,
+      extension = settings.defaultExtension || settings.defualtExtension;
+
+    if (typeof settings.setupFormData === 'function') {
+      settings.setupFormData(formData, file);
+    }
+
+    // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
+    // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
+    if (file.name) {
+      var fileNameMatches = file.name.match(/\.(.+)$/);
+      if (fileNameMatches) {
+        extension = fileNameMatches[1];
+      }
+    }
+
+    var remoteFilename = "image-" + Date.now() + "." + extension;
+    if (typeof settings.remoteFilename === 'function') {
+      remoteFilename = settings.remoteFilename(file);
+    }
+
+    formData.append(settings.uploadFieldName, file, remoteFilename);
+
+    // Append the extra parameters to the formdata
+    if (typeof settings.extraParams === "object") {
+      for (var key in settings.extraParams) {
+        if (settings.extraParams.hasOwnProperty(key)) {
+          formData.append(key, settings.extraParams[key]);
+        }
+      }
+    }
+
+    xhr.open('POST', settings.uploadUrl);
+
+    // Add any available extra headers
+    if (typeof settings.extraHeaders === "object") {
+        for (var header in settings.extraHeaders) {
+            if (settings.extraHeaders.hasOwnProperty(header)) {
+                xhr.setRequestHeader(header, settings.extraHeaders[header]);
+            }
+        }
+    }
+
+    xhr.onload = function() {
+      // If HTTP status is OK or Created
+      if (xhr.status === 200 || xhr.status === 201) {
+        me.onFileUploadResponse(xhr);
+      } else {
+        me.onFileUploadError(xhr);
+      }
+    };
+    if (settings.beforeFileUpload(xhr) !== false) {
+      xhr.send(formData);
+    }
+    return xhr;
+  };
+
+  /**
+   * Returns if the given file is allowed to handle
+   *
+   * @param {File} clipboard data file
+   */
+  inlineAttachment.prototype.isFileAllowed = function(file) {
+    if (file.kind === 'string') { return false; }
+    if (this.settings.allowedTypes.indexOf('*') === 0){
+      return true;
+    } else {
+      return this.settings.allowedTypes.indexOf(file.type) >= 0;
+    }
+  };
+
+  /**
+   * Handles upload response
+   *
+   * @param  {XMLHttpRequest} xhr
+   * @return {Void}
+   */
+  inlineAttachment.prototype.onFileUploadResponse = function(xhr) {
+    if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
+      var result = JSON.parse(xhr.responseText),
+        filename = result[this.settings.jsonFieldName];
+
+      if (result && filename) {
+        var newValue;
+        if (typeof this.settings.urlText === 'function') {
+          newValue = this.settings.urlText.call(this, filename, result);
+        } else {
+          newValue = this.settings.urlText.replace(this.filenameTag, filename);
+        }
+        var text = this.editor.getValue().replace(this.lastValue, newValue);
+        this.editor.setValue(text);
+        this.settings.onFileUploaded.call(this, filename);
+      }
+    }
+  };
+
+
+  /**
+   * Called when a file has failed to upload
+   *
+   * @param  {XMLHttpRequest} xhr
+   * @return {Void}
+   */
+  inlineAttachment.prototype.onFileUploadError = function(xhr) {
+    if (this.settings.onFileUploadError.call(this, xhr) !== false) {
+      var text = this.editor.getValue().replace(this.lastValue, "");
+      this.editor.setValue(text);
+    }
+  };
+
+  /**
+   * Called when a file has been inserted, either by drop or paste
+   *
+   * @param  {File} file
+   * @return {Void}
+   */
+  inlineAttachment.prototype.onFileInserted = function(file) {
+    if (this.settings.onFileReceived.call(this, file) !== false) {
+      this.lastValue = this.settings.progressText;
+      this.editor.insertValue(this.lastValue);
+    }
+  };
+
+
+  /**
+   * Called when a paste event occured
+   * @param  {Event} e
+   * @return {Boolean} if the event was handled
+   */
+  inlineAttachment.prototype.onPaste = function(e) {
+    var result = false,
+      clipboardData = e.clipboardData,
+      items;
+
+    if (typeof clipboardData === "object") {
+      items = clipboardData.items || clipboardData.files || [];
+
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (this.isFileAllowed(item)) {
+          result = true;
+          this.onFileInserted(item.getAsFile());
+          this.uploadFile(item.getAsFile());
+        }
+      }
+    }
+
+    if (result) { e.preventDefault(); }
+
+    return result;
+  };
+
+  /**
+   * Called when a drop event occures
+   * @param  {Event} e
+   * @return {Boolean} if the event was handled
+   */
+  inlineAttachment.prototype.onDrop = function(e) {
+    var result = false;
+    for (var i = 0; i < e.dataTransfer.files.length; i++) {
+      var file = e.dataTransfer.files[i];
+      if (this.isFileAllowed(file)) {
+        result = true;
+        this.onFileInserted(file);
+        this.uploadFile(file);
+      }
+    }
+
+    return result;
+  };
+
+  window.inlineAttachment = inlineAttachment;
+
+})(document, window);
+
+
+/***/ }),
+
 /***/ "./node_modules/isarray/index.js":
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
@@ -19025,142 +19534,181 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 引入 node_modules 中 「simplemde」 markdown 编辑器必要 js
-__webpack_require__(/*! simplemde/dist/simplemde.min.js */ "./node_modules/simplemde/dist/simplemde.min.js");
+__webpack_require__(/*! simplemde/dist/simplemde.min.js */ "./node_modules/simplemde/dist/simplemde.min.js"); // 引入 node_modules 中 「highlight」 highlight.js 语法高亮工具
+// 代码高亮需要在全局使用，因此直接在 app.js 中已经引用了
+// require('highlight.js/lib/highlight.js');
+// 图片拖动上传
+
+
+__webpack_require__(/*! inline-attachment/src/inline-attachment.js */ "./node_modules/inline-attachment/src/inline-attachment.js");
+
+__webpack_require__(/*! inline-attachment/src/codemirror-4.inline-attachment */ "./node_modules/inline-attachment/src/codemirror-4.inline-attachment.js");
 
 window.markdown_editor = function () {
-  window.SimpleMDE = __webpack_require__(/*! simplemde */ "./node_modules/simplemde/src/js/simplemde.js"); // Most options demonstrate the non-default behavior
+  window.SimpleMDE = __webpack_require__(/*! simplemde */ "./node_modules/simplemde/src/js/simplemde.js"); // 引入 simplemde
+  // Most options demonstrate the non-default behavior
 
   var unique_id = $('#slug').val() ? $('#slug').val() : 'markdown';
   var markdown = new SimpleMDE({
     autofocus: true,
+    // 自动对焦编辑器
     autosave: {
-      enabled: true,
+      // 临时保存文本内容
+      enabled: false,
       uniqueId: unique_id,
       delay: 1000
     },
-    element: document.getElementById("editor"),
+    element: document.getElementById("markdownTextarea"),
+    // 要使用的文本区域的DOM元素。默认设置为页面上的第一个文本区域。
+    // 自定义某些插入文本的按钮的行为方式。获取一个包含两个元素的数组。第一个元素将是插入光标之前或突出显示之前的文本，第二个元素将插入光标之后。
     insertTexts: {
       horizontalRule: ["", "\n\n-----\n\n"],
       image: ["![](https://", ")"],
       link: ["[", "](https://)"],
       table: ["", "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"]
     },
-    placeholder: "Type here...",
-    spellChecker: false,
+    placeholder: "请使用 Markdown 格式书写 ;-)，代码片段粘贴时请注意使用高亮语法。",
+    // 自定义占位符
+    spellChecker: true,
+    // 开启拼写检查程序
     renderingConfig: {
-      codeSyntaxHighlighting: true
+      // 在预览期间调整解析标记的设置
+      codeSyntaxHighlighting: true // 开启代码高亮
+
     },
+    tabSize: 4,
+    // 自定义缩进间距
+    hideIcons: ["heading"],
+    // 隐藏图标
     showIcons: ["code", "horizontal-rule", "table", "strikethrough", "heading-1", "heading-2", "heading-3"],
     toolbar: [{
       name: "bold",
       action: SimpleMDE.toggleBold,
       className: "fa fa-bold",
-      title: "Bold"
+      title: "加粗"
     }, {
       name: "bold",
       action: SimpleMDE.toggleItalic,
       className: "fa fa-italic",
-      title: "Italic"
+      title: "斜体"
     }, {
       name: "strikethrough",
       action: SimpleMDE.toggleStrikethrough,
       className: "fa fa-strikethrough",
-      title: "Strikethrough"
+      title: "删除线"
     }, '|', {
       name: "heading",
       action: SimpleMDE.toggleHeadingSmaller,
       className: "fa fa-header",
-      title: "Heading"
+      title: "一级标题"
     }, {
       name: "heading-1",
       action: SimpleMDE.toggleHeading1,
       className: "fa fa-header fa-header-x fa-header-1",
-      title: "H1"
+      title: "一级标题"
     }, {
       name: "heading-2",
       action: SimpleMDE.toggleHeading2,
       className: "fa fa-header fa-header-x fa-header-2",
-      title: "H2"
+      title: "二级标题"
     }, {
       name: "heading-3",
       action: SimpleMDE.toggleHeading1,
       className: "fa fa-header fa-header-x fa-header-3",
-      title: "H3"
+      title: "三级标题"
     }, '|', {
       name: "code",
       action: SimpleMDE.toggleCodeBlock,
       className: "fa fa-code",
-      title: "Code"
+      title: "代码"
     }, {
       name: "quote",
       action: SimpleMDE.toggleBlockquote,
       className: "fa fa-quote-left",
-      title: "Quote"
+      title: "引用"
     }, {
       name: "unordered-list",
       action: SimpleMDE.toggleUnorderedList,
       className: "fa fa-list-ul",
-      title: "Generic List"
+      title: "无序列表"
     }, {
       name: "ordered-list",
       action: SimpleMDE.toggleOrderedList,
       className: "fa fa-list-ol",
-      title: "Numbered List"
+      title: "有序列表"
     }, {
       name: "horizontal-rule",
       action: SimpleMDE.drawHorizontalRule,
       className: "fa fa-minus",
-      title: "Insert Horizontal Line"
+      title: "插入水平线"
     }, '|', {
       name: "link",
       action: SimpleMDE.drawLink,
       className: "fa fa-link",
-      title: "Create Link"
+      title: "创建链接"
     }, {
       name: "image",
       action: SimpleMDE.drawImage,
       className: "fa fa-picture-o",
-      title: "Insert Image"
+      title: "插入图片"
     }, {
       name: "table",
       action: SimpleMDE.drawTable,
       className: "fa fa-table",
-      title: "Insert Table"
+      title: "插入表格"
     }, '|', {
       name: "preview",
       action: SimpleMDE.togglePreview,
       className: "fa fa-eye no-disable",
-      title: "Toggle Preview"
+      title: "预览"
     }, {
       name: "side-by-side",
       action: SimpleMDE.toggleSideBySide,
       className: "fa fa-columns no-disable no-mobile",
-      title: "Toggle Side by Side"
+      title: "编辑并预览"
     }, {
       name: "fullscreen",
       action: SimpleMDE.toggleFullScreen,
       className: "fa fa-arrows-alt no-disable no-mobile",
-      title: "Toggle Fullscreen"
+      title: "全屏"
     }, {
       name: "guide",
       action: function customFunction(editor) {
-        window.open("https://vienblog.com/markdown-yu-fa");
+        window.open("#");
       },
       className: "fa fa-question-circle",
-      title: "Help"
+      title: "帮助"
     }]
-  });
+  }); // 监听文本框值改变
+
   markdown.codemirror.on("change", function () {
     var html = markdown.value();
-    $('input[name="markdown"]').val(html);
-  });
+    $('input[name="markdownbody"]').val(html);
+  }); // markdown 编辑器，拖拽上传图片
+  // 参考：node_modules/inline-attachment/demo/codemirror-4.html
+  // 配置项参考：node_modules/inline-attachment/src/inline-attachment.js => inlineAttachment.defaults={}
+
   var inlineAttachmentConfig = {
-    uploadUrl: '/admin/upload/image/article',
+    uploadUrl: '/markdown_upload_image',
     extraHeaders: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
+    },
+    progressText: '![文件正在上传中...]()',
+    urlText: "![Alex]({filename})",
+    errorText: "文件上传失败！"
   };
-  inlineAttachment.editors.codemirror4.attach(markdown.codemirror, inlineAttachmentConfig);
+  inlineAttachment.editors.codemirror4.attach(markdown.codemirror, inlineAttachmentConfig); // 侧边栏内容
+
+  $("h2,h3,h4,h5,h6").each(function (i, item) {
+    var tag = $(item).get(0).localName;
+    $(item).attr("id", "wow" + i);
+    $("#category").append('<a class="new' + tag + '" href="#wow' + i + '">' + $(this).text() + '</a></br>');
+    $(".newh2").css("margin-left", 0);
+    $(".newh3").css("margin-left", 20);
+    $(".newh4").css("margin-left", 40);
+    $(".newh5").css("margin-left", 60);
+    $(".newh6").css("margin-left", 80);
+  }); // <div id="category"></div>
 };
 
 /***/ }),
