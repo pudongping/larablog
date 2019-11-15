@@ -26,6 +26,9 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         // 将提交请求参数中空子串转换为 null
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        // Horizon 仪表盘 ACL
+        \App\Http\Middleware\CheckHorizonAuth::class,
     ];
 
     /**
