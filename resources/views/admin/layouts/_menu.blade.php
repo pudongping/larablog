@@ -40,7 +40,7 @@
                 <h6 class="collapse-header">{{ $menu['description'] }}</h6>
                 @isset($menu['children'])
                     @foreach($menu['children'] as $child)
-                        <a class="collapse-item" href="{{ $child['link'] }}">{{ $child['name'] }}</a>
+                        <a class="collapse-item" href="{{ $child['link'] ? route($child['link']) : '' }}">{{ $child['name'] }}</a>
                     @endforeach
                 @endisset
             </div>

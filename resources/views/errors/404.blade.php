@@ -5,10 +5,12 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>404 - {{ config('app.name', '的个人博客') }}</title>
+    {{-- 所有页面所需公共头部 --}}
+    @include('shared._common_meta')
+
+    @section('content')
+        404 - {{ site_setting('site_name') ?: config('app.name') }}
+    @endsection
 
   {{-- css 样式 --}}
   @include('shared.sb-css-js._s_css')
@@ -27,15 +29,15 @@
     <div id="content">
 
       <!-- Begin Page Content -->
-      <div class="container-fluid" style="height: 550px">
+      <div class="container-fluid">
         {{-- 此处填充内容 --}}
 
         <!-- 404 Error Text -->
-          <div class="text-center" style="margin-top: 100px;">
+          <div class="text-center" style="margin-top: 150px;">
             <div class="error mx-auto" data-text="404">404</div>
             <p class="lead text-gray-800 mb-5">访问页面未找到！</p>
-            <p class="text-gray-500 mb-0">如果您觉得这是一个 Bug，请联系我们！</p>
-            <a href="{{ url('/') }}">回到主页</a>
+            <p class="text-gray-500 mb-0">如果您觉得这是一个 Bug，<a href="mailto:{{ site_setting('contact_email') }}" style="text-decoration: none;">请联系我们！</a></p>
+            <a href="{{ url('/') }}" style="text-decoration: none;">回到主页</a>
           </div>
 
       </div>
@@ -61,4 +63,14 @@
 
 </body>
 
+{{-- 动态获取全屏宽高 --}}
+<script type="text/javascript">
+    var screenHeight = document.documentElement.clientHeight;
+    var screenWidth = document.documentElement.clientWidth;
+    var wrapper = document.getElementById('wrapper');
+    wrapper.style.width = screenWidth+"px";
+    wrapper.style.height = screenHeight+"px";
+</script>
+
 </html>
+
