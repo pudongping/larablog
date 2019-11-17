@@ -18,4 +18,14 @@ class ConstCustom
      */
     const BAIDU_TRANSLATE_API = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
 
+    /**
+     * 站点设置文件存放路径
+     */
+    const SITE_PATH = 'administrator_settings';
+
+    /**
+     * 站点设置文件名称
+     */
+    const SITE_FILE_NAME = 'site.json';
+
 }

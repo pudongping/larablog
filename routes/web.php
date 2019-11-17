@@ -95,6 +95,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('permissions', 'Admin\Authorize\PermissionsController');
     // 用户
     Route::get('users', 'Auth\UsersController@index')->name('users.index');
+    // 站点设置
+    Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
+    Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');
+    // 清空缓存
+    Route::get('clear_cache', 'Admin\Setting\SitesController@clearCache')->name('clear_cache');
 });
 
 
