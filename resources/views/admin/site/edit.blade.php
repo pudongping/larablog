@@ -30,33 +30,42 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">站点名称</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" name="name" value="{{ old('name', $site['name'] ) }}" placeholder="请填写站点名称" required />
+                                <input class="form-control" type="text" name="site_name" value="{{ old('site_name', $site['site_name'] ) }}" placeholder="请填写站点名称" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">站长昵称</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="founder_nickname" value="{{ old('founder_nickname', $site['founder_nickname'] ) }}" placeholder="请填写站长昵称" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">网站地址</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" name="founder_website" value="{{ old('founder_website', $site['founder_website'] ) }}" placeholder="请填写网站地址" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">联系人邮箱</label>
                             <div class="col-sm-10">
-
-                                <input type="email" class="form-control form-control-user @error('contact_email') is-invalid @enderror" name="contact_email" value="{{ old('contact_email', $site['contact_email'] ) }}" required autocomplete="email"  placeholder="请填写联系人邮箱">
-                                @error('contact_email')
-                                <div class="text-center " style="color: #d9534f">{{ $message }}</div>
-                                @enderror
-
+                                <input type="email" class="form-control" name="contact_email" value="{{ old('contact_email', $site['contact_email'] ) }}" autocomplete="email"  placeholder="请填写联系人邮箱">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label">SEO - 描述信息</label>
                             <div class="col-sm-10">
-                                <textarea name="seo_description" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('seo_description', $site['seo_description'] ) }}</textarea>
+                                <textarea name="seo_description" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('seo_description', $site['seo_description'] ) }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label">SEO - 关键词</label>
                             <div class="col-sm-10">
-                                <textarea name="seo_keyword" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('seo_keyword', $site['seo_keyword'] ) }}</textarea>
+                                <textarea name="seo_keyword" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('seo_keyword', $site['seo_keyword'] ) }}</textarea>
                             </div>
                         </div>
 

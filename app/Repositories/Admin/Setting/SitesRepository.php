@@ -18,10 +18,12 @@ class SitesRepository
      * @var array
      */
     protected $data = [
-        'name' => '',
-        'contact_email' => '',
-        'seo_description' => '',
-        'seo_keyword' => '',
+        'site_name' => '',  // 站点名称
+        'contact_email' => '',  // 联系邮箱
+        'seo_description' => '',  // seo 描述信息
+        'seo_keyword' => '',  // seo 关键词
+        'founder_nickname' => '',  // 站长昵称
+        'founder_website' => '',  // 站长网址
     ];
 
     /**
@@ -41,7 +43,7 @@ class SitesRepository
      */
     public function update($request)
     {
-        $data = $request->only(['name', 'contact_email', 'seo_description', 'seo_keyword']);
+        $data = $request->only(array_keys($this->data));
 
         $path = $this->getStoragePath();
         $file = $path . \ConstCustom::SITE_FILE_NAME;
@@ -86,7 +88,7 @@ class SitesRepository
 
         if (file_exists($file)) {
             // 获取文件中的数据
-            $fileData = json_decode(file_get_contents($file));
+            $fileData = json_decode(file_get_contents($file), true);
 
             foreach ($fileData as $filed => $value) {
                 // 用文件中的数据替换掉默认数据

@@ -82,3 +82,25 @@ if (! function_exists('markdown_2_html')) {
         return $html;
     }
 }
+
+if (! function_exists('site_setting')) {
+    /**
+     * 获取站点设置相关数据
+     *
+     * @param $key  站点设置字段
+     * @param string $default  如果当前字段没有值，则以默认值填充
+     * @param string $settingName  配置 key
+     * @return mixed  站点字段对应值
+     */
+    function site_setting($key, $default = '', $settingName = 'site')
+    {
+        if (! config()->get($settingName)) {
+            // 获取站点设置相关数据
+            $sitesData = app('App\Repositories\Admin\Setting\SitesRepository')->edit();
+            // 将站点设置添加到应用程序配置中
+            config()->set($settingName, $sitesData);
+        }
+        // 获取站点设置相关数据并提供默认值
+        return config()->get($settingName . '.' . $key, $default);
+    }
+}
