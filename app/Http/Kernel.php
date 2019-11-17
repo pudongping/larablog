@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
             // 记录用户最后活跃时间
             \App\Http\Middleware\RecordLastActivedTime::class,
 
+
         ],
 
         // API 中间件组，应用于 routes/api.php 路由文件，
@@ -109,6 +110,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         // Laravel 自带的强制用户邮箱认证的中间件
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+
+        // 以下为自定义中间件
+        // 判断当前用户是否有 「站长」 权限
+        'is_admin' => \App\Http\Middleware\FounderMiddleware::class,
+        // 判断当前用户是否有 「管理员」 权限
+        'is_manager' => \App\Http\Middleware\MaintainerMiddleware::class,
     ];
 
     /**

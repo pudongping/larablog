@@ -84,22 +84,26 @@ Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')
 Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index');
 
 // 「后台管理相关路由」
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth', 'is_manager']], function() {
     // 后台管理
     Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
     // 后台菜单列表
     Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
-    // 角色
-    Route::resource('roles', 'Admin\Authorize\RolesController');
-    // 权限
-    Route::resource('permissions', 'Admin\Authorize\PermissionsController');
-    // 用户
-    Route::get('users', 'Auth\UsersController@index')->name('users.index');
-    // 站点设置
-    Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
-    Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');
-    // 清空缓存
-    Route::get('clear_cache', 'Admin\Setting\SitesController@clearCache')->name('clear_cache');
+
+    Route::group(['middleware' => ['is_admin']], function() {
+        // 角色
+        Route::resource('roles', 'Admin\Authorize\RolesController');
+        // 权限
+        Route::resource('permissions', 'Admin\Authorize\PermissionsController');
+        // 用户
+        Route::get('users', 'Auth\UsersController@index')->name('users.index');
+        // 站点设置
+        Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
+        Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');
+        // 清空缓存
+        Route::get('clear_cache', 'Admin\Setting\SitesController@clearCache')->name('clear_cache');
+    });
+
 });
 
 
