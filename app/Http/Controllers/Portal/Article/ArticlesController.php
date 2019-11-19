@@ -68,6 +68,11 @@ class ArticlesController extends Controller
      */
     public function show(Request $request, Article $article)
     {
+        if ($request->is_markdown) {
+            // 返回 markdown 文本内容
+            return response(html_2_markdown($article->body), 200)->header('Content-Type', 'text/x-markdown');
+        }
+
         // url 矫正 （强制跳转到带有 slug 的 url）
         if ((!empty($article->slug)) && ($article->slug != $request->slug)) {
             return redirect($article->link(), 301);

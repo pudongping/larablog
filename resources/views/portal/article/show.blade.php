@@ -44,9 +44,9 @@
                         {!! $article->body !!}
                     </div>
 
-                    @can('updatePolicy', $article)
-                        <div class="operate">
-                            <hr>
+                    <div class="operate">
+                        <hr>
+                        @can('updatePolicy', $article)
                             <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-outline-secondary btn-sm" role="button">
                                 <i class="far fa-edit"></i> 编辑
                             </a>
@@ -59,8 +59,11 @@
                                     <i class="far fa-trash-alt"></i> 删除
                                 </button>
                             </form>
-                        </div>
-                    @endcan
+                        @endcan
+                        <a href="{{ route('articles.show', [$article->id, 'is_markdown' => 1]) }}" class="btn btn-outline-secondary btn-sm pull-right" role="button">
+                            <i class="far fa-file"></i> Markdown 文本
+                        </a>
+                    </div>
 
                 </div>
             </div>
