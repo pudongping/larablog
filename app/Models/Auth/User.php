@@ -82,9 +82,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      */
     public function getAvatarAttribute($value)
     {
-        if (!$value) $value = self::DEFAULT_HEADER;
-        return $value;
-        return config('app.url') . $value;
+        return empty($value) ? self::DEFAULT_HEADER : $value;
     }
 
     /**
