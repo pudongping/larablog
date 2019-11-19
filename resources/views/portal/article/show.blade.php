@@ -61,7 +61,7 @@
                             </form>
                         @endcan
                         <a href="{{ route('articles.show', [$article->id, 'is_markdown' => 1]) }}" class="btn btn-outline-secondary btn-sm pull-right" role="button">
-                            <i class="far fa-file"></i> Markdown 文本
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i> Markdown 文本
                         </a>
                     </div>
 
