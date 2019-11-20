@@ -166,3 +166,31 @@ body {
     background-color: #d15b47 !important;
   }
 }
+
+/* 用户中心显示统计数据 */
+.aboutUserTotal {
+    overflow: auto;
+    margin-top: 0;
+    padding: 0;
+    a {
+        float: left;
+        padding: 0 10px;
+        text-align: center;
+        width: 33%;
+        border-left: 1px solid #eee;
+        color: #33383c;
+        &:first-child {
+            padding-left: 0;
+            border: 0;
+        }
+        &:hover {
+            text-decoration: none;
+            color: #337ab7;
+        }
+    }
+    strong {
+        display: block;
+        font-size: 1.2em;
+        color: black;
+    }
+}
