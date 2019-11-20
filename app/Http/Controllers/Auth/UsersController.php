@@ -67,4 +67,46 @@ class UsersController extends Controller
                          ->with('success', $user->name . '的个人资料更新成功！');
     }
 
+    /**
+     * 关注用户
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function follow(User $user)
+    {
+        // 关注策略
+        $this->authorize('followPolicy', $user);
+
+        // 关注指定用户
+        if (! \Auth::user()->isFollowing($user->id)) {
+            \Auth::user()->follow([$user->id]);
+        }
+
+        return redirect()->route('users.show', $user->id)
+                         ->with('success', '已关注「' . $user->name . '」！');
+    }
+
+    /**
+     * 取消关注用户
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function unfollow(User $user)
+    {
+        // 关注策略
+        $this->authorize('followPolicy', $user);
+
+        // 取消关注
+        if (\Auth::user()->isFollowing($user->id)) {
+            \Auth::user()->unfollow([$user->id]);
+        }
+
+        return redirect()->route('users.show', $user->id)
+                         ->with('success', '已取消对 「' . $user->name . '」 的关注！');
+    }
+
 }

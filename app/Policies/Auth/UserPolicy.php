@@ -33,4 +33,16 @@ class UserPolicy
         return $currentUser->id === $user->id;
     }
 
+    /**
+     * 用户自己不能关注自己
+     *
+     * @param User $currentUser
+     * @param User $user
+     * @return bool
+     */
+    public function followPolicy(User $currentUser, User $user)
+    {
+        return $currentUser->id !== $user->id;
+    }
+
 }
