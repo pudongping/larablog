@@ -21,15 +21,15 @@
                     <hr>
 
                     <div class="aboutUserTotal">
-                        <a title="{{ $user->name }} 总共发表了 {{ $user->article_count }} 篇文章！" href="#">
+                        <a title="{{ $user->name }} 总共发表了 {{ $user->article_count }} 篇文章！" href="{{ route('users.show', $user->id) }}">
                             <strong>{{ $user->article_count }}</strong>
                             文章
                         </a>
-                        <a title="{{ $user->name }} 关注了 {{ count($user->fanings) }} 位用户！" href="#">
+                        <a title="{{ $user->name }} 关注了 {{ count($user->fanings) }} 位用户！" href="{{ route('users.show', [$user->id, 'tab' => 'fanings']) }}">
                             <strong>{{ count($user->fanings) }}</strong>
                             关注
                         </a>
-                        <a title="有 {{ $user->fans()->count() }} 位粉丝关注了 {{ $user->name }} ！" href="#">
+                        <a title="有 {{ $user->fans()->count() }} 位粉丝关注了 {{ $user->name }} ！" href="{{ route('users.show', [$user->id, 'tab' => 'fans']) }}">
                             <strong>{{ $user->fans()->count() }}</strong>
                             粉丝
                         </a>
@@ -65,10 +65,24 @@
                                 Ta 的回复
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-transparent {{ active_class(if_query('tab', 'fanings')) }}" href="{{ route('users.show', [$user->id, 'tab' => 'fanings']) }}">
+                                Ta 的关注
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-transparent {{ active_class(if_query('tab', 'fans')) }}" href="{{ route('users.show', [$user->id, 'tab' => 'fans']) }}">
+                                Ta 的粉丝
+                            </a>
+                        </li>
                     </ul>
 
                     @if (if_query('tab', 'replies'))
                         @include('auth.users._replies', ['replies' => $user->replies()->with('article')->orderBy('id', 'desc')->paginate(5)])
+                    @elseif(if_query('tab', 'fanings'))
+                        @include('auth.users._show_follow', ['users' => $user->fanings()->paginate(5)])
+                    @elseif(if_query('tab', 'fans'))
+                        @include('auth.users._show_follow', ['users' => $user->fans()->paginate(5)])
                     @else
                         @include('auth.users._articles', ['articles' => $user->articles()->recent()->paginate(5)])
                     @endif
