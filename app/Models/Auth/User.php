@@ -173,7 +173,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * 当前登录的用户 A 是否关注了某个人（比如用户 B）
      * （判断用户 B 是否包含在用户 A 的关注人列表上）
      *
-     * @param $userId 用户 B 的 id
+     * @param $userId int 用户 B 的 id
      * @return mixed
      */
     public function isFollowing($userId)
