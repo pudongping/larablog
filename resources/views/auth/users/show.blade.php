@@ -18,6 +18,23 @@
                     <hr>
                     <h5><strong>最后活跃</strong></h5>
                     <p title="{{  $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
+                    <hr>
+
+                    <div class="aboutUserTotal">
+                        <a title="{{ $user->name }} 总共发表了 {{ $user->article_count }} 篇文章！" href="#">
+                            <strong>{{ $user->article_count }}</strong>
+                            文章
+                        </a>
+                        <a title="{{ $user->name }} 关注了 {{ count($user->fanings) }} 位用户！" href="#">
+                            <strong>{{ count($user->fanings) }}</strong>
+                            关注
+                        </a>
+                        <a title="有 {{ $user->fans()->count() }} 位粉丝关注了 {{ $user->name }} ！" href="#">
+                            <strong>{{ $user->fans()->count() }}</strong>
+                            粉丝
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
