@@ -127,4 +127,58 @@ class User extends Authenticatable implements MustVerifyEmailContract
         $this->unreadNotifications->markAsRead();
     }
 
+    /**
+     * 获取粉丝数据（用户和粉丝多对多关系）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function fans()
+    {
+        // 关联模型、关联中间表、定义此关联的模型在中间表里的外键名、另一个模型在中间表里的外键名
+        return $this->belongsToMany(User::class, 'fans', 'user_id', 'fan_id');
+    }
+
+    /**
+     * 获取用户关注了多少人 （粉丝和用户多对多关系）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function fanings()
+    {
+        return $this->belongsToMany(User::class, 'fans', 'fan_id', 'user_id');
+    }
+
+    /**
+     * 关注用户
+     *
+     * @param array $userIds
+     */
+    public function follow(array $userIds)
+    {
+        // 第一个参数为需要关注人的 id 数组，第二个参数为：是否清空之前已关注的人，默认清空，不清空的情况下也不会有重复值
+        $this->fanings()->sync($userIds, false);
+    }
+
+    /**
+     * 取消关注
+     *
+     * @param array $userIds
+     */
+    public function unfollow(array $userIds)
+    {
+        $this->fanings()->detach($userIds);
+    }
+
+    /**
+     * 当前登录的用户 A 是否关注了某个人（比如用户 B）
+     * （判断用户 B 是否包含在用户 A 的关注人列表上）
+     *
+     * @param $userId 用户 B 的 id
+     * @return mixed
+     */
+    public function isFollowing($userId)
+    {
+        return $this->fanings->contains($userId);
+    }
+
 }
