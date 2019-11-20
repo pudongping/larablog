@@ -32,7 +32,7 @@ class ReplyObserver
         // $reply->article->increment('reply_count', 1);
 
         // 查询当前评论所属文章包含有多少评论，然后赋值给 「reply_count」 字段
-        $reply->article->upadteReplyCount();
+        $reply->article->updateReplyCount();
 
         // 通知文章作者有新的评论
         // 默认的 User 模型中使用了 trait —— Notifiable，它包含着一个可以用来发通知的方法 notify()
@@ -50,7 +50,7 @@ class ReplyObserver
     public function deleted(Reply $reply)
     {
         // 当评论有删除时，更新文章评论数
-        $reply->article->upadteReplyCount();
+        $reply->article->updateReplyCount();
     }
 
 

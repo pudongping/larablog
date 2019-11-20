@@ -105,7 +105,7 @@ class Article extends Model
     /**
      * 计算文章回复总数
      */
-    public function upadteReplyCount()
+    public function updateReplyCount()
     {
         $this->reply_count = $this->replies->count();
         $this->save();
