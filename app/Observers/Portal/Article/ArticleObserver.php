@@ -43,14 +43,15 @@ class ArticleObserver
     }
 
     /**
-     * Handle the article "created" event.
+     * 模型初次创建时会触发 created 事件
      *
      * @param  \App\Article  $article
      * @return void
      */
     public function created(Article $article)
     {
-        //
+        // 重新计算当前用户发表了多少文章，并将文章总数更新到用户表 「article_count」 字段中
+        $article->user->upadteArticleCount();
     }
 
     /**
@@ -76,6 +77,10 @@ class ArticleObserver
         // 避免再次触发 Eloquent 事件，以免造成联动逻辑冲突。所以这里我们使用了 DB 类进行操作
         // deleted 方法只对 「Eloquent 模型」 有效
         \DB::table('replies')->where('article_id', $article->id)->delete();
+
+        // 重新计算当前用户发表了多少文章，并将文章总数更新到用户表 「article_count」 字段中
+        $article->user->upadteArticleCount();
+
     }
 
     /**

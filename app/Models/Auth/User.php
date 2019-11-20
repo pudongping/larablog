@@ -181,4 +181,13 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return $this->fanings->contains($userId);
     }
 
+    /**
+     * 计算用户的文章总数
+     */
+    public function upadteArticleCount()
+    {
+        $this->article_count = $this->articles->count();
+        $this->save();
+    }
+
 }
