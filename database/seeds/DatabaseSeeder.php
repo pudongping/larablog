@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // https://learnku.com/docs/laravel/6.x/eloquent/5176#mass-assignment
-        // 关闭模型插入或更新操作引发的 「mass assignment」异常 （临时取消掉批量赋值保护机制）
+        // 关闭模型插入或更新操作引发的 「mass assignment」异常 （临时取消掉批量赋值保护机制） 取消批量赋值白名单、黑名单属性校验
         Model::unguard();
 
         $this->call(UsersTableSeeder::class);
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LinksTableSeeder::class);
         $this->call(FansTableSeeder::class);
 
-        // 重新开启「mass assignment」异常抛出功能 （开启批量赋值保护机制）
+        // 重新开启「mass assignment」异常抛出功能 （开启批量赋值保护机制） 恢复校验
         Model::reguard();
     }
 }
