@@ -19,18 +19,22 @@ class SeedTagsData extends Migration
             [
                 'name'        => 'PHP',
                 'description' => 'PHP 是世界上最好的语言，没有之一',
+                'btn_class'   => 'primary',
             ],
             [
                 'name'        => 'Python',
                 'description' => '人生苦短，我用 Python',
+                'btn_class'   => 'info',
             ],
             [
                 'name'        => 'Linux',
                 'description' => '最适合程序员的操作系统',
+                'btn_class'   => 'success',
             ],
             [
                 'name'        => 'Git',
                 'description' => '世界上最好用的分布式版本控制系统',
+                'btn_class'   => 'danger',
             ],
         ];
 

@@ -88,6 +88,7 @@ class Response
     protected $categoriesRepository;
     protected $user;
     protected $linksRepository;
+    protected $tagsRepository;
 
     public function __construct()
     {
@@ -95,6 +96,7 @@ class Response
         $this->categoriesRepository = \App::make('App\Repositories\Portal\Article\CategoriesRepository');
         $this->user = \App::make('App\Models\Auth\User');
         $this->linksRepository = \App::make('App\Repositories\Admin\Setting\LinksRepository');
+        $this->tagsRepository = \App::make('App\Repositories\Portal\Article\TagsRepository');
     }
 
     /**
@@ -154,6 +156,20 @@ class Response
     }
 
     /**
+     * 门户右侧栏添加标签云
+     *
+     * @param null $tags
+     */
+    public function setTags($tags = null)
+    {
+        if (is_null($tags)) {
+            $tags = $this->tagsRepository->getAllTagsInCache();
+        }
+
+        $this->addMeta(['tags' => $tags]);
+    }
+
+    /**
      * 添加元数据
      *
      * @param array $value
@@ -184,6 +200,7 @@ class Response
         $this->setCategories();  // 文章分类
         $this->setActiveUsers();  // 活跃用户排名
         $this->setLinks();  // 资源推荐
+        $this->setTags();  // 标签云
         return $this->meta;
     }
 

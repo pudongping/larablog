@@ -50,8 +50,18 @@ class ArticlesRepository extends BaseRepository
         $input = $request->only(['title', 'category_id']);
         $input['body'] = $this->getBody($request);
         $input['user_id'] = \Auth::id();
-
-        return $this->store($input);
+        \DB::beginTransaction();
+        try {
+            // 保存文章
+            $article = $this->store($input);
+            // 同步标签
+            $article->updateTags($request->tag_id);
+            \DB::commit();
+            return $article;
+        } catch (\Exception $exception) {
+            \DB::rollBack();
+            throw new \Exception($exception->getMessage());
+        }
     }
 
     /**
@@ -116,8 +126,17 @@ class ArticlesRepository extends BaseRepository
     {
         $input = $request->only('title', 'category_id');
         $input['body'] = $this->getBody($request);
-        $data = $this->update($request->id, $input);
-        return $data;
+
+        \DB::beginTransaction();
+        try {
+            $article = $this->update($request->id, $input);
+            $article->updateTags($request->tag_id);
+            \DB::commit();
+            return $article;
+        } catch (\Exception $exception) {
+            \DB::rollBack();
+            throw new \Exception($exception->getMessage());
+        }
     }
 
     /**

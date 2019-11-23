@@ -9,19 +9,23 @@ use Illuminate\Http\Request;
 use App\Repositories\Portal\Article\ArticlesRepository;
 use App\Repositories\Portal\Article\CategoriesRepository;
 use App\Http\Requests\Portal\Article\ArticleRequest;
+use App\Repositories\Portal\Article\TagsRepository;
 
 class ArticlesController extends Controller
 {
 
     protected $articlesRepository;
     protected $categoriesRepository;
+    protected $tagsRepository;
 
     public function __construct(
         ArticlesRepository $articlesRepository,
-        CategoriesRepository $categoriesRepository
+        CategoriesRepository $categoriesRepository,
+        TagsRepository $tagsRepository
     ) {
         $this->articlesRepository = $articlesRepository;
         $this->categoriesRepository = $categoriesRepository;
+        $this->tagsRepository = $tagsRepository;
     }
 
     /**
@@ -45,7 +49,8 @@ class ArticlesController extends Controller
     public function create(Article $article)
     {
         $categories = Category::all();
-        return view('portal.article.create_and_edit', compact('article', 'categories'));
+        $tags = $this->tagsRepository->getAllTagsInCache();
+        return view('portal.article.create_and_edit', compact('article', 'categories', 'tags'));
     }
 
     /**
@@ -68,6 +73,7 @@ class ArticlesController extends Controller
      */
     public function show(Request $request, Article $article)
     {
+
         if ($request->is_markdown) {
             // 返回 markdown 文本内容
             return response(html_2_markdown($article->body), 200)->header('Content-Type', 'text/x-markdown');
@@ -117,7 +123,8 @@ class ArticlesController extends Controller
         $this->authorize('updatePolicy', $article);
 
         $categories = Category::all();
-        return view('portal.article.create_and_edit', compact('article', 'categories'));
+        $tags = $this->tagsRepository->getAllTagsInCache();
+        return view('portal.article.create_and_edit', compact('article', 'categories', 'tags'));
     }
 
     /**

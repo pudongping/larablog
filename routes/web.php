@@ -82,6 +82,8 @@ Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articl
 Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
 // 文章分类
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
+// 文章标签
+Route::get('/tags', 'Portal\Article\TagsController@index')->name('tags.index');
 
 // 右侧资源栏
 Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index');

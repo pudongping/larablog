@@ -15,9 +15,10 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->index()->unique()->comment('标签名称');
+            $table->string('name', 10)->index()->unique()->comment('标签名称');
             $table->text('description')->nullable()->comment('标签描述');
             $table->integer('article_count')->default(0)->comment('该标签下文章总数');
+            $table->enum('btn_class', ['primary', 'info', 'success', 'danger', 'secondary', 'dark'])->comment('标签样式');
             $table->integer('order')->unsigned()->default(0)->comment('排序');
             $table->timestamps();
         });

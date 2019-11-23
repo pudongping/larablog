@@ -29,9 +29,18 @@
 
             <div class="card ">
                 <div class="card-body">
+
                     <h1 class="text-center mt-3 mb-3">
                         {{ $article->title }}
                     </h1>
+
+                    <div class="text-center mb-2">
+                        @if(count($article->tags))
+                            @foreach($article->tags as $tag)
+                                <a href="#" title="{{ $tag->description }}" class="text-muted"><i class="fa fa-tags" aria-hidden="true"></i> {{$tag->name}} </a>
+                            @endforeach
+                        @endif
+                    </div>
 
                     <div class="article-meta text-center text-secondary">
                         {{ $article->created_at->diffForHumans() }}

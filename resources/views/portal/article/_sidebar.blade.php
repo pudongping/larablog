@@ -26,6 +26,22 @@
     </div>
 @endif
 
+{{-- 文章标签 --}}
+@if (count($tags))
+    <div class="card mt-4">
+        <div class="card-body pt-2">
+            <div class="text-center mt-1 mb-0 text-muted">标签</div>
+            <hr class="mt-2 mb-3">
+            @foreach ($tags as $tag)
+                <a class="btn btn-outline-{{ $tag->btn_class }}  btn-sm mr-2 mt-2" role="button" href="#">
+                    <span >{{ $tag->name }}</span>
+                </a>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+{{-- 资源推荐 --}}
 @if (count($links))
     <div class="card mt-4">
         <div class="card-body pt-2">
@@ -41,3 +57,4 @@
         </div>
     </div>
 @endif
+

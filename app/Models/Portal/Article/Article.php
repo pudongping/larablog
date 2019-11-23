@@ -111,5 +111,25 @@ class Article extends Model
         $this->save();
     }
 
+    /**
+     * 获取文章和标签的多对多关系
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tag_pivot', 'article_id', 'tag_id');
+    }
+
+    /**
+     * 更新标签 （包含新增和删除）
+     *
+     * @param array $tagIds  需要更新的标签数组
+     */
+    public function updateTags(array $tagIds)
+    {
+        $this->tags()->sync($tagIds);
+    }
+
 
 }

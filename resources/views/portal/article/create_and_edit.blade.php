@@ -1,7 +1,24 @@
 @extends('portal.layouts.app')
 
 @section('styles')
+    {{-- html 编辑器样式 --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
+    {{-- 标签多选样式 --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/multi-select.css') }}">
+    <style>
+        /* 文章标签选择 */
+        .ms-container {
+            width: auto;
+            background: #ffffff;
+        }
+        .custom-header {
+            margin-bottom: 10px;
+        }
+
+        .ms-list {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('content')
@@ -49,6 +66,16 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <select multiple="multiple" id="my-select" name="tag_id[]" class="form-control">
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}">
+                                            {{ $tag->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             {{-- 采用 markdown 文本 --}}
                             <div class="form-group" id="markdownEditor">
                                 <textarea name="markdownbody" class="form-control" id="markdownTextarea" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('body', html_2_markdown($article->body) ) }}</textarea>
@@ -62,12 +89,8 @@
 
                             <div class="well well-sm">
                                 <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i> 保存</button>
-
-                                <div class="btn-group" role="group" aria-label="">
-                                    <button type="button" class="btn btn-success" onclick="choice_editor(true)"><i class="fab fa-markdown mr-2" aria-hidden="true"></i> markdown</button>
-                                    <button type="button" class="btn btn-success" onclick="choice_editor(false)"><i class="fas fa-code mr-2" aria-hidden="true"></i> 富文本</button>
-                                </div>
-
+                                <button type="button" class="btn btn-success" onclick="choice_editor(true)"><i class="fab fa-markdown mr-2" aria-hidden="true"></i> markdown</button>
+                                <button type="button" class="btn btn-success" onclick="choice_editor(false)"><i class="fas fa-code mr-2" aria-hidden="true"></i> 富文本</button>
                             </div>
                         </form>
                 </div>
@@ -83,14 +106,22 @@
     <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('js/simplemde.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
 
     <script>
 
         $(document).ready(function() {
             markdown_editor();
             html_editor();
-        })
+        });
 
+        // 标签选择
+        $('#my-select').multiSelect({
+            selectableHeader: "<div class='custom-header'>请选择一个或多个标签</div>",
+            selectionHeader: "<div class='custom-header'>已经选择的标签</div>",
+        });
+
+        // 选择编辑器
         function choice_editor(editorCategory) {
             var markdownEditor = $('#markdownEditor');
             var htmlEditor = $('#htmlEditor');
