@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Admin\Setting\Log;
 use App\Models\Portal\Article\Reply;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,6 +47,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     // 用户默认头像
     const DEFAULT_HEADER = '/uploads/portal/img/auth/default-header.png';
+    // 管理员 id
+    const ADMIN_ID = 1;
+    // 系统管理员 id
+    const SYSADMIN_ID = 10000;
 
     /**
      * 防止用户随意修改模型数据，只有在此属性里定义的字段，才允许修改，否则更新时会被忽略
@@ -188,6 +193,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
     {
         $this->article_count = $this->articles->count();
         $this->save();
+    }
+
+    /**
+     * 用户-日志-一对多关系
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'user_id', 'id');
     }
 
 }

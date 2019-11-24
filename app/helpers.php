@@ -104,3 +104,28 @@ if (! function_exists('site_setting')) {
         return config()->get($settingName . '.' . $key, $default);
     }
 }
+
+if (! function_exists('user_log')) {
+    /**
+     * 用户操作日志
+     *
+     * @param null $msg
+     */
+    function user_log($msg = null)
+    {
+        $user = Auth::user();
+
+        if (empty($user)) {
+            $uid = \App\Models\Auth\User::SYSADMIN_ID;
+        } else {
+            $uid = $user->id;
+        }
+
+        $log = new \App\Models\Admin\Setting\Log();
+        $log->user_id = $uid;
+        $log->client_ip = request()->ip();
+        $log->header = json_encode(request()->header());
+        $log->description = $msg;
+        $log->save();
+    }
+}

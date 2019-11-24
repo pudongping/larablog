@@ -14,9 +14,9 @@
             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
             编辑资料
         </a>
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" href="{{ route('logs.index') }}">
             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-            访问日志
+            操作日志
         </a>
 
         <div class="dropdown-divider"></div>

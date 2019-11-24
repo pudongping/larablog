@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('replies', 'Portal\Article\RepliesController', ['only' => ['store', 'destroy']]);
     // 评论通知列表
     Route::get('notifications', 'Portal\Article\NotificationsController@index')->name('notifications.index');
+    // 用户操作日志
+    Route::get('logs', 'Admin\Setting\LogsController@index')->name('logs.index');
 });
 
 // 不需要登录就可以访问的文章类方法
