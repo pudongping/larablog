@@ -7,7 +7,7 @@
     </button>
 
     <!-- Topbar Search -->
-    @include('admin.layouts._ssearch')
+    {{--@include('admin.layouts._ssearch')--}}
 
     <!-- Topbar Navbar -->
     @include('admin.layouts._stopbar_navbar')

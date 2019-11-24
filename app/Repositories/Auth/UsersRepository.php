@@ -27,6 +27,25 @@ class UsersRepository extends BaseRepository
     }
 
     /**
+     * 用户列表
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function index($request)
+    {
+        $search = $request->search;
+
+        $model = $this->model->where(function ($query) use ($search) {
+            if (! empty($search)) {
+                $query->orWhere('name', 'like', '%' . $search . '%');
+            }
+        });
+
+        return $this->usePage($model, 'id', 'asc');
+    }
+
+    /**
      * 用户个人资料修改
      *
      * @param $request

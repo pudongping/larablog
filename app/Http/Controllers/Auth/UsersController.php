@@ -18,10 +18,26 @@ class UsersController extends Controller
         $this->usersRepository = $usersRepository;
     }
 
-    public function index()
+    /**
+     * 用户列表
+     *
+     * @param UserRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(UserRequest $request)
     {
-        $users = User::all();
-        dump($users);
+        $users = $this->usersRepository->index($request);
+        return view('auth.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        dd(5555);
+    }
+
+    public function destroy()
+    {
+
     }
 
     /**

@@ -102,8 +102,12 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
         Route::resource('roles', 'Admin\Authorize\RolesController');
         // 权限
         Route::resource('permissions', 'Admin\Authorize\PermissionsController');
-        // 用户
+        // 用户列表
         Route::get('users', 'Auth\UsersController@index')->name('users.index');
+        // 创建新用户
+        Route::get('/users/create', 'Auth\UsersController@create')->name('users.create');
+        // 删除用户
+        Route::delete('/users/{user}', 'Auth\UsersController@destroy')->name('users.destroy');
         // 站点设置
         Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
         Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');
