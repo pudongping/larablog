@@ -33,7 +33,7 @@
             <div class="text-center mt-1 mb-0 text-muted">标签</div>
             <hr class="mt-2 mb-3">
             @foreach ($tags as $tag)
-                <a class="btn btn-outline-{{ $tag->btn_class }}  btn-sm mr-2 mt-2" role="button" href="#">
+                <a class="btn btn-outline-{{ $tag->btn_class }}  btn-sm mr-2 mt-2" role="button" href="{{ route('tags.show', [$tag->id]) }}">
                     <span >{{ $tag->name }}</span>
                 </a>
             @endforeach

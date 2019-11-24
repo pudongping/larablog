@@ -37,7 +37,7 @@
                     <div class="text-center mb-2">
                         @if(count($article->tags))
                             @foreach($article->tags as $tag)
-                                <a href="#" title="{{ $tag->description }}" class="text-muted"><i class="fa fa-tags" aria-hidden="true"></i> {{$tag->name}} </a>
+                                <a href="{{ route('tags.show', [$tag->id]) }}" title="{{ $tag->description }}" class="text-muted"><i class="fa fa-tags" aria-hidden="true"></i> {{$tag->name}} </a>
                             @endforeach
                         @endif
                     </div>

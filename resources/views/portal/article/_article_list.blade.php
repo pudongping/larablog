@@ -27,6 +27,16 @@
                         </a>
 
                         <span> • </span>
+                        @if(count($article->tags))
+                            @foreach($article->tags as $tag)
+                                <a href="{{ route('tags.show', [$tag->id]) }}" title="{{ $tag->description }}" class="text-muted">
+                                    <i class="fa fa-tags" aria-hidden="true"></i>
+                                    {{$tag->name}}
+                                </a>
+                            @endforeach
+                        @endif
+
+                        <span> • </span>
                         <a class="text-secondary" href="{{ route('users.show', [$article->user_id]) }}" title="{{ $article->user->name }}">
                             <i class="far fa-user"></i>
                             {{ $article->user->name }}

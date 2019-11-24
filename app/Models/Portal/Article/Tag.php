@@ -33,4 +33,14 @@ class Tag extends Model
         return $this->cacheExpireInSeconds;
     }
 
+    /**
+     * 获取标签和文章的多对多关系
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, 'article_tag_pivot', 'tag_id', 'article_id')->withTimestamps();
+    }
+
 }

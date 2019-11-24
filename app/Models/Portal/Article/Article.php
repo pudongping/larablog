@@ -66,7 +66,7 @@ class Article extends Model
         }
 
         // 预加载防止 N+1 问题
-        return $query->with('category', 'user');
+        return $query->with('category', 'tags', 'user');
     }
 
     /**
@@ -77,7 +77,7 @@ class Article extends Model
      */
     public function scopeRecentReplied($query)
     {
-        return $query->orderBy('updated_at', 'desc');
+        return $query->orderBy('articles.updated_at', 'desc');
     }
 
     /**
@@ -88,7 +88,7 @@ class Article extends Model
      */
     public function scopeRecent($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('articles.created_at', 'desc');
     }
 
     /**
@@ -118,7 +118,7 @@ class Article extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'article_tag_pivot', 'article_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'article_tag_pivot', 'article_id', 'tag_id')->withTimestamps();
     }
 
     /**

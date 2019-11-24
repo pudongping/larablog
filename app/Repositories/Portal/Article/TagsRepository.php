@@ -35,4 +35,15 @@ class TagsRepository extends BaseRepository
         });
     }
 
+    /**
+     * 根据标签查询文章
+     *
+     * @param $tag  object  标签实例
+     * @return mixed
+     */
+    public function show($tag)
+    {
+        return $tag->articles()->withOrder(request()->order)->paginate(\ConstCustom::PAGE_NUM);
+    }
+
 }
