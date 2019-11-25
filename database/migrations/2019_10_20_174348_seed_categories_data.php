@@ -23,8 +23,16 @@ class SeedCategoriesData extends Migration
                 'description' => '开发技巧、推荐扩展包等',
             ],
             [
-                'name'        => '问答',
+                'name'        => 'FAQ',
                 'description' => '请保持友善，互帮互助',
+            ],
+            [
+                'name'        => 'Wiki',
+                'description' => 'Stay hungry, stay foolish',
+            ],
+            [
+                'name'        => '生活',
+                'description' => '触摸生活，感悟人生，洗涤心灵',
             ],
             [
                 'name'        => '公告',
