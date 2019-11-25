@@ -3,7 +3,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -17,9 +17,9 @@
     <!-- Nav Item - Dashboard -->
     {{-- 导航项目 - 仪表盘 --}}
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>仪表盘</span>
         </a>
     </li>
 

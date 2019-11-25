@@ -94,8 +94,8 @@ Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index')
 Route::group(['middleware' => ['auth', 'is_manager']], function() {
     // 后台管理
     Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
-    // 后台菜单列表
-    Route::get('menus', 'Admin\Menu\MenusController@index')->name('menus.index');
+    // 后台菜单
+    Route::resource('menus', 'Admin\Menu\MenusController', ['except' => ['show']]);
 
     Route::group(['middleware' => ['is_admin']], function() {
         // 角色

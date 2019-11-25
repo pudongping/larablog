@@ -28,6 +28,7 @@
                     @include('portal.article._article_list', ['articles' => $articles])
                     {{-- 分页 --}}
                     <div class="mt-5">
+                        {{-- 因为分页会自动追加 page 参数，因此需要先去除掉 page 参数，然后将其他的参数追加到 url 中 --}}
                         {!! $articles->appends(Request::except('page'))->render() !!}
                     </div>
                 </div>

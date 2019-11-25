@@ -16,15 +16,42 @@ class MenusController extends Controller
         $this->menusRepository = $menusRepository;
     }
 
-    public function index()
+    /**
+     * 菜单列表
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $data = $this->menusRepository->getList($request);
+        return view('admin.menu.index', $data);
+    }
+
+    public function create()
     {
 
     }
 
-    public function menusTree()
+    public function store()
     {
-        $data = $this->menusRepository->menusTree();
-        return $data;
+
     }
+
+    public function edit()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy()
+    {
+
+    }
+
 
 }
