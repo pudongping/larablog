@@ -90,16 +90,23 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <form action="{{ route('menus.destroy', $menu['id']) }}"
-                                      onsubmit="return confirm('确定要删除此菜单吗？');"
-                                      method="post">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </form>
-
+                                <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#del{{$menu['id']}}">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                                @component('shared._alert', ['modalId' => 'del' . $menu['id']])
+                                    @slot('modalTitle')
+                                        确定要删除此菜单吗？
+                                    @endslot
+                                    @slot('modalBody')
+                                        如果不想删除，请点击取消！
+                                    @endslot
+                                    <form action="{{ route('menus.destroy', $menu['id']) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button class="btn btn-danger" type="submit" name="button">删除</button>
+                                    </form>
+                                @endcomponent
+                                
                             </td>
                         </tr>
                     @endforeach
