@@ -34,6 +34,10 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
+                    {{-- 加载消息提示弹框 --}}
+                    @include('shared._messages')
+
                     {{-- 此处填充内容 --}}
                     @yield('content')
                 </div>

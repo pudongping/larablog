@@ -135,4 +135,94 @@ class MenusRepository extends BaseRepository
         return $comparing;
     }
 
+    /**
+     * 获取顶级菜单列表
+     *
+     * @return mixed
+     */
+    public function topLevelMenu()
+    {
+        $result = [];
+        $data = $this->model->where('pid', 0)->get()->toArray();
+        foreach ($data as $item) {
+            $result[$item['id']] = $item;
+        }
+        return $result;
+    }
+
+    /**
+     * 新增菜单-数据处理
+     *
+     * @param $request  请求实例
+     * @return mixed
+     */
+    public function storage($request)
+    {
+        $input = $request->only(['pid', 'name', 'link', 'auth', 'icon', 'description', 'sort']);
+        $input = $this->formatParams($input);
+        $menu = $this->store($input);
+        return $menu;
+    }
+
+    /**
+     * 修改菜单-数据处理
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function modify($request)
+    {
+        $input = $request->only(['pid', 'name', 'link', 'auth', 'icon', 'description', 'sort', 'id']);
+        $input = $this->formatParams($input);
+        if (isset($request->pid)) {
+            // 如果传参的父级 id 和自身 id 一样，那么强制纠正父级 id
+            if (intval($request->pid) == intval($request->id)) {
+                $input['pid'] = $this->getSingleRecord($request->id)->pid;
+            }
+        }
+        $menu = $this->update($request->id, $input);
+        return $menu;
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param $menu
+     * @return array
+     */
+    public function destroy($menu)
+    {
+        $hasChild = $this->model->where('pid', $menu->id)->count();
+        if ($hasChild) {
+            return ['danger' => '存在子级菜单，不允许删除！'];
+        }
+
+        $menu->delete();
+        return ['success' => '菜单 「' . $menu->name . '」 删除成功！'];
+    }
+
+    /**
+     * 格式化参数
+     *
+     * @param array $data
+     * @return array
+     */
+    private function formatParams(array $data) : array
+    {
+        $result = [];
+        foreach ($data as $k => $v) {
+            switch ($k) {
+                case 'pid':
+                case 'sort':
+                    $result[$k] = $data[$k] ?? false ? intval($data[$k]) : 0;
+                    break;
+                default:
+                    $result[$k] = $data[$k] ?? false ? trim($data[$k]) : '';
+                    break;
+            }
+        }
+
+        return $result;
+    }
+
 }

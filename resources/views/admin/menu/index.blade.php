@@ -4,13 +4,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">
-        <i class="fa fa-map-o" aria-hidden="true"></i> 菜单
+        <i class="fa fa-bars" aria-hidden="true"></i> 菜单
     </h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4" >
-
-        @include('shared._messages')
 
         <div class="card-header py-3">
 
@@ -106,7 +104,7 @@
                                         <button class="btn btn-danger" type="submit" name="button">删除</button>
                                     </form>
                                 @endcomponent
-                                
+
                             </td>
                         </tr>
                     @endforeach
