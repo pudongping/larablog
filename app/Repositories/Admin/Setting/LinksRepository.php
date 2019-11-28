@@ -35,4 +35,53 @@ class LinksRepository extends BaseRepository
         });
     }
 
+    /**
+     * 带搜索功能的资源推荐列表
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function index($request)
+    {
+
+        $search = $request->search;
+
+        $model = $this->model->where(function ($query) use ($search) {
+            if (! empty($search)) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('link', 'like', '%' . $search . '%');
+            }
+        });
+
+        $links = $this->usePage($model);
+
+        return $links;
+    }
+
+    /**
+     * 添加资源推荐-数据处理
+     *
+     * @param $request  当前请求实例
+     * @return mixed
+     */
+    public function storage($request)
+    {
+        $input = $request->only(['title', 'link']);
+        $link = $this->store($input);
+        return $link;
+    }
+
+    /**
+     * 编辑资源推荐-数据处理
+     *
+     * @param $request  当前请求实例
+     * @return mixed
+     */
+    public function modify($request)
+    {
+        $input = $request->only(['title', 'link']);
+        $link = $this->update($request->id, $input);
+        return $link;
+    }
+
 }

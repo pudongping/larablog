@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">网站地址</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" name="founder_website" value="{{ old('founder_website', $site['founder_website'] ) }}" placeholder="请填写网站地址" />
+                                <input class="form-control" type="text" name="founder_website" value="{{ old('founder_website', $site['founder_website'] ) }}" placeholder="请填写完整的链接地址，需加上 http:// 或 https://" />
                             </div>
                         </div>
 

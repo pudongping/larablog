@@ -12,4 +12,10 @@ class LinkObserver
         \Cache::forget($link->cacheKey);
     }
 
+    public function deleted(Link $link)
+    {
+        // 在资源链接删除的时候情况 links 相关的缓存
+        \Cache::forget($link->cacheKey);
+    }
+
 }

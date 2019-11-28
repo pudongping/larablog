@@ -87,15 +87,14 @@ Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')
 // 文章标签
 Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show');
 
-// 右侧资源栏
-Route::get('/links', 'Admin\Setting\LinksController@index')->name('links.index');
-
 // 「后台管理相关路由」
 Route::group(['middleware' => ['auth', 'is_manager']], function() {
     // 后台管理
     Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
     // 后台菜单
     Route::resource('menus', 'Admin\Menu\MenusController', ['except' => ['show']]);
+    // 资源推荐
+    Route::resource('links', 'Admin\Setting\LinksController', ['except' => ['show']]);
 
     Route::group(['middleware' => ['is_admin']], function() {
         // 角色
