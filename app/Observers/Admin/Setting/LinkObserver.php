@@ -14,7 +14,7 @@ class LinkObserver
 
     public function deleted(Link $link)
     {
-        // 在资源链接删除的时候情况 links 相关的缓存
+        // 在资源链接删除的时候清空 links 相关的缓存
         \Cache::forget($link->cacheKey);
     }
 

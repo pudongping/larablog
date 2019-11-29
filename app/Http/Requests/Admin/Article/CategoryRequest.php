@@ -40,8 +40,8 @@ class CategoryRequest extends Request
     public function messages()
     {
         $messages = [
-            'title.required'       => '分类名称不能为空。',
-            'title.between'        => '分类名称必须介于 1 - 6 个字符之间。',
+            'name.required'        => '分类名称不能为空。',
+            'name.between'         => '分类名称必须介于 1 - 6 个字符之间。',
             'description.required' => '分类描述不能为空。',
             'description.between'  => '分类描述必须介于 1 - 15 个字符之间。',
         ];

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'btn_class', 'order'];
 
     /**
      * 缓存名称
@@ -22,6 +22,13 @@ class Tag extends Model
      * @var float|int 秒数
      */
     protected $cacheExpireInSeconds = 1440 * 60;
+
+    /**
+     * 标签颜色样式枚举
+     *
+     * @var array
+     */
+    public static $allowedBtnClass = ['primary', 'info', 'success', 'danger', 'secondary', 'dark'];
 
     /**
      * 获取 links 的缓存过期时间

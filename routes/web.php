@@ -83,9 +83,9 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articles.index');
 Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
 // 文章分类
-Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show')->where('category', '[0-9]+');;
+Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show')->where('category', '[0-9]+');
 // 文章标签
-Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show');
+Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show')->where('tag', '[0-9]+');
 
 // 「后台管理相关路由」
 Route::group(['middleware' => ['auth', 'is_manager']], function() {
@@ -97,6 +97,8 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
     Route::resource('links', 'Admin\Setting\LinksController', ['except' => ['show']]);
     // 分类
     Route::resource('categories', 'Admin\Article\CategoriesController', ['except' => ['show']]);
+    // 标签
+    Route::resource('tags', 'Admin\Article\TagsController', ['except' => ['show']]);
 
 
     Route::group(['middleware' => ['is_admin']], function() {
