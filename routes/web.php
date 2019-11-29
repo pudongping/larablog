@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/articles', 'Portal\Article\ArticlesController@index')->name('articles.index');
 Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@show')->name('articles.show');
 // 文章分类
-Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show');
+Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show')->where('category', '[0-9]+');;
 // 文章标签
 Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show');
 
@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
     Route::resource('menus', 'Admin\Menu\MenusController', ['except' => ['show']]);
     // 资源推荐
     Route::resource('links', 'Admin\Setting\LinksController', ['except' => ['show']]);
+    // 分类
+    Route::resource('categories', 'Admin\Article\CategoriesController', ['except' => ['show']]);
+
 
     Route::group(['middleware' => ['is_admin']], function() {
         // 角色
