@@ -56,7 +56,10 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // 向门户指定视图传递通用变量
-        if (\Schema::hasTable('categories') && \Schema::hasTable('users') && \Schema::hasTable('links')) {
+        if (\Schema::hasTable('categories') &&
+            \Schema::hasTable('users') &&
+            \Schema::hasTable('links') &&
+            \Schema::hasTable('tags')) {
             $portalInitParams = app(Response::class)->getPortalMeta();
             view()->composer('portal.*', function ($vp) use ($portalInitParams) {
                 $vp->with($portalInitParams);
