@@ -28,7 +28,7 @@
 
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link bg-transparent {{ active_class(if_query('tab', null)) }}" href="{{ route('users.show', $user->id) }}">
+                            <a class="nav-link bg-transparent {{ active_class(if_query('tab', null) || if_query('tab', 'articles')) }}" href="{{ route('users.show', [$user->id, 'tab' => 'articles']) }}">
                                 Ta 的文章
                             </a>
                         </li>

@@ -21,5 +21,5 @@
 
 {{-- 分页 --}}
 <div class="mt-4 pt-1">
-    {!! $articles->render() !!}
+    {!! $articles->appends(Request::except('page'))->render() !!}
 </div>

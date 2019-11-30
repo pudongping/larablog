@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RepliesTableSeeder::class);
         $this->call(LinksTableSeeder::class);
         $this->call(FansTableSeeder::class);
+        $this->call(ArticleTagPivotTableSeeder::class);
 
         // 重新开启「mass assignment」异常抛出功能 （开启批量赋值保护机制） 恢复校验
         Model::reguard();
