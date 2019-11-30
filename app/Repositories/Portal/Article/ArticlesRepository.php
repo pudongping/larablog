@@ -11,6 +11,8 @@ namespace App\Repositories\Portal\Article;
 use App\Handlers\ImageUploadHandler;
 use App\Repositories\BaseRepository;
 use App\Models\Portal\Article\Article;
+use App\Models\Portal\Article\Category;
+use App\Models\Portal\Article\Tag;
 
 class ArticlesRepository extends BaseRepository
 {
@@ -160,6 +162,57 @@ class ArticlesRepository extends BaseRepository
         }
 
         return $html;
+    }
+
+    /**
+     * 后台管理-文章列表
+     *
+     * @param $request
+     * @return array
+     */
+    public function adminIndex($request)
+    {
+        $search = $request->search;  // 关键词
+        $categoryId = $request->category_id;  // 分类 id
+        $tagId = $request->tag_id;  // 标签 id
+
+        $where = [];
+        $tbl = 'articles';
+        $userTbl = 'users';
+
+        if (! is_null($categoryId)) {
+            $where[] = ['category_id', '=', $categoryId];
+        }
+
+        $fields = ["{$tbl}.*"];
+
+        $model = $this->model->select($fields)->with('category', 'user', 'tags')->where($where);
+
+        if (! is_null($tagId)) {
+            // 先取出关联表中符合标签的所有文章 id 数组
+            $articleIds = \DB::table('article_tag_pivot')->where('tag_id', $tagId)->get()->pluck('article_id')->toArray();
+            $model = $model->whereIn("{$tbl}.id", array_unique($articleIds));
+        }
+
+        if (! empty($search)) {
+            $model = $model->leftJoin("{$userTbl} as U", "{$tbl}.user_id", '=', 'U.id')
+                ->where(function ($query) use ($search, $tbl) {
+                    $query->orWhere("{$tbl}.title", 'like', '%' . $search . '%');  // 文章标题
+                    $query->orWhere("{$tbl}.excerpt", 'like', '%' . $search . '%');  // 文章摘要
+                    $query->orWhere('U.name', 'like', '%' . $search . '%');  // 用户昵称
+                });
+        }
+
+//        if (false !== ($between = $this->searchTime($request))) {
+//            $model = $model->whereBetween("{$tbl}.created_at", $between);
+//        }
+
+        $articles = $this->usePage($model, "{$tbl}.id");
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return compact('articles', 'categories', 'tags');
+
     }
 
 

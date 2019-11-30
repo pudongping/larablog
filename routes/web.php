@@ -113,9 +113,9 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
         Route::resource('permissions', 'Admin\Authorize\PermissionsController');
         // 用户列表
         Route::get('users', 'Auth\UsersController@index')->name('users.index');
-        // 创建新用户
+        // 创建新用户-页面渲染
         Route::get('/users/create', 'Auth\UsersController@create')->name('users.create');
-        // 创建新用户数据处理
+        // 创建新用户-数据处理
         Route::post('users', 'Auth\UsersController@store')->name('users.store');
         // 编辑用户-页面渲染
         Route::get('/users/{user}/admin_edit', 'Auth\UsersController@adminEdit')->name('users.admin_edit');
@@ -123,6 +123,10 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
         Route::patch('/users/{user}/admin_update', 'Auth\UsersController@adminUpdate')->name('users.admin_update');
         // 删除用户
         Route::delete('/users/{user}', 'Auth\UsersController@destroy')->name('users.destroy');
+        // 后台文章管理
+        Route::get('admin_articles', 'Admin\Article\ArticlesController@adminIndex')->name('articles.admin_index');
+        Route::get('/admin_articles/{article}/admin_edit', 'Admin\Article\ArticlesController@adminEdit')->name('articles.admin_edit');
+        Route::delete('/admin_articles/{article}', 'Admin\Article\ArticlesController@adminDestroy')->name('articles.admin_destroy');
         // 站点设置
         Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
         Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');

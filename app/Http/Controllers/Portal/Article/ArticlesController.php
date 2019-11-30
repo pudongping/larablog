@@ -136,8 +136,12 @@ class ArticlesController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        // 提交修改授权策略
-        $this->authorize('updatePolicy', $article);
+        // 如果是从后台页面返回出的编辑页面，则跳过验证
+        if (! session('adminEdit')) {
+            // 提交修改授权策略
+            $this->authorize('updatePolicy', $article);
+        }
+        $request->session()->forget('adminEdit');
 
         $article = $this->articlesRepository->modify($request);
         return redirect()->to($article->link())->with('success', '更新成功！');

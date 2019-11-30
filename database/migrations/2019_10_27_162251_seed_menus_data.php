@@ -41,7 +41,7 @@ class SeedMenusData extends Migration
         $menu6 = [
             ['pid' => $id5, 'name' => '分类', 'link' => 'categories.index'],
             ['pid' => $id5, 'name' => '标签', 'link' => 'tags.index'],
-            ['pid' => $id5, 'name' => '文章', 'link' => 'articles.index'],
+            ['pid' => $id5, 'name' => '文章', 'link' => 'articles.admin_index'],
         ];
         $m6    = \DB::table('menus')->insert($menu6);
 

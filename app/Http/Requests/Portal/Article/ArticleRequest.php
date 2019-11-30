@@ -26,9 +26,9 @@ class ArticleRequest extends Request
     {
         $rules = [
             'store' => [
-                'title'       => 'required|min:2',
-                'category_id' => 'required|numeric',
-                'tag_id' => [
+                'title'        => 'required|min:2',
+                'category_id'  => 'required|numeric',
+                'tag_id'       => [
                     'required',
                     'array',
                     function ($attribute, $value, $fail) {
@@ -46,15 +46,15 @@ class ArticleRequest extends Request
                 'markdownbody' => Rule::requiredIf(function () {
                     return boolval($this->input('is_markdown'));
                 }),
-                'htmlbody' => Rule::requiredIf(function () {
+                'htmlbody'     => Rule::requiredIf(function () {
                     return !boolval($this->input('is_markdown'));
                 }),
             ],
             'update' => [
-                'id'       => 'required|min:1',
-                'title'       => 'required|min:2',
-                'category_id' => 'required|numeric',
-                'tag_id' => [
+                'id'           => 'required|min:1',
+                'title'        => 'required|min:2',
+                'category_id'  => 'required|numeric',
+                'tag_id'       => [
                     'required',
                     'array',
                     function ($attribute, $value, $fail) {
@@ -69,10 +69,10 @@ class ArticleRequest extends Request
                         }
                     },
                 ],
-                'markdownbody' => Rule::requiredIf(function () {
+                'markdownbody'  => Rule::requiredIf(function () {
                     return boolval($this->input('is_markdown'));
                 }),
-                'htmlbody' => Rule::requiredIf(function () {
+                'htmlbody'      => Rule::requiredIf(function () {
                     return !boolval($this->input('is_markdown'));
                 }),
             ],
@@ -84,16 +84,16 @@ class ArticleRequest extends Request
     public function messages()
     {
         $messages = [
-            'title.required' => '标题不能为空',
-            'title.min' => '标题必须至少两个字符',
-            'category_id.required' => '标题必须至少两个字符',
-            'category_id.numeric' => '分类必须为数字',
-            'tag_id.required' => '标签不能为空',
-            'tag_id.array' => '标签必须为数组',
-            'id.required' => '编辑文章时，文章 id 不能为空',
-            'id.min' => '编辑文章时，文章 id 不能小于 1',
+            'title.required'        => '标题不能为空',
+            'title.min'             => '标题必须至少两个字符',
+            'category_id.required'  => '标题必须至少两个字符',
+            'category_id.numeric'   => '分类必须为数字',
+            'tag_id.required'       => '标签不能为空',
+            'tag_id.array'          => '标签必须为数组',
+            'id.required'           => '编辑文章时，文章 id 不能为空',
+            'id.min'                => '编辑文章时，文章 id 不能小于 1',
             'markdownbody.required' => '文章内容不能为空',
-            'htmlbody.required' => '文章内容不能为空',
+            'htmlbody.required'     => '文章内容不能为空',
         ];
 
         $messages = array_merge(parent::messages(), $messages);
