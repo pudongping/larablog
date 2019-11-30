@@ -25,28 +25,28 @@
 
                     @if (count($logs))
 
-                        <table class="table table-condensed">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>访问 IP</th>
-                                <th>设备来源</th>
-                                <th>描述信息</th>
-                                <th>操作时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($logs as $log)
-                            <tr>
-                                <td>{{ $log->id }}</td>
-                                <td>{{ $log->client_ip }}</td>
-                                <td>{{ Arr::first(json_decode($log->header, true)['user-agent']) }}</td>
-                                <td>{!! $log->description !!}</td>
-                                <td>{{ $log->created_at }}</td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>访问 IP</th>
+                                    <th>设备来源</th>
+                                    <th>描述信息</th>
+                                    <th>操作时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($logs as $log)
+                                <tr>
+                                    <td>{{ $log->client_ip }}</td>
+                                    <td>{{ Arr::first(json_decode($log->header, true)['user-agent']) }}</td>
+                                    <td>{!! $log->description !!}</td>
+                                    <td>{{ $log->created_at }}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
                     @else
                         <div class="empty-block" style="margin-top: 20px">暂无数据 ~_~ </div>

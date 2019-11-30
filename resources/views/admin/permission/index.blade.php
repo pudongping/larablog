@@ -10,8 +10,6 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
 
-        @include('shared._messages')
-
         <div class="card-header py-3">
 
             <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-icon-split">
@@ -60,15 +58,22 @@
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <form action="{{ route('permissions.destroy', $permission['id']) }}"
-                                  onsubmit="return confirm('确定要删除此权限？');"
-                                  method="post">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </form>
+                            <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#del{{$permission['id']}}">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            @component('shared._alert', ['modalId' => 'del' . $permission['id']])
+                                @slot('modalTitle')
+                                    删除权限
+                                @endslot
+                                @slot('modalBody')
+                                    确定删除 「 {{ $permission['name'] }} 」吗？
+                                @endslot
+                                <form action="{{ route('permissions.destroy', $permission['id']) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-danger" type="submit" name="button">删除</button>
+                                </form>
+                            @endcomponent
 
                         </td>
                     </tr>

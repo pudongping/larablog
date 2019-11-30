@@ -93,10 +93,10 @@
                                 </button>
                                 @component('shared._alert', ['modalId' => 'del' . $menu['id']])
                                     @slot('modalTitle')
-                                        确定要删除此菜单吗？
+                                        删除菜单
                                     @endslot
                                     @slot('modalBody')
-                                        如果不想删除，请点击取消！
+                                        确定删除 「 {{ $menu['name'] }} 」吗？
                                     @endslot
                                     <form action="{{ route('menus.destroy', $menu['id']) }}" method="POST">
                                         {{ csrf_field() }}

@@ -55,7 +55,7 @@ Route::post('email/resend', 'Auth\VerificationController@resend')->name('verific
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
 // 『用户相关路由』
-Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show');  // 显示用户个人信息页面
+Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show')->where('user', '[0-9]+');  // 显示用户个人信息页面
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -110,6 +110,12 @@ Route::group(['middleware' => ['auth', 'is_manager']], function() {
         Route::get('users', 'Auth\UsersController@index')->name('users.index');
         // 创建新用户
         Route::get('/users/create', 'Auth\UsersController@create')->name('users.create');
+        // 创建新用户数据处理
+        Route::post('users', 'Auth\UsersController@store')->name('users.store');
+        // 编辑用户-页面渲染
+        Route::get('/users/{user}/admin_edit', 'Auth\UsersController@adminEdit')->name('users.admin_edit');
+        // 编辑用户-数据处理
+        Route::patch('/users/{user}/admin_update', 'Auth\UsersController@adminUpdate')->name('users.admin_update');
         // 删除用户
         Route::delete('/users/{user}', 'Auth\UsersController@destroy')->name('users.destroy');
         // 站点设置

@@ -10,8 +10,6 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
 
-        @include('shared._messages')
-
         <div class="card-header py-3">
 
             <a href="{{ route('roles.create') }}" class="btn btn-primary btn-icon-split">
@@ -65,15 +63,22 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                <form action="{{ route('roles.destroy', $role->id) }}"
-                                      onsubmit="return confirm('确定要删除此角色？');"
-                                      method="post">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#del{{$role->id}}">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                                @component('shared._alert', ['modalId' => 'del' . $role->id])
+                                    @slot('modalTitle')
+                                        删除角色
+                                    @endslot
+                                    @slot('modalBody')
+                                        确定删除 「 {{ $role->name }} 」吗？
+                                    @endslot
+                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button class="btn btn-danger" type="submit" name="button">删除</button>
+                                    </form>
+                                @endcomponent
 
                             </td>
                         </tr>
