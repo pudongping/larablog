@@ -36,4 +36,11 @@ return [
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
 
+    // Github 授权登录 「Client ID」 和 「Client Secret」
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),  // Github 客户端授权 ID
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),  // Github 客户端授权密钥
+        'redirect' => '/login/github/callback',  // 授权回调链接 如果 redirect 配置项包含的是相对路径，系统会自动将其转化为完整 URL
+    ],
+
 ];

@@ -56,13 +56,19 @@
 
                   <hr>
 
-                  {{--<a href="index.html" class="btn btn-google btn-user btn-block">--}}
-                    {{--<i class="fab fa-google fa-fw"></i> Login with Google--}}
-                  {{--</a>--}}
+                  {{-- 存在 GitHub 相关配置之后才允许显示 --}}
+                  @if(config('services.github.client_id'))
+                    <a href="{{ url('/login/github') }}" class="btn btn-google btn-user btn-block">
+                      <i class="fab fa-github fa-fw"></i> 使用 Github 登录
+                    </a>
+                  @endif
 
-                  {{--<a href="index.html" class="btn btn-facebook btn-user btn-block">--}}
-                    {{--<i class="fab fa-facebook-f fa-fw"></i> Login with Facebook--}}
-                  {{--</a>--}}
+                  {{-- 存在 Facebook 相关配置之后才允许显示 --}}
+                  {{--@if(config('services.facebook.client_id'))--}}
+                    {{--<a href="{{ url('/login/facebook') }}" class="btn btn-facebook btn-user btn-block">--}}
+                      {{--<i class="fab fa-facebook-f fa-fw"></i> 使用 Facebook 登录--}}
+                    {{--</a>--}}
+                  {{--@endif--}}
 
                 </form>
 

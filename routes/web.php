@@ -57,6 +57,11 @@ Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->na
 // 『用户相关路由』
 Route::get('/users/{user}', 'Auth\UsersController@show')->name('users.show')->where('user', '[0-9]+');  // 显示用户个人信息页面
 
+// 『授权登录相关路由，如：Github』
+Route::group(['middleware' => ['guest']], function(){
+    Route::get('login/{social}', 'Auth\AuthenticationController@getSocialRedirect');  // 重定向用户到 OAuth 提供者
+    Route::get('login/{social}/callback', 'Auth\AuthenticationController@getSocialCallback');  // 认证后获取来自提供者的回调
+});
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', 'Auth\UsersController', ['only' => ['update', 'edit']]);

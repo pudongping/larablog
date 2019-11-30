@@ -16,6 +16,8 @@
 <body class="bg-gradient-primary">
 
   <div class="container">
+    {{-- 提示信息 --}}
+    @include('shared._messages')
     {{-- 此处填充内容 --}}
     @yield('content')
   </div>

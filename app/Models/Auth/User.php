@@ -80,6 +80,13 @@ class User extends Authenticatable implements MustVerifyEmailContract
     ];
 
     /**
+     * 允许的 OAuth 服务提供方
+     *
+     * @var array
+     */
+    public static $allowedProviders = ['github'];
+
+    /**
      * 获取用户的头像路径
      *
      * @param $value  string  用户头像相对路径
