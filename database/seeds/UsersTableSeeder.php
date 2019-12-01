@@ -64,7 +64,7 @@ class UsersTableSeeder extends Seeder
         $user->assignRole('Maintainer');
 
         $user->name = 'dongping';
-        $user->email = '276558492@qq.com';
+        $user->email = 'iloveyou@qq.com';
         $user->save();
 
     }

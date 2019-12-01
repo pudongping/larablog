@@ -180,6 +180,8 @@ return [
 
         Mews\Captcha\CaptchaServiceProvider::class,
 
+        App\Providers\ViewGlobalVariableServiceProvider::class,
+
     ],
 
     /*
