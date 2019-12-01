@@ -33,7 +33,7 @@ class MaintainerMiddleware
             // 当前用户所有的权限 id
             $crtUserPmiIds = \Auth::user()->getAllPermissions()->pluck('id')->toArray();
             // 比较当前用户是否含有所有 「管理员」 的权限 id，如果含有所有，则证明当前用户具有 「管理员权限」
-            // 可能用户所属角色有操作权限，但是可能用户并没有设置相应的权限，比如，当前用户为 「站长」 角色，理当拥有所有权限
+            // 可能用户所属角色有操作权限，但是可能用户并没有设置相应的角色，比如，当前用户为 「站长」 角色，理当拥有所有权限
             // 但是此时用户只拥有一个 「站长」 角色，并没有拥有 「管理员」 角色，因此索性直接通过 「权限」来判断，因为角色依赖于权限
             $result = array_diff($permissions, $crtUserPmiIds);
 

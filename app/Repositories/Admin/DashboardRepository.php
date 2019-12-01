@@ -46,12 +46,13 @@ class DashboardRepository extends BaseRepository
     public function totalCount()
     {
         $userTotal = User::all()->count() ? number_format(User::all()->count()) : 0;
-        $articleTotal = Article::all()->count() ? number_format(Article::all()->count()) : 0;
+        $articlesAll = Article::all()->count();
+        $articleTotal = $articlesAll ? number_format($articlesAll) : 0;
         $replyTotal = Reply::all()->count() ? number_format(Reply::all()->count()) : 0;
 
         // 查询出有评论的文章总数
         $articleReplyCount = Reply::select(\DB::raw('count(DISTINCT article_id) as article_reply_count'))->first()->article_reply_count;
-        $replyPer = $articleTotal ? ceil(($articleReplyCount / $articleTotal) * 100) : 0;  // 计算文章回复率 = 有评论文章总数 / 文章总数
+        $replyPer = $articleTotal ? ceil(($articleReplyCount / $articlesAll) * 100) : 0;  // 计算文章回复率 = 有评论文章总数 / 文章总数
 
         return compact('userTotal', 'articleTotal', 'replyPer', 'replyTotal');
     }

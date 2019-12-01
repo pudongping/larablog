@@ -117,6 +117,8 @@ class Kernel extends HttpKernel
         'is_admin' => \App\Http\Middleware\FounderMiddleware::class,
         // 判断当前用户是否有 「管理员」 权限
         'is_manager' => \App\Http\Middleware\MaintainerMiddleware::class,
+        // 当后台管理菜单设置权限之后判断是否有访问权限
+        'check_admin_menus' => \App\Http\Middleware\CheckAdminMenusMiddleware::class,
     ];
 
     /**

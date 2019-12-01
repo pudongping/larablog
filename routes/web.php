@@ -93,7 +93,7 @@ Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')
 Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show')->where('tag', '[0-9]+');
 
 // 「后台管理相关路由」
-Route::group(['middleware' => ['auth', 'is_manager']], function() {
+Route::group(['middleware' => ['auth', 'is_manager', 'check_admin_menus']], function() {
     // 后台管理
     Route::get('admin', 'Admin\DashboardController@root')->name('dashboard');
     // 后台菜单

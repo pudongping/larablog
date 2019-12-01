@@ -30,22 +30,26 @@
     <!-- Nav Item - Pages Collapse Menu -->
     {{-- 左侧折叠导航栏 --}}
     @foreach($menusTree as $menu)
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo{{ $menu['id'] }}" aria-expanded="true" aria-controls="collapseTwo{{ $menu['id'] }}">
-            <i class="{{ $menu['icon'] }}"></i>
-            <span>{{ $menu['name'] }}</span>
-        </a>
-        <div id="collapseTwo{{ $menu['id'] }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">{{ $menu['description'] }}</h6>
-                @isset($menu['children'])
-                    @foreach($menu['children'] as $child)
-                        <a class="collapse-item" href="{{ $child['link'] ? route($child['link']) : '' }}">{{ $child['name'] }}</a>
-                    @endforeach
-                @endisset
-            </div>
-        </div>
-    </li>
+        @if($menu['auth'] ? \Auth::user()->hasPermissionTo($menu['auth']) : true)
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo{{ $menu['id'] }}" aria-expanded="true" aria-controls="collapseTwo{{ $menu['id'] }}">
+                    <i class="{{ $menu['icon'] }}"></i>
+                    <span>{{ $menu['name'] }}</span>
+                </a>
+                <div id="collapseTwo{{ $menu['id'] }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">{{ $menu['description'] }}</h6>
+                        @isset($menu['children'])
+                            @foreach($menu['children'] as $child)
+                                @if($child['auth'] ? \Auth::user()->hasPermissionTo($child['auth']) : true)
+                                    <a class="collapse-item" href="{{ $child['link'] ? route($child['link']) : '' }}">{{ $child['name'] }}</a>
+                                @endif
+                            @endforeach
+                        @endisset
+                    </div>
+                </div>
+            </li>
+        @endif
     @endforeach
 
 

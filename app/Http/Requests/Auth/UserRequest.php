@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends Request
 {
@@ -36,7 +37,12 @@ class UserRequest extends Request
                 'password'     => 'required|string|min:8|confirmed',
             ],
             'adminUpdate' => [
-                'name'         => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users',
+                'name'         => [
+                    'required',
+                    'between:3,25',
+                    'regex:/^[A-Za-z0-9\-\_]+$/',
+                    Rule::unique('users')->ignore($this->input('id')),
+                ],
                 'email'        => 'required|email',
                 'password'     => 'nullable|string|min:8|confirmed',
             ],
