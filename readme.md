@@ -241,7 +241,7 @@ password: 123456
 
 默认网站第一位用户为站长角色，第二位用户为管理员角色。如果填充了测试数据，则默认所有用户的密码为：123456
 
-至此，安装完成^_^。enjoy yourself……
+==至此，安装完成^_^。enjoy yourself……==
 
 ## 后端扩展包使用情况
 
@@ -448,7 +448,13 @@ GOOGLE_CLIENT_SECRET="your google client secret"
 ],
 ```
 
-- 第四步：直接访问 <your domain>/login/google 即可
+- 第四步：将第三方服务添加到 `app/Models/Auth/User.php` => `$allowedProviders` 数组中
+
+```
+public static $allowedProviders = ['github', 'google'];
+```
+
+- 第五步：直接访问 <your domain>/login/google 即可
 
 
 ## 自定义 Artisan 命令
