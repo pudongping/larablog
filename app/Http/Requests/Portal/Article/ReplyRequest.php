@@ -25,8 +25,8 @@ class ReplyRequest extends Request
     {
         $rules = [
             'store' => [
-                'article_id'       => 'required|numeric|min:0',
-                'content'        => 'required|min:3',
+                'article_id' => 'required|numeric|min:0',
+                'content'    => 'required|min:3',
             ],
         ];
 
@@ -37,8 +37,8 @@ class ReplyRequest extends Request
     {
         $messages = [
             'article_id.numeric' => '请回复有效的文章',
-            'article_id.min' => '请回复有效的文章',
-            'content.min' => '回复内容至少三个字符',
+            'article_id.min'     => '请回复有效的文章',
+            'content.min'        => '回复内容至少三个字符',
         ];
 
         $messages = array_merge(parent::messages(), $messages);

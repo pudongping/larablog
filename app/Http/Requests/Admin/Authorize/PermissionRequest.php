@@ -35,8 +35,8 @@ class PermissionRequest extends Request
                 'cn_name'      => 'required|between:3,25',
             ],
             'store' => [
-                'name' => 'required|between:3,25|regex:/^[A-Za-z\-\_]+$/|unique:permissions',
-                'cn_name' => 'required|between:3,25',
+                'name'         => 'required|between:3,25|regex:/^[A-Za-z\-\_]+$/|unique:permissions',
+                'cn_name'      => 'required|between:3,25',
             ],
         ];
 

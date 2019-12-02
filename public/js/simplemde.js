@@ -19677,7 +19677,7 @@ window.markdown_editor = function () {
     }, {
       name: "guide",
       action: function customFunction(editor) {
-        window.open("#");
+        window.open("https://github.com/pudongping/Markdown-Syntax-CN");
       },
       className: "fa fa-question-circle",
       title: "帮助"
@@ -19701,17 +19701,17 @@ window.markdown_editor = function () {
     errorText: "文件上传失败！"
   };
   inlineAttachment.editors.codemirror4.attach(markdown.codemirror, inlineAttachmentConfig); // 侧边栏内容
-
-  $("h2,h3,h4,h5,h6").each(function (i, item) {
-    var tag = $(item).get(0).localName;
-    $(item).attr("id", "wow" + i);
-    $("#category").append('<a class="new' + tag + '" href="#wow' + i + '">' + $(this).text() + '</a></br>');
-    $(".newh2").css("margin-left", 0);
-    $(".newh3").css("margin-left", 20);
-    $(".newh4").css("margin-left", 40);
-    $(".newh5").css("margin-left", 60);
-    $(".newh6").css("margin-left", 80);
-  }); // <div id="category"></div>
+  // $("h2,h3,h4,h5,h6").each(function(i,item){
+  //     var tag = $(item).get(0).localName;
+  //     $(item).attr("id","wow"+i);
+  //     $("#category").append('<a class="new'+tag+'" href="#wow'+i+'">'+$(this).text()+'</a></br>');
+  //     $(".newh2").css("margin-left",0);
+  //     $(".newh3").css("margin-left",20);
+  //     $(".newh4").css("margin-left",40);
+  //     $(".newh5").css("margin-left",60);
+  //     $(".newh6").css("margin-left",80);
+  // });
+  // <div id="category"></div>
 };
 
 /***/ }),

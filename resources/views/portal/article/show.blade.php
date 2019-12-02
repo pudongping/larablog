@@ -59,15 +59,24 @@
                             <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-outline-secondary btn-sm" role="button">
                                 <i class="far fa-edit"></i> 编辑
                             </a>
-                            <form action="{{ route('articles.destroy', $article->id) }}" method="post"
-                                  style="display: inline-block;"
-                                  onsubmit="return confirm('您确定要删除吗？');">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                    <i class="far fa-trash-alt"></i> 删除
-                                </button>
-                            </form>
+
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#del{{ $article->id }}">
+                                <i class="far fa-trash-alt"></i> 删除
+                            </button>
+                            @component('shared._alert', ['modalId' => 'del' . $article->id])
+                                @slot('modalTitle')
+                                    删除文章
+                                @endslot
+                                @slot('modalBody')
+                                    确定删除 「 {{ $article->title }} 」吗？
+                                @endslot
+                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-danger" type="submit" name="button">删除</button>
+                                </form>
+                            @endcomponent
+
                         @endcan
                         <a href="{{ route('articles.show', [$article->id, 'is_markdown' => 1]) }}" class="btn btn-outline-secondary btn-sm pull-right" role="button">
                             <i class="fa fa-file-text-o" aria-hidden="true"></i> Markdown 文本

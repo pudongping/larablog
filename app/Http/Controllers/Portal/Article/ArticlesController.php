@@ -62,7 +62,7 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request)
     {
         $article = $this->articlesRepository->storage($request);
-        return redirect()->to($article->link())->with('success', '文章创建成功！');
+        return redirect()->to($article->link())->with('success', '文章 「' . $article->title . ' 」创建成功！');
     }
 
     /**
@@ -144,7 +144,7 @@ class ArticlesController extends Controller
         $request->session()->forget('adminEdit');
 
         $article = $this->articlesRepository->modify($request);
-        return redirect()->to($article->link())->with('success', '更新成功！');
+        return redirect()->to($article->link())->with('success', '文章 「' . $article->title . ' 」更新成功！');
     }
 
     /**
@@ -160,7 +160,7 @@ class ArticlesController extends Controller
         $this->authorize('destroyPolicy', $article);
 
         $article->delete();
-        return redirect()->route('articles.index')->with('success', '成功删除！');
+        return redirect()->route('articles.index')->with('success', '文章 「' . $article->title . ' 」删除成功！');
     }
 
 }

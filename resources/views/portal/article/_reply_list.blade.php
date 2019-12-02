@@ -23,15 +23,24 @@
                     {{-- 回复删除按钮 --}}
                     @can('destroyPolicy', $reply)
                     <span class="meta float-right">
-                        <form action="{{ route('replies.destroy', $reply->id) }}"
-                              onsubmit="return confirm('确定要删除此评论？');"
-                              method="post">
+
+                        <button type="button" class="btn btn-default btn-xs pull-left text-secondary" data-toggle="modal" data-target="#del{{ $reply->id }}">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                        @component('shared._alert', ['modalId' => 'del' . $reply->id])
+                        @slot('modalTitle')
+                            删除评论
+                        @endslot
+                        @slot('modalBody')
+                            确定要删除此评论吗？
+                        @endslot
+                        <form action="{{ route('replies.destroy', $reply->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                          <button type="submit" class="btn btn-default btn-xs pull-left text-secondary">
-                            <i class="far fa-trash-alt"></i>
-                          </button>
+                            <button class="btn btn-danger" type="submit" name="button">删除</button>
                         </form>
+                        @endcomponent
+
                     </span>
                     @endcan
 
