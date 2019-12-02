@@ -14,7 +14,7 @@
 // 首页路由
 Route::get('/', 'Portal\Article\ArticlesController@index')->name('root');
 // 测试路由
-Route::resource('tests', 'TestsController');
+//Route::resource('tests', 'TestsController');
 
 /**
  * 用户相关路由
