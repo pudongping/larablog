@@ -30,7 +30,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     {{-- 左侧折叠导航栏 --}}
     @foreach($menusTree as $menu)
-        @if(1 == \Auth::id() ? true : $menu['auth'] ? \Auth::user()->hasPermissionTo($menu['auth']) : true)
+        @if($menu['auth'] ? \Auth::user()->hasPermissionTo($menu['auth']) : true)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo{{ $menu['id'] }}" aria-expanded="true" aria-controls="collapseTwo{{ $menu['id'] }}">
                     <i class="{{ $menu['icon'] }}"></i>
@@ -41,7 +41,7 @@
                         <h6 class="collapse-header">{{ $menu['description'] }}</h6>
                         @isset($menu['children'])
                             @foreach($menu['children'] as $child)
-                                @if(1 == \Auth::id() ? true : $child['auth'] ? \Auth::user()->hasPermissionTo($child['auth']) : true)
+                                @if($child['auth'] ? \Auth::user()->hasPermissionTo($child['auth']) : true)
                                     <a class="collapse-item" href="{{ $child['link'] ? route($child['link']) : '' }}">{{ $child['name'] }}</a>
                                 @endif
                             @endforeach

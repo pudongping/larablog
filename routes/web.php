@@ -104,7 +104,10 @@ Route::group(['middleware' => ['auth', 'is_manager', 'check_admin_menus']], func
     Route::resource('categories', 'Admin\Article\CategoriesController', ['except' => ['show']]);
     // 标签
     Route::resource('tags', 'Admin\Article\TagsController', ['except' => ['show']]);
-
+    // 后台文章管理
+    Route::get('admin_articles', 'Admin\Article\ArticlesController@adminIndex')->name('articles.admin_index');
+    Route::get('/admin_articles/{article}/admin_edit', 'Admin\Article\ArticlesController@adminEdit')->name('articles.admin_edit');
+    Route::delete('/admin_articles/{article}', 'Admin\Article\ArticlesController@adminDestroy')->name('articles.admin_destroy');
 
     Route::group(['middleware' => ['is_admin']], function() {
         // 角色
@@ -123,10 +126,6 @@ Route::group(['middleware' => ['auth', 'is_manager', 'check_admin_menus']], func
         Route::patch('/users/{user}/admin_update', 'Auth\UsersController@adminUpdate')->name('users.admin_update');
         // 删除用户
         Route::delete('/users/{user}', 'Auth\UsersController@destroy')->name('users.destroy');
-        // 后台文章管理
-        Route::get('admin_articles', 'Admin\Article\ArticlesController@adminIndex')->name('articles.admin_index');
-        Route::get('/admin_articles/{article}/admin_edit', 'Admin\Article\ArticlesController@adminEdit')->name('articles.admin_edit');
-        Route::delete('/admin_articles/{article}', 'Admin\Article\ArticlesController@adminDestroy')->name('articles.admin_destroy');
         // 站点设置
         Route::get('sites', 'Admin\Setting\SitesController@edit')->name('sites.edit');
         Route::put('sites/update', 'Admin\Setting\SitesController@update')->name('sites.update');
