@@ -61,7 +61,7 @@ class AuthenticationController extends Controller
             $newUser->avatar            = $socialUser->getAvatar();
             $newUser->provider          = trim($social);
             $newUser->provider_id       = $socialUser->getId();
-            $newUser->email_verified_at = time('Y-m-d H:i:s');
+            $newUser->email_verified_at = date('Y-m-d H:i:s');
             $newUser->save();
             $user = $newUser;
         }

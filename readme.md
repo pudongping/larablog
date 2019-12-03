@@ -1,10 +1,28 @@
 # 基于 Laravel6.x 构建的博客应用，支持 Markdown，支持图片拖拽上传，基于 RBAC 权限管理系统
 
+首页
+
 ![首页.png](https://upload-images.jianshu.io/upload_images/14623749-f32ef21d42b702c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 基于 RBAC 的权限管理后台，Dashboard 页面统计了用户总数、文章发布总数、评论率、评论总数、文章支持按天、按月、按年统计、支持按分类、按标签统计……
 
 ![后台首页.png](https://upload-images.jianshu.io/upload_images/14623749-74c132c165d20aae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+登录页面
+
+![登录页面.png](https://upload-images.jianshu.io/upload_images/14623749-93885ee50879719e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+注册页面
+
+![注册页面.png](https://upload-images.jianshu.io/upload_images/14623749-a883ff409344f8c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+支持 GitHub 授权登录
+
+![GitHub授权登录页面.png](https://upload-images.jianshu.io/upload_images/14623749-f87b0926873bdfd0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+支持邮箱重置密码
+
+![重置密码页面.png](https://upload-images.jianshu.io/upload_images/14623749-11fbe50ac341bf7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 同时兼容 HTML 编辑器和 Markdown 编辑器
 
@@ -30,6 +48,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 - 用户授权 —— 作者才能删除自己的内容；
 - 上传图片 —— 修改头像和编辑文章时上传图片；
 - 表单验证 —— 使用表单验证类；
+- 重置密码 —— 通过邮箱找回密码
 - 文章支持分类、多标签；
 - 编辑文章支持 markdown 编辑器 、html 编辑器；
 - markdown 编辑器支持拖拽上传图片、语法高亮、预览、全屏、分屏实时预览；
@@ -359,6 +378,8 @@ QUEUE_CONNECTION=sync
 
 2. 邮箱发送配置 （请将以下配置换成你自己的邮箱配置）
 
+> 如果你是使用的阿里云 ECS，那么一定要注意，阿里云的 ECS 默认禁用了 25 端口，需要单独申请解封25端口，[点我解封阿里云 ECS 25端口](https://yundun.console.aliyun.com/?spm=5176.2020520101.console-base-top.duser-0.33bf4df5FEFEdS&p=sc#/sc/port)，如果你不知道如何解封，请查看 [解封步骤](https://help.aliyun.com/knowledge_detail/56130.html)。当然替代方案，你可以采用 465 端口，如果你打算采用 465 端口，那么需要将以下配置中的 `MAIL_PORT` 修改为 465,并且也需要将加密类型 `MAIL_ENCRYPTION` 修改为 ssl 即可，这里我才用的是 qq 邮箱，可能其他的邮箱服务有差异，视情况而定吧。
+
 ```
 # 使用支持 ESMTP 的 SMTP 服务器发送邮件
 MAIL_DRIVER=smtp
@@ -370,7 +391,7 @@ MAIL_PORT=25
 MAIL_USERNAME=xxxxxxxxxxxxxx@qq.com
 # 密码是我们第一步拿到的授权码
 MAIL_PASSWORD=xxxxxxxxx
-# 加密类型，选项 null 表示不使用任何加密，其他选项还有 ssl，这里我们使用 tls 即可。
+# 加密类型，选项 null 表示不使用任何加密，其他选项还有 ssl，这里我们使用 tls 即可，如果出现报错的话，多半是因为这个 smtp 主机不支持 TLS，那么只需要将此项设置为 null 即可。
 MAIL_ENCRYPTION=tls
 # 此值必须同 MAIL_USERNAME 一致
 MAIL_FROM_ADDRESS=xxxxxxxxxxxxxx@qq.com
