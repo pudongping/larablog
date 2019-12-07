@@ -31,6 +31,7 @@ class SiteRequest extends Request
                 'contact_email'    => 'nullable|email',
                 'seo_description'  => 'max:250',
                 'seo_keyword'      => 'max:250',
+                'record_n_varchar' => 'nullable|max:50'
             ]
         ];
 
@@ -49,6 +50,7 @@ class SiteRequest extends Request
             'contact_email.email'       => '联系人邮箱格式错误。',
             'seo_description.between'   => 'SEO - 描述信息最多可填写 255 个字符。',
             'seo_keyword.between'       => 'SEO - 关键词最多可填写 255 个字符。',
+            'record_n_varchar.max'      => '备案号最多可填写 50 个字符。',
         ];
 
         $messages = array_merge(parent::messages(), $messages);

@@ -65,6 +65,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 - 第三方授权登录，目前支持 GitHub，兼容 Facebook，Twitter，LinkedIn，Google，GitHub，GitLab 和 Bitbucket 的身份验证；
 - 支持自定义 meta title、description、keywords；
 - 支持友链
+- 站点地图
 
 ## 运行环境要求
 - Nginx 1.8+

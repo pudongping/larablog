@@ -124,7 +124,8 @@ if (! function_exists('user_log')) {
         $log = new \App\Models\Admin\Setting\Log();
         $log->user_id = $uid;
         $log->client_ip = request()->ip();
-        $log->header = json_encode(request()->header());
+        // JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES = 256 + 64 = 320
+        $log->header = json_encode(request()->header(), 320);
         $log->description = $msg;
         $log->save();
     }

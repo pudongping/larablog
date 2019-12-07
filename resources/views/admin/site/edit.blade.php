@@ -56,14 +56,21 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label">SEO - 描述信息</label>
                             <div class="col-sm-10">
-                                <textarea name="seo_description" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('seo_description', $site['seo_description'] ) }}</textarea>
+                                <textarea name="seo_description" class="form-control" rows="3" placeholder="请填入至少三个字符的内容。">{{ old('seo_description', $site['seo_description'] ) }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label">SEO - 关键词</label>
                             <div class="col-sm-10">
-                                <textarea name="seo_keyword" class="form-control" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('seo_keyword', $site['seo_keyword'] ) }}</textarea>
+                                <textarea name="seo_keyword" class="form-control" rows="3" placeholder="请填入至少三个字符的内容。">{{ old('seo_keyword', $site['seo_keyword'] ) }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">网站备案号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="record_n_varchar" value="{{ old('record_n_varchar', $site['record_n_varchar'] ) }}"  placeholder="请填写网站备案号">
                             </div>
                         </div>
 

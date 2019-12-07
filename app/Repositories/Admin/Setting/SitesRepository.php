@@ -24,6 +24,7 @@ class SitesRepository
         'seo_keyword' => '',  // seo 关键词
         'founder_nickname' => '',  // 站长昵称
         'founder_website' => '',  // 站长网址
+        'record_n_varchar' => '',  // 备案号
     ];
 
     /**
@@ -55,6 +56,8 @@ class SitesRepository
         if (!is_writable($path)) {
             throw new \InvalidArgumentException('「' . $file . '」' . '文件不可写');
         }
+
+        user_log('更新了站点设置信息');
 
         // 写入文件中
         file_put_contents($file, json_encode($data));
