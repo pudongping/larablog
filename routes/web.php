@@ -91,6 +91,8 @@ Route::get('/articles/{article}/{slug?}', 'Portal\Article\ArticlesController@sho
 Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')->name('categories.show')->where('category', '[0-9]+');
 // 文章标签
 Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show')->where('tag', '[0-9]+');
+// 站点地图
+Route::get('sitemap.xml', 'Portal\Article\ArticlesController@siteMap');
 
 // 「后台管理相关路由」
 Route::group(['middleware' => ['auth', 'is_manager', 'check_admin_menus']], function() {

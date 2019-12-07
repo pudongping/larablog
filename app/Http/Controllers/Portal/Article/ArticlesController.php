@@ -10,6 +10,7 @@ use App\Repositories\Portal\Article\ArticlesRepository;
 use App\Repositories\Portal\Article\CategoriesRepository;
 use App\Http\Requests\Portal\Article\ArticleRequest;
 use App\Repositories\Portal\Article\TagsRepository;
+use App\Handlers\SiteMapHandler;
 
 class ArticlesController extends Controller
 {
@@ -17,15 +18,18 @@ class ArticlesController extends Controller
     protected $articlesRepository;
     protected $categoriesRepository;
     protected $tagsRepository;
+    protected $siteMapHandler;
 
     public function __construct(
         ArticlesRepository $articlesRepository,
         CategoriesRepository $categoriesRepository,
-        TagsRepository $tagsRepository
+        TagsRepository $tagsRepository,
+        SiteMapHandler $siteMapHandler
     ) {
         $this->articlesRepository = $articlesRepository;
         $this->categoriesRepository = $categoriesRepository;
         $this->tagsRepository = $tagsRepository;
+        $this->siteMapHandler = $siteMapHandler;
     }
 
     /**
@@ -161,6 +165,17 @@ class ArticlesController extends Controller
 
         $article->delete();
         return redirect()->route('articles.index')->with('success', '文章 「' . $article->title . ' 」删除成功！');
+    }
+
+    /**
+     * 站点地图
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function siteMap()
+    {
+        $map = $this->siteMapHandler->fetchSiteMap();
+        return response($map, 200)->header('Content-Type', 'text/xml');
     }
 
 }

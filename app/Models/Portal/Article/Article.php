@@ -17,6 +17,20 @@ class Article extends Model
     ];
 
     /**
+     * 站点地图缓存名称
+     *
+     * @var string
+     */
+    public $cacheKeyForSiteMap = 'site-map';
+
+    /**
+     * 缓存过期时间为 24 小时
+     *
+     * @var float|int 秒数
+     */
+    public $cacheExpireInSeconds = 1440 * 60;
+
+    /**
      * 一篇文章对应一个分类
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
