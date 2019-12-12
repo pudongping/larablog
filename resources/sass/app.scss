@@ -16,8 +16,7 @@
 // markdown editor 「simplemde」
 @import "~simplemde/dist/simplemde.min.css";
 // highlight.js 语法高亮工具
-//@import "~highlight.js/styles/monokai-sublime.css";
-@import "~highlight.js/styles/solarized-light.css";
+@import "~highlight.js/scss/atom-one-dark";
 
 /* universal */
 
@@ -117,9 +116,9 @@ body {
   margin-bottom: 100px;
 }
 
-.simditor-body img {
-    max-width:100%;
-}
+.simditor-body, .article-show-body img {
+   max-width:100%;
+ }
 
 /* Topic Show Page */
 

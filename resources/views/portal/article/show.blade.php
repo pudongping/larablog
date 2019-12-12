@@ -49,7 +49,7 @@
                         {{ $article->reply_count }}
                     </div>
 
-                    <div class="article-body mt-4 mb-4">
+                    <div class="mt-4 mb-4 article-show-body">
                         {!! $article->body !!}
                     </div>
 
