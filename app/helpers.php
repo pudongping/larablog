@@ -83,6 +83,81 @@ if (! function_exists('markdown_2_html')) {
     }
 }
 
+if (! function_exists('html_table_2_markdown_table')) {
+    /**
+     * 将 html 表格标签转成 markdown 表格标签
+     *
+     * @param $theadAndTbody  表头和表体数据
+     * @return string  具有 markdown 格式的表格数据
+     */
+    function html_table_2_markdown_table($theadAndTbody)
+    {
+        preg_match_all('/<thead>([\s\S]*?)<\/thead>/', $theadAndTbody, $matches1);
+
+        // 判断当前字符串中是否含有表头信息
+        if (empty($matches1[0])) return $theadAndTbody;
+        // 表格头字符串
+        $theads = $matches1[1][0];
+        preg_match_all('/<th>([\s\S]*?)<\/th>/', $theads, $matches2);
+
+        // markdown table title
+        $theads = str_replace('<tr><th>', '', $theads);
+        $theads = str_replace('</th><th>', ' | ', $theads);
+        $theads = str_replace('</th></tr>', " \n ", $theads);
+
+        // 表格头部数据数组
+        $theadArr = $matches2[1];
+        $tabletitle = '';
+        for ($i = 0; $i < count($theadArr); $i++) {
+            $tabletitle .= ' --- |';
+        }
+        $tabletitle = trim($tabletitle, '|') . " \n ";
+
+        // 表格主体数据数组
+        preg_match_all('/<tbody>([\s\S]*?)<\/tbody>/', $theadAndTbody, $matches3);
+
+        // 如果当前表格只有表头数据，没有主体数据，则直接返回表头数据
+        if (empty($matches3[0])) return $theads . $tabletitle;
+
+        // 表格主体数据 html 字符串
+        $tbodys = $matches3[1][0];
+        $tbodys = str_replace('<tr><td>', '', $tbodys);
+        $tbodys = str_replace('</td><td>', ' | ', $tbodys);
+        $tbodys = str_replace('</td></tr>', " \n ", $tbodys);
+
+        // 表头 + 分割线 + 表主体数据
+        $tableMakrdown = $theads . $tabletitle . $tbodys;
+
+        return $tableMakrdown;
+    }
+}
+
+if (! function_exists('html_2_markdown_with_table')) {
+    /**
+     * 将 html 文本你转换成 markdown 文本，且表格标签也转换成 markdown 格式的表格
+     *
+     * @param $html  需要转换的 html 文本
+     * @return string|void  纯 markdown 文本 | null
+     */
+    function html_2_markdown_with_table($html)
+    {
+        if (empty($html)) return;
+
+        $markdown = html_2_markdown($html);
+
+        // 以 <table> 标签或者 </table> 标签将 html 字符串分隔成数组
+        $chars = preg_split('/<table>|<\/table>/', $markdown);
+        if (empty($chars)) return $markdown;
+
+        $mark = '';
+        foreach ($chars as $item) {
+            $mark .= html_table_2_markdown_table($item);
+        }
+
+        return $mark;
+    }
+}
+
 if (! function_exists('site_setting')) {
     /**
      * 获取站点设置相关数据

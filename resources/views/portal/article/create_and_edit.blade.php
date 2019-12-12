@@ -78,7 +78,7 @@
 
                             {{-- 采用 markdown 文本 --}}
                             <div class="form-group" id="markdownEditor">
-                                <textarea name="markdownbody" class="form-control" id="markdownTextarea" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('body', html_2_markdown($article->body) ) }}</textarea>
+                                <textarea name="markdownbody" class="form-control" id="markdownTextarea" rows="6" placeholder="请填入至少三个字符的内容。">{{ old('body', html_2_markdown_with_table($article->body) ) }}</textarea>
                                 <input type="hidden" name="is_markdown" value="1">
                             </div>
 
