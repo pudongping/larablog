@@ -63,7 +63,7 @@ class RssFeedHandler
             ->title(site_setting('title', 'Alex'))
             ->description(site_setting('seo_description'))
             ->url(url('/'))
-            ->language('en')
+            ->language('zh-CN')
             ->copyright('Copyright (c) ' . site_setting('founder_nickname'))
             ->lastBuildDate($now->timestamp)
             ->appendTo($this->feed);
