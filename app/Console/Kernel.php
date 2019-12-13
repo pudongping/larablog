@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
+        // 每隔五分钟监听一下队列
+        $schedule->command('queue:listen')->everyFiveMinutes();
         // 一小时执行一次『生成活跃用户』的命令
         $schedule->command('larablog:calculate-active-user')->hourly();
         // 每日零时执行一次『将 Redis 中的用户最后登录时间存入数据库中』的命令
