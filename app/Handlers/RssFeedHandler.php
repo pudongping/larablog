@@ -60,7 +60,7 @@ class RssFeedHandler
     {
         $now = Carbon::now();
         $this->channel
-            ->title(site_setting('title', 'Alex'))
+            ->title(site_setting('site_name', 'Alex'))
             ->description(site_setting('seo_description'))
             ->url(url('/'))
             ->language('zh-CN')
