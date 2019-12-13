@@ -24,11 +24,23 @@ class Article extends Model
     public $cacheKeyForSiteMap = 'site-map';
 
     /**
+     * rss 订阅缓存名称
+     *
+     * @var string
+     */
+    public $cacheKeyForRssFeed = 'rss-feed';
+
+    /**
      * 缓存过期时间为 24 小时
      *
      * @var float|int 秒数
      */
     public $cacheExpireInSeconds = 1440 * 60;
+
+    /**
+     * rss 订阅数量
+     */
+    const RSS_SIZE = 25;
 
     /**
      * 一篇文章对应一个分类

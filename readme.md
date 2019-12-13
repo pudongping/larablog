@@ -51,7 +51,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 - 重置密码 —— 通过邮箱找回密码
 - 文章支持分类、多标签；
 - 编辑文章支持 markdown 编辑器 、html 编辑器；
-- markdown 编辑器支持拖拽上传图片、语法高亮、预览、全屏、分屏实时预览；
+- markdown 编辑器支持拖拽上传图片、截屏粘贴上传图片、语法高亮、预览、全屏、分屏实时预览；
 - 文章发布时自动 Slug 翻译，支持使用队列方式以提高响应；
 - 站点『活跃用户』计算，一小时计算一次；
 - 多角色权限管理 —— 允许站长，管理员权限的存在；
@@ -66,6 +66,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 - 支持自定义 meta title、description、keywords；
 - 支持友链
 - 站点地图
+- RSS 订阅
 
 ## 运行环境要求
 - Nginx 1.8+
@@ -160,7 +161,7 @@ chmod -Rf 0755 larablog/storage/
 
 ```
 
-6.  配置 hosts 文件  （如果直接想部署在线上环境，则跳过此步骤）
+8.  配置 hosts 文件  （如果直接想部署在线上环境，则跳过此步骤）
 
 如果开发环境没有采用 Laravel Homestead 则 ip 映射以你实际为主，一般为 127.0.0.1。我这里使用的 Laravel Homestead 虚拟机的 ip 地址为：192.168.10.10
 
@@ -284,6 +285,7 @@ password: 123456
 [erusev/parsedown](https://github.com/erusev/parsedown) | markdown 转换 html 工具 | 文章模块解析 markdown 语法
 [thephpleague/html-to-markdown](https://github.com/thephpleague/html-to-markdown) | html 转换成 markdown 工具 | 文章编辑采用 markdown 编辑器时
 [laravel/socialite](https://socialiteproviders.netlify.com/providers/git-hub.html) | laravel 官方推荐社会化登录 | Github 登录
+[suin/php-rss-writer](https://packagist.org/packages/suin/php-rss-writer) | rss 订阅生成 | 生成 rss 订阅代码
 
 ## 前端扩展包使用情况
 

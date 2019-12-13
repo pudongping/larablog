@@ -93,6 +93,8 @@ Route::get('/categories/{category}', 'Portal\Article\CategoriesController@show')
 Route::get('/tags/{tag}', 'Portal\Article\TagsController@show')->name('tags.show')->where('tag', '[0-9]+');
 // 站点地图
 Route::get('sitemap.xml', 'Portal\Article\ArticlesController@siteMap');
+// rss 订阅
+Route::get('rss', 'Portal\Article\ArticlesController@rss');
 
 // 「后台管理相关路由」
 Route::group(['middleware' => ['auth', 'is_manager', 'check_admin_menus']], function() {

@@ -11,6 +11,7 @@ use App\Repositories\Portal\Article\CategoriesRepository;
 use App\Http\Requests\Portal\Article\ArticleRequest;
 use App\Repositories\Portal\Article\TagsRepository;
 use App\Handlers\SiteMapHandler;
+use App\Handlers\RssFeedHandler;
 
 class ArticlesController extends Controller
 {
@@ -19,17 +20,20 @@ class ArticlesController extends Controller
     protected $categoriesRepository;
     protected $tagsRepository;
     protected $siteMapHandler;
+    protected $rssFeedHandler;
 
     public function __construct(
         ArticlesRepository $articlesRepository,
         CategoriesRepository $categoriesRepository,
         TagsRepository $tagsRepository,
-        SiteMapHandler $siteMapHandler
+        SiteMapHandler $siteMapHandler,
+        RssFeedHandler $rssFeedHandler
     ) {
         $this->articlesRepository = $articlesRepository;
         $this->categoriesRepository = $categoriesRepository;
         $this->tagsRepository = $tagsRepository;
         $this->siteMapHandler = $siteMapHandler;
+        $this->rssFeedHandler = $rssFeedHandler;
     }
 
     /**
@@ -176,6 +180,17 @@ class ArticlesController extends Controller
     {
         $map = $this->siteMapHandler->fetchSiteMap();
         return response($map, 200)->header('Content-Type', 'text/xml');
+    }
+
+    /**
+     * RSS 订阅
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function rss()
+    {
+        $rss = $this->rssFeedHandler->fetchRss();
+        return response($rss, 200)->header('Content-type', 'application/rss+xml');
     }
 
 }
