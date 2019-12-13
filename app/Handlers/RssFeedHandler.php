@@ -24,18 +24,15 @@ class RssFeedHandler
     protected $article;
     protected $feed;
     protected $channel;
-    protected $rssItem;
 
     public function __construct(
         Article $article,
         Feed $feed,
-        Channel $channel,
-        Item $item
+        Channel $channel
     ) {
         $this->article = $article;
         $this->feed = $feed;
         $this->channel = $channel;
-        $this->rssItem = $item;
     }
 
     /**
@@ -76,7 +73,8 @@ class RssFeedHandler
             ->get();
 
         foreach ($articles as $article) {
-            $this->rssItem
+            $item = new Item();
+            $item
                 ->title($article->title)
                 ->description($article->excerpt)
                 ->url($article->link())
