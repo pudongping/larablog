@@ -30,6 +30,17 @@
 
             </ul>
 
+            <ul class="navbar-nav mr-auto">
+                <form action="{{ route('articles.index') }}" method="GET" class="navbar-search" id="articleSearch">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control small article-search-input" aria-label="Search" placeholder="搜索" value="{{ request()->search }}">
+                        <button class="btn article-search-btn" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </form>
+            </ul>
+
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav navbar-right">
 

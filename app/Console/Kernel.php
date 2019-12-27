@@ -33,6 +33,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('larablog:calculate-active-user')->hourly();
         // 每日零时执行一次『将 Redis 中的用户最后登录时间存入数据库中』的命令
         $schedule->command('larablog:sync-user-actived-at')->dailyAt('00:00');
+        // 每日零时执行一次 『将 Redis 中的文章访问量存入数据库中』 的命令
+        $schedule->command('larablog:sync-article-view-count')->dailyAt('00:00');
 
     }
 

@@ -47,6 +47,9 @@
                         ⋅
                         <i class="far fa-comment"></i>
                         {{ $article->reply_count }}
+                        ⋅
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        {{ $article->view_count }}
                     </div>
 
                     <div class="mt-4 mb-4 article-show-body">

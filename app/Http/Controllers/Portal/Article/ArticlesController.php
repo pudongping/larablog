@@ -44,8 +44,8 @@ class ArticlesController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = $this->articlesRepository->index($request);
-        return view('portal.article.index', compact('articles'));
+        $data = $this->articlesRepository->index($request);
+        return view('portal.article.index', $data);
     }
 
     /**
@@ -81,10 +81,12 @@ class ArticlesController extends Controller
      */
     public function show(Request $request, Article $article)
     {
+        // 记录文章访问量
+        $article->recordViewCount();
 
         if ($request->is_markdown) {
             // 返回 markdown 文本内容
-            return response(html_2_markdown($article->body), 200)->header('Content-Type', 'text/x-markdown');
+            return response(html_2_markdown_with_table($article->body), 200)->header('Content-Type', 'text/x-markdown');
         }
 
         // url 矫正 （强制跳转到带有 slug 的 url）

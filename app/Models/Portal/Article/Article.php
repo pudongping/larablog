@@ -4,9 +4,13 @@ namespace App\Models\Portal\Article;
 
 use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ViewCountHelper;
 
 class Article extends Model
 {
+
+    use ViewCountHelper;
+
     /**
      * 允许修改的字段
      *
@@ -92,7 +96,7 @@ class Article extends Model
         }
 
         // 预加载防止 N+1 问题
-        return $query->with('category', 'tags', 'user');
+        return $query->orderBy('articles.order', 'desc')->with('category', 'tags', 'user');
     }
 
     /**

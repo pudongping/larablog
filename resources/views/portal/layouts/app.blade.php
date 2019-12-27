@@ -46,7 +46,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    {{--<link href="{{ mix('css/app.css') }}" rel="stylesheet">--}}
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/theme/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js') }}"></script>

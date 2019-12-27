@@ -13,6 +13,7 @@ use App\Repositories\BaseRepository;
 use App\Models\Portal\Article\Article;
 use App\Models\Portal\Article\Category;
 use App\Models\Portal\Article\Tag;
+use Carbon\Carbon;
 
 class ArticlesRepository extends BaseRepository
 {
@@ -36,9 +37,29 @@ class ArticlesRepository extends BaseRepository
      */
     public function index($request)
     {
+
+        $search = $request->search;
+
         // 使用了「Article」模型中的排序规则动态作用域
         $model = Article::withOrder($request->order);
-        return $this->usePage($model);
+
+        $model = $model->where(function ($query) use ($search) {
+            if (! empty($search)) {
+                $query->orWhere('title', 'like', '%' . $search . '%');  // 文章标题
+                $query->orWhere('body', 'like', '%' . $search . '%');  // 文章内容
+            }
+        });
+
+        // 分页实例
+        $paginator = $this->usePage($model);
+        // 分页后的数据
+        $currentArticle = $paginator->getCollection()->toArray();
+        // 含有最新访问量的文章数据
+        $articles = $this->replaceViewCountInRDS($currentArticle);
+        // 因为分页会自动追加 page 参数，因此需要先去除掉 page 参数，然后将其他的参数追加到 url 中
+        $pageLinks = $paginator->appends($request->except('page'))->render();
+
+        return compact('articles', 'pageLinks');
     }
 
     /**
@@ -213,6 +234,29 @@ class ArticlesRepository extends BaseRepository
 
         return compact('articles', 'categories', 'tags');
 
+    }
+
+    /**
+     * 将 redis 中的文章访问量拼接到文章数据中
+     *
+     * @param $articles  array  文章数据
+     * @return mixed
+     */
+    public function replaceViewCountInRDS(array $articles)
+    {
+        if (empty($articles)) return $articles;
+
+        // 取出所有存在 redis 中的文章访问量
+        $viewCountInRDS = \Redis::hGetAll($this->model->getAtlViewHashPrefix());
+
+        foreach ($articles as &$article) {
+            // 先从 redis 中取值，如果 redis 中没有值，则以数据库中的值为准
+            $article['view_count'] = $viewCountInRDS[$article['id']] ?? $article['view_count'];
+            // 将时间格式化为 carbon 对象
+            $article['updated_at'] = Carbon::parse($article['updated_at']);
+        }
+
+        return $articles;
     }
 
 
