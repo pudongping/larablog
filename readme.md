@@ -34,6 +34,11 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 
 ![markdown 编辑器预览效果.png](https://upload-images.jianshu.io/upload_images/14623749-092682db5e3cec7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+支持代码高亮
+
+![文章详情.png](https://upload-images.jianshu.io/upload_images/14623749-5263abf6268ddf98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
 ![后台用户.png](https://upload-images.jianshu.io/upload_images/14623749-9db84df41d52c0a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 项目概述
