@@ -55,15 +55,11 @@ trait ViewCountHelper
         $viewCountInRDS = \Redis::hGetAll($this->atlViewHashPrefix);
         if (empty($viewCountInRDS)) return false;
 
-        // 循环更新文章访问量
-        foreach ($viewCountInRDS as $articleId => $viewCount) {
-            // 只有当文章存在时才同步访问量到 mysql 数据库中
-            if ($article = $this->find($articleId)) {
-                $article->view_count = $viewCount;
-                $article->save();
-            }
-        }
+        $ids = array_keys($viewCountInRDS);
+        $viewCounts = array_values($viewCountInRDS);
 
+        // 批量更新数据
+        batchUpdate('articles', ['id' => $ids], ['view_count' => $viewCounts]);
         // 文章访问量已经同步到 mysql 数据库中，就删除 redis 中的记录，防止 redis 中内存占满
         \Redis::del($this->atlViewHashPrefix);
     }
