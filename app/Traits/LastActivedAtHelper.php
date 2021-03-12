@@ -11,7 +11,7 @@
 
 namespace App\Traits;
 
-use Redis;
+use Illuminate\Support\Facades\Redis;
 use Carbon\Carbon;
 
 trait LastActivedAtHelper

@@ -14,6 +14,7 @@ use App\Models\Portal\Article\Article;
 use App\Models\Portal\Article\Category;
 use App\Models\Portal\Article\Tag;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 
 class ArticlesRepository extends BaseRepository
 {
@@ -247,7 +248,7 @@ class ArticlesRepository extends BaseRepository
         if (empty($articles)) return $articles;
 
         // 取出所有存在 redis 中的文章访问量
-        $viewCountInRDS = \Redis::hGetAll($this->model->getAtlViewHashPrefix());
+        $viewCountInRDS = Redis::hGetAll($this->model->getAtlViewHashPrefix());
 
         foreach ($articles as &$article) {
             // 先从 redis 中取值，如果 redis 中没有值，则以数据库中的值为准

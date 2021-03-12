@@ -44,7 +44,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 ## 项目概述
 - 项目名称：larablog
 - 项目简介：基于 laravel6.x 开发的博客项目
-- 访问地址：[https://www.drling.xin/](https://www.drling.xin/)
+- 访问地址：[https://www.pudongping.com/](https://www.pudongping.com/)
 
 
 ## 功能如下
