@@ -12,6 +12,7 @@
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "~6.3",
+        "hhxsv5/laravel-s": "^3.7",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/horizon": "~3.1",
