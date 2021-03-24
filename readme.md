@@ -30,7 +30,7 @@
 
 ![markdown 编辑器.png](https://upload-images.jianshu.io/upload_images/14623749-c1c8018845d986ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏预览 
+Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏预览
 
 ![markdown 编辑器预览效果.png](https://upload-images.jianshu.io/upload_images/14623749-092682db5e3cec7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -291,6 +291,7 @@ password: 123456
 [thephpleague/html-to-markdown](https://github.com/thephpleague/html-to-markdown) | html 转换成 markdown 工具 | 文章编辑采用 markdown 编辑器时
 [laravel/socialite](https://socialiteproviders.netlify.com/providers/git-hub.html) | laravel 官方推荐社会化登录 | Github 登录
 [suin/php-rss-writer](https://packagist.org/packages/suin/php-rss-writer) | rss 订阅生成 | 生成 rss 订阅代码
+[hhxsv5/laravel-s](https://github.com/hhxsv5/laravel-s/blob/master/README-CN.md) | LaravelS 是 Swoole 和 Laravel/Lumen 之间开箱即用的适配器 | 优化访问速度
 
 ## 前端扩展包使用情况
 
@@ -320,7 +321,7 @@ password: 123456
     MAIL_PASSWORD=null
     MAIL_ENCRYPTION=null
     ```
-    
+
 ## 翻译队列
 - 修改 `.ENV` 文件设置为
 
@@ -342,7 +343,7 @@ php artisan queue:listen
 php artisan horizon
 
 ```
-    
+
 ## 文章标题翻译
 > [使用了百度翻译 api](http://api.fanyi.baidu.com/api/trans/product/apidoc)，请将 `.ENV`中的百度 api 相关信息换成你自己的[开发者信息](http://api.fanyi.baidu.com/api/trans/product/desktop?req=developer)
 
@@ -380,13 +381,13 @@ QUEUE_CONNECTION=sync
 
 > 如果不想要，发表文章评论时有邮件通知，可以不用配置，直接忽略，功能上没有任何影响
 
-1. 需要先开启 QQ 邮箱的 SMTP 支持   
+1. 需要先开启 QQ 邮箱的 SMTP 支持
 
 [如何打开 POP3/SMTP/IMAP 功能？](https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=166)
 
 2. 邮箱发送配置 （请将以下配置换成你自己的邮箱配置）
 
-> 如果你是使用的阿里云 ECS，那么一定要注意，阿里云的 ECS 默认禁用了 25 端口，需要单独申请解封25端口，[点我解封阿里云 ECS 25端口](https://yundun.console.aliyun.com/?spm=5176.2020520101.console-base-top.duser-0.33bf4df5FEFEdS&p=sc#/sc/port)，如果你不知道如何解封，请查看 [解封步骤](https://help.aliyun.com/knowledge_detail/56130.html)。当然替代方案，你可以采用 465 端口，如果你打算采用 465 端口，那么需要将以下配置中的 `MAIL_PORT` 修改为 465,并且也需要将加密类型 `MAIL_ENCRYPTION` 修改为 ssl 即可，这里我才用的是 qq 邮箱，可能其他的邮箱服务有差异，视情况而定吧。
+> 如果你是使用的阿里云 ECS，那么一定要注意，阿里云的 ECS 默认禁用了 25 端口，需要单独申请解封25端口，[点我解封阿里云 ECS 25端口](https://yundun.console.aliyun.com/?spm=5176.2020520101.console-base-top.duser-0.33bf4df5FEFEdS&p=sc#/sc/port)，如果你不知道如何解封，请查看 [解封步骤](https://help.aliyun.com/knowledge_detail/56130.html)。当然替代方案，你可以采用 465 端口，如果你打算采用 465 端口，那么需要将以下配置中的 `MAIL_PORT` 修改为 465,并且也需要将加密类型 `MAIL_ENCRYPTION` 修改为 ssl 即可，这里我使用的是 qq 邮箱，可能其他的邮箱服务有差异，视情况而定吧。
 
 ```
 # 使用支持 ESMTP 的 SMTP 服务器发送邮件
@@ -456,7 +457,7 @@ GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 ```
 
-3. 扩展其它第三方授权登录。  
+3. 扩展其它第三方授权登录。
 > Socialite 目前支持 Facebook，Twitter，LinkedIn，Google，GitHub，GitLab 和 Bitbucket 的身份验证。本项目已经对以上支持的第三方登录做了兼容性处理，如果我们需要支持以上除 GitHub 以外的应用（因为目前已经设置好了 GitHub 相关的配置），那么我们只需要按照以下的步骤配置即可。这里以 Google 为例子。
 
 - 第一步：申请 `google` 的 Client ID 和 Client Secret。
@@ -488,9 +489,10 @@ public static $allowedProviders = ['github', 'google'];
 
 ## 自定义 Artisan 命令
 
-命令 | 说明 | Cron 
+命令 | 说明 | Cron
 --- | --- | ---
 php artisan larablog:calculate-active-user | 生成活跃用户 | 一个小时运行一次
+php artisan larablog:sync-article-view-count | 同步文章的访问量 | 每天早上 0 点准时
 php artisan larablog:sync-user-actived-at | 从 Redis 中同步最后登录时间到数据库中 | 每天早上 0 点准时
 
 
@@ -500,9 +502,19 @@ php artisan larablog:sync-user-actived-at | 从 Redis 中同步最后登录时�
 
 `artisan` 命令为：
 
-```php
+```sh
 
 php artisan larablog:calculate-active-user
+
+```
+
+同步文章的访问量
+
+`artisan` 命令为：
+
+```sh
+
+php artisan larablog:sync-article-view-count
 
 ```
 
@@ -510,7 +522,7 @@ php artisan larablog:calculate-active-user
 
 `artisan` 命令为：
 
-```php
+```sh
 
 php artisan larablog:sync-user-actived-at
 
@@ -545,6 +557,128 @@ export EDITOR=vi && crontab -e
 --- | --- | ---
 app\Notifications\ArticleReplied.php | 通知文章作者有新评论回复 | 文章被评论以后 App\Observers\Portal\Article\ReplyObserver@created
 app\Jobs\TranslateSlug.php | 将文章标题翻译为 Slug | 文章保存时 App\Observers\Portal\Article\ArticleObserver@saved
+
+## 线上部署
+
+如果需要优化网站打开速度，可依次进行如下步骤：
+
+- 压缩前端代码
+
+```
+npm run prod
+```
+
+- 缓存路由
+```sh
+# 缓存路由
+php artisan route:cache
+
+# 清空路由缓存
+php artisan route:clear
+```
+
+- 缓存配置文件
+```sh
+# 缓存配置文件
+php artisan config:cache
+
+# 清空配置文件缓存
+php artisan cache:clear
+```
+
+- composer 优化
+```
+sudo composer dump-autoload --optimize
+```
+
+- 类映射加载优化
+
+在 `laravel 6.x` 中，会生成 `bootstrap/cache/config.php` 和 `bootstrap/cache/packages.php` 和 `bootstrap/cache/routes.php` 和 `bootstrap/cache/services.php` 这四个文件。
+
+```
+php artisan optimize
+
+# 清空类映射
+php artisan optimize:clear
+```
+
+- 使用 swoole 加速网站
+
+在项目根目录下执行以下命令，以守护进程的方式运行 [laravelS](https://github.com/hhxsv5/laravel-s/blob/master/README-CN.md)
+
+```
+php bin/laravels start -d
+```
+
+参考以下内容配置 nginx 配置
+
+```
+
+upstream swoole {
+    # 如果是使用 laradock ，请将 127.0.0.1 更改为 workspace
+    server 127.0.0.1:5200 weight=5 max_fails=3 fail_timeout=30s;
+    keepalive 16;
+}
+
+server {
+    listen 80;
+    server_name pudongping.com www.pudongping.com;
+    root /www/wwwroot/larablog/public;
+
+    index index.html index.htm index.php;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri @laravels;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    access_log  /www/wwwlogs/pudongping.com.log;
+    error_log  /www/wwwlogs/pudongping.com.error.log;
+
+    sendfile off;
+
+    client_max_body_size 100m;
+
+    location @laravels {
+        # proxy_connect_timeout 60s;
+        # proxy_send_timeout 60s;
+        # proxy_read_timeout 120s;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Real-PORT $remote_port;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header Scheme $scheme;
+        proxy_set_header Server-Protocol $server_protocol;
+        proxy_set_header Server-Name $server_name;
+        proxy_set_header Server-Addr $server_addr;
+        proxy_set_header Server-Port $server_port;
+        # “swoole”是指upstream
+        proxy_pass http://swoole;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
+
+```
+
+如果是使用 laradock 的话，还需要将 `.env` 添加监听地址为 `workspace`
+
+```
+LARAVELS_LISTEN_IP=workspace
+
+# 设置后台启动 laravelS 服务，如果需要查看则执行 ps -ef|grep laravels 命令
+LARAVELS_DAEMONIZE=true
+```
+
 
 ## 代码规范
 
