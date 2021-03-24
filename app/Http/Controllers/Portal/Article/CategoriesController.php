@@ -13,6 +13,7 @@ use App\Models\Portal\Article\Category;
 use App\Models\Portal\Article\Article;
 use App\Repositories\Portal\Article\CategoriesRepository;
 use Illuminate\Http\Request;
+use App\Support\ConstCustom;
 
 class CategoriesController extends Controller
 {
@@ -35,7 +36,7 @@ class CategoriesController extends Controller
         // 读取分类 id 相关的文章
         $articles = Article::withOrder($request->order)
                             ->where('category_id', $category->id)
-                            ->paginate(\ConstCustom::PAGE_NUM);
+                            ->paginate(ConstCustom::PAGE_NUM);
 
         return view('portal.article.index', compact('articles', 'category'));
     }

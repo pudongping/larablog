@@ -8,6 +8,7 @@
 
 namespace App\Repositories\Admin\Setting;
 
+use App\Support\ConstCustom;
 
 class SitesRepository
 {
@@ -47,7 +48,7 @@ class SitesRepository
         $data = $request->only(array_keys($this->data));
 
         $path = $this->getStoragePath();
-        $file = $path . \ConstCustom::SITE_FILE_NAME;
+        $file = $path . ConstCustom::SITE_FILE_NAME;
 
         // 如果存在之前的文件则直接删除
         if (file_exists($file)) unlink($file);
@@ -71,7 +72,7 @@ class SitesRepository
      */
     private function getStoragePath()
     {
-        return storage_path() . '/' . \ConstCustom::SITE_PATH . '/';
+        return storage_path() . '/' . ConstCustom::SITE_PATH . '/';
     }
 
     /**
@@ -87,7 +88,7 @@ class SitesRepository
         // 如果存储路径不存在，请尝试创建该存储路径
         if (!is_dir($path)) mkdir($path);
 
-        $file = $path . \ConstCustom::SITE_FILE_NAME;
+        $file = $path . ConstCustom::SITE_FILE_NAME;
 
         if (file_exists($file)) {
             // 获取文件中的数据

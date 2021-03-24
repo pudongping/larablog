@@ -11,6 +11,7 @@ namespace App\Repositories\Portal\Article;
 use App\Repositories\BaseRepository;
 use App\Models\Portal\Article\Tag;
 use App\Support\TempValue;
+use App\Support\ConstCustom;
 
 class TagsRepository extends BaseRepository
 {
@@ -45,7 +46,7 @@ class TagsRepository extends BaseRepository
      */
     public function show($tag)
     {
-        return $tag->articles()->withOrder(request()->order)->paginate(\ConstCustom::PAGE_NUM);
+        return $tag->articles()->withOrder(request()->order)->paginate(ConstCustom::PAGE_NUM);
     }
 
     /**

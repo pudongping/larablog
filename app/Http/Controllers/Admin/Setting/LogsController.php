@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Support\ConstCustom;
 
 class LogsController extends Controller
 {
@@ -16,7 +17,7 @@ class LogsController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $logs = \Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(\ConstCustom::PAGE_NUM);
+        $logs = \Auth::user()->logs()->orderBy('created_at', 'desc')->paginate(ConstCustom::PAGE_NUM);
         return view('auth.users.log', compact('user', 'logs'));
     }
 

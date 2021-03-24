@@ -1,13 +1,18 @@
 <?php
 /**
+ * 常量配置信息
+ *
  * Created by PhpStorm.
  * User: Alex
- * Date: 2019/10/15
- * Time: 23:59
+ * Date: 2021/3/23
+ * Time: 17:59
  */
+
+namespace App\Support;
 
 class ConstCustom
 {
+
     /**
      * 默认分页显示数为 20
      */

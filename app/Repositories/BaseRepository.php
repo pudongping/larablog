@@ -9,8 +9,9 @@
  */
 
 namespace App\Repositories;
-use App\Support\TempValue;
 
+use App\Support\TempValue;
+use App\Support\ConstCustom;
 
 abstract class BaseRepository
 {
@@ -42,7 +43,7 @@ abstract class BaseRepository
      */
     protected function usePage($model, $sortColumn = 'id', $sort = 'desc')
     {
-        $number = TempValue::$perPage > 0 ? TempValue::$perPage : \ConstCustom::PAGE_NUM;
+        $number = TempValue::$perPage > 0 ? TempValue::$perPage : ConstCustom::PAGE_NUM;
 
         if (!empty(TempValue::$orderBy)) {
             // 支持 TempValue::$orderBy = id,desc|name,asc

@@ -11,6 +11,7 @@
 namespace App\Handlers;
 
 use Overtrue\Pinyin\Pinyin;
+use App\Support\ConstCustom;
 
 class SlugTranslateHandler
 {
@@ -31,7 +32,7 @@ class SlugTranslateHandler
      */
     public function translate($text, $from = self::FROM_LANG, $to = self::TO_LANG)
     {
-        $api = \ConstCustom::BAIDU_TRANSLATE_API;
+        $api = ConstCustom::BAIDU_TRANSLATE_API;
         $appid = config('services.baidu_translate.appid');
         $key = config('services.baidu_translate.key');
         $salt = time();
