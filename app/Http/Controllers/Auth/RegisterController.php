@@ -81,6 +81,7 @@ class RegisterController extends Controller
      * 注册
      *
      * @param Request $request
+     * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
     {
@@ -93,7 +94,7 @@ class RegisterController extends Controller
             }
         }
 
-        $this->laravelRegister($request);
+        return $this->laravelRegister($request);
     }
 
 }
