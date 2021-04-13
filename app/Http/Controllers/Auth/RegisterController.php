@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,7 +22,9 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers {
+        RegistersUsers::register as laravelRegister;
+    }
 
     /**
      * Where to redirect users after registration.
@@ -73,4 +76,24 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * 注册
+     *
+     * @param Request $request
+     */
+    public function register(Request $request)
+    {
+        // 防止表单验证不通过时，重定向到图片验证码 url 上
+        $isHasPreUrl = $request->session()->exists('_previous.url');
+        if ($isHasPreUrl) {
+            $isCaptcha = strstr($request->session()->previousUrl(), 'captcha/flat');  // 如果是图片验证码的 url 时
+            if ($isCaptcha) {
+                $request->session()->setPreviousUrl('/register');
+            }
+        }
+
+        $this->laravelRegister($request);
+    }
+
 }
