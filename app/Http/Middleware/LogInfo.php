@@ -30,16 +30,16 @@ class LogInfo
         $response = $next($request);
 
         // 记录控制器中最终返回的数据
-        $log = ['data' => $response->getContent()];
+        // $log = ['data' => $response->getContent()];
 
         // 返回有异常时
         if (property_exists($response, 'exception')) {
             // 将异常写入日志记录
             $log['exception'] = $response->exception;
+            // 记录返回数据
+            Log::info('Response', $log);
         }
 
-        // 记录返回数据
-        Log::info('Response', $log);
         return $response;
     }
 
