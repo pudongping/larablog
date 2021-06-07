@@ -44,7 +44,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 ## 项目概述
 - 项目名称：larablog
 - 项目简介：基于 laravel6.x 开发的博客项目
-- 访问地址：[https://www.pudongping.com/](https://www.pudongping.com/)
+- 访问地址：[https://blog.pudongping.com/](https://blog.pudongping.com/)
 
 
 ## 功能如下
@@ -104,8 +104,8 @@ git clone git@github.com:pudongping/larablog.git
 // 先切换到 larablog 项目根目录
 cd larablog
 
-// 执行安装命令
-composer install
+// 执行安装命令，并忽略掉开发环境才需要的插件包
+composer install --no-dev
 ```
 
 3. 生成配置文件
@@ -246,11 +246,14 @@ npm install -g npm
 - 编译前端内容
 
 ```
-// 运行所有 Mix 任务...
+// 运行所有 Mix 任务
 npm run dev
 
-// 运行所有 Mix 任务并缩小输出..
+// 运行所有 Mix 任务并缩小输出
 npm run production
+
+// 或者执行
+yarn production
 ```
 
 ## 访问入口
@@ -622,7 +625,7 @@ upstream swoole {
 
 server {
     listen 80;
-    server_name pudongping.com www.pudongping.com;
+    server_name pudongping.com blog.pudongping.com;
     root /www/wwwroot/larablog/public;
 
     index index.html index.htm index.php;
