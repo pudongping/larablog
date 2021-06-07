@@ -89,7 +89,7 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 
 克隆 `larablog` 源代码到本地：
 
-```
+```bash
 // gitee
 git clone git@gitee.com:pudongping/larablog.git
 
@@ -100,7 +100,7 @@ git clone git@github.com:pudongping/larablog.git
 
 2. 安装扩展包依赖
 
-```
+```bash
 // 先切换到 larablog 项目根目录
 cd larablog
 
@@ -110,13 +110,13 @@ composer install --no-dev
 
 3. 生成配置文件
 
-```
+```bash
 cp .env.example .env
 ```
 
 你可以根据情况修改 .env 文件里的内容，如数据库连接、缓存、邮件设置、第三方授权登录等：
 
-```
+```bash
 
 DB_HOST=localhost
 DB_DATABASE=larablog
@@ -127,7 +127,7 @@ DB_PASSWORD=secret
 
 4. 生成数据表及生成测试数据
 
-```
+```bash
 // 需要生成测试数据则执行：
 php artisan migrate --seed
 
@@ -137,7 +137,7 @@ php artisan migrate
 
 5. 生成秘钥
 
-```
+```bash
 
 php artisan key:generate
 
@@ -145,7 +145,7 @@ php artisan key:generate
 
 6. 创建 storage 软连接
 
-```
+```bash
 
 php artisan storage:link
 
@@ -153,7 +153,7 @@ php artisan storage:link
 
 7. 赋予 storage 相应权限
 
-```
+```bash
 
 // 建议在 Linux 系统中新建一个 www 用户，并设置该用户不可登录系统
 useradd -s /sbin/nologin www
@@ -170,7 +170,7 @@ chmod -Rf 0755 larablog/storage/
 
 如果开发环境没有采用 Laravel Homestead 则 ip 映射以你实际为主，一般为 127.0.0.1。我这里使用的 Laravel Homestead 虚拟机的 ip 地址为：192.168.10.10
 
-```
+```bash
 // Linux 或 MacOS 环境
 
 echo "192.168.10.10   larablog.test" | sudo tee -a /etc/hosts
@@ -191,7 +191,7 @@ echo "192.168.10.10   larablog.test" | sudo tee -a /etc/hosts
 
 - 配置相应的 yum 源
 
-```
+```bash
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 
 curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
@@ -199,7 +199,7 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 
 - 之后执行以下任意一条命令，就可以了
 
-```
+```bash
 sudo yum install yarn
 ## OR ##
 sudo dnf install yarn
@@ -218,7 +218,7 @@ sudo dnf install yarn
 
 2. 为 NPM 和 Yarn 配置淘宝镜像，加速安装包下载
 
-```
+```bash
 npm config set registry=https://registry.npm.taobao.org
 
 yarn config set registry https://registry.npm.taobao.org
@@ -226,7 +226,7 @@ yarn config set registry https://registry.npm.taobao.org
 
 3. 使用 Yarn 安装前端依赖包
 
-```
+```bash
 yarn install
 
 或者
@@ -236,7 +236,7 @@ npm install
 
 - 监控 resources 文件夹下的资源文件是否有发生改变。在 watch-poll 命令运行的情况下，一旦资源文件发生变化，Webpack 会自动重新编译。
 
-```
+```bash
 npm run watch-poll
 
 // 如果遇到报错，尝试先执行以下命令更新 npm 到最新版本，之后再次执行监控命令
@@ -245,7 +245,7 @@ npm install -g npm
 
 - 编译前端内容
 
-```
+```bash
 // 运行所有 Mix 任务
 npm run dev
 
@@ -263,7 +263,7 @@ yarn production
 
 管理员账号密码如下：
 
-```
+```bash
 username: 1414818093@qq.com
 password: 123456
 ```
@@ -312,11 +312,11 @@ password: 123456
 ## 邮箱认证
 
 - 开发环境时将 `.ENV` 文件设置为如下所示，将邮箱认证邮件发送至当前日志中，以便调试
-    ```
+    ```bash
     MAIL_DRIVER=log
     ```
 - 生产环境时，建议将 `.ENV` 文件中相关邮件设置为自己所需配置，以下为默认配置
-    ```
+    ```bash
     MAIL_DRIVER=smtp
     MAIL_HOST=smtp.mailtrap.io
     MAIL_PORT=2525
@@ -326,9 +326,10 @@ password: 123456
     ```
 
 ## 翻译队列
+
 - 修改 `.ENV` 文件设置为
 
-```
+```bash
 
 # 如果是开发环境的话，就把队列驱动改回 sync 同步模式，也就是说不使用任何队列，实时执行：
 QUEUE_CONNECTION=redis
@@ -338,7 +339,7 @@ REDIS_CLIENT=predis
 
 - 启动队列系统，队列在启动完成后会进入监听状态
 
-```
+```bash
 php artisan queue:listen
 
 或者使用
@@ -352,7 +353,7 @@ php artisan horizon
 
 如果不采用百度翻译翻译文章标题的话，那么不用配置 `.ENV` 文件中以下配置项
 
-```
+```bash
 
 # 百度翻译 APP ID
 BAIDU_TRANSLATE_APPID=
@@ -363,7 +364,7 @@ BAIDU_TRANSLATE_KEY=
 
 并且也不需要更改
 
-```
+```bash
 
 QUEUE_CONNECTION=redis
 
@@ -371,7 +372,7 @@ QUEUE_CONNECTION=redis
 
 默认保持为
 
-```
+```bash
 
 QUEUE_CONNECTION=sync
 
@@ -392,7 +393,7 @@ QUEUE_CONNECTION=sync
 
 > 如果你是使用的阿里云 ECS，那么一定要注意，阿里云的 ECS 默认禁用了 25 端口，需要单独申请解封25端口，[点我解封阿里云 ECS 25端口](https://yundun.console.aliyun.com/?spm=5176.2020520101.console-base-top.duser-0.33bf4df5FEFEdS&p=sc#/sc/port)，如果你不知道如何解封，请查看 [解封步骤](https://help.aliyun.com/knowledge_detail/56130.html)。当然替代方案，你可以采用 465 端口，如果你打算采用 465 端口，那么需要将以下配置中的 `MAIL_PORT` 修改为 465,并且也需要将加密类型 `MAIL_ENCRYPTION` 修改为 ssl 即可，这里我使用的是 qq 邮箱，可能其他的邮箱服务有差异，视情况而定吧。
 
-```
+```bash
 # 使用支持 ESMTP 的 SMTP 服务器发送邮件
 MAIL_DRIVER=smtp
 # QQ 邮箱的 SMTP 服务器地址，必须为此值
@@ -413,7 +414,7 @@ MAIL_FROM_NAME=番茄炖土豆的个人博客
 
 3. 如果需要支持队列，请将 `.ENV` 配置文件中，设置成
 
-```
+```bash
 
 QUEUE_CONNECTION=redis
 
@@ -423,22 +424,24 @@ QUEUE_CONNECTION=redis
 
 默认只在调试模式 `.ENV` 文件中
 
-```
+```bash
 
 APP_DEBUG=true
 
 ```
 
+
 时启用，且 `config/sudosu.php` 文件中
 
-```php
 
+```php
 // 允许使用的顶级域名
 'allowed_tlds' => ['dev', 'local', 'test'],
-    
-```   
+```
+
 
 顶级域名（Top Level Domain）加入你域名的顶级域名
+
 
 ## 第三方授权登录
 
@@ -453,7 +456,7 @@ APP_DEBUG=true
 
 2. 注册成功之后，需要在 `.ENV` 配置文件中填写申请成功的 Client ID 和 Client Secret。填写好之后，直接访问  [http://larablog.test/login/github](http://larablog.test/login/github)  即可支持 GitHub 第三方授权登录，如果不设置 `.ENV` 配置文件，则登录、注册页面不会显示 GitHub 第三方授权登录入口。
 
-```
+```bash
 # Github Client ID
 GITHUB_CLIENT_ID=
 # Github Client Secret
@@ -466,14 +469,14 @@ GITHUB_CLIENT_SECRET=
 - 第一步：申请 `google` 的 Client ID 和 Client Secret。
 - 第二步：将申请的 Client ID 和 Client Secret 填写入 `.ENV` 配置文件中
 
-```
+```bash
 GOOGLE_CLIENT_ID="your google client id"
 GOOGLE_CLIENT_SECRET="your google client secret"
 ```
 
 - 第三步：配置 app/services.php
 
-```
+```bash
 'google' => [
     'client_id' => env('GOOGLE_CLIENT_ID'),  // google 客户端授权 ID
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),  // google 客户端授权密钥
@@ -483,7 +486,7 @@ GOOGLE_CLIENT_SECRET="your google client secret"
 
 - 第四步：将第三方服务添加到 `app/Models/Auth/User.php` => `$allowedProviders` 数组中
 
-```
+```bash
 public static $allowedProviders = ['github', 'google'];
 ```
 
@@ -515,15 +518,18 @@ php artisan larablog:calculate-active-user
 
 `artisan` 命令为：
 
+
 ```sh
 
 php artisan larablog:sync-article-view-count
 
 ```
 
+
 和同步 「用户最后活跃时间」 到数据库
 
 `artisan` 命令为：
+
 
 ```sh
 
@@ -531,11 +537,13 @@ php artisan larablog:sync-user-actived-at
 
 ```
 
+
 并且已经在 `调度器` 中设置好了相关代码。（调度器在 app/Console/Kernel.php 文件的 schedule 方法中定义）
 
 使用 Linux 系统的 Cron 计划任务需执行
 
-```
+
+```sh
 
 export EDITOR=vi && crontab -e
 
@@ -544,7 +552,8 @@ export EDITOR=vi && crontab -e
 然后填入以下内容（注意将项目根目录换成你自己的）  
 这里我的项目根目录为：`/home/vagrant/Code/larablog`
 
-```
+
+```sh
 
 * * * * * php /home/vagrant/Code/larablog/artisan schedule:run >> /dev/null 2>&1
 
@@ -567,11 +576,12 @@ app\Jobs\TranslateSlug.php | 将文章标题翻译为 Slug | 文章保存时 App
 
 - 压缩前端代码
 
-```
+```bash
 npm run prod
 ```
 
 - 缓存路由
+
 ```sh
 # 缓存路由
 php artisan route:cache
@@ -581,6 +591,7 @@ php artisan route:clear
 ```
 
 - 缓存配置文件
+
 ```sh
 # 缓存配置文件
 php artisan config:cache
@@ -590,7 +601,8 @@ php artisan cache:clear
 ```
 
 - composer 优化
-```
+
+```bash
 sudo composer dump-autoload --optimize
 ```
 
@@ -598,7 +610,8 @@ sudo composer dump-autoload --optimize
 
 在 `laravel 6.x` 中，会生成 `bootstrap/cache/config.php` 和 `bootstrap/cache/packages.php` 和 `bootstrap/cache/routes.php` 和 `bootstrap/cache/services.php` 这四个文件。
 
-```
+
+```bash
 php artisan optimize
 
 # 清空类映射
@@ -609,13 +622,13 @@ php artisan optimize:clear
 
 在项目根目录下执行以下命令，以守护进程的方式运行 [laravelS](https://github.com/hhxsv5/laravel-s/blob/master/README-CN.md)
 
-```
+```bash
 php bin/laravels start -d
 ```
 
 参考以下内容配置 nginx 配置
 
-```
+```bash
 
 upstream swoole {
     # 如果是使用 laradock ，请将 127.0.0.1 更改为 workspace
@@ -673,9 +686,11 @@ server {
 
 ```
 
+
 如果是使用 laradock 的话，还需要将 `.env` 添加监听地址为 `workspace`
 
-```
+
+```bash
 LARAVELS_LISTEN_IP=workspace
 
 # 设置后台启动 laravelS 服务，如果需要查看则执行 ps -ef|grep laravels 命令
