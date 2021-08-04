@@ -239,20 +239,20 @@ npm install
 ```bash
 npm run watch-poll
 
-// 如果遇到报错，尝试先执行以下命令更新 npm 到最新版本，之后再次执行监控命令
+# 如果遇到报错，尝试先执行以下命令更新 npm 到最新版本，之后再次执行监控命令
 npm install -g npm
 ```
 
 - 编译前端内容
 
 ```bash
-// 运行所有 Mix 任务
+# 运行所有 Mix 任务
 npm run dev
 
-// 运行所有 Mix 任务并缩小输出
+# 运行所有 Mix 任务并缩小输出
 npm run production
 
-// 或者执行
+# 或者执行
 yarn production
 ```
 
