@@ -90,10 +90,10 @@ Markdown 编辑器：支持拖拽粘贴上传图片、预览、全屏、分屏�
 克隆 `larablog` 源代码到本地：
 
 ```bash
-// gitee
+# gitee
 git clone git@gitee.com:pudongping/larablog.git
 
-// GitHub
+# GitHub
 git clone git@github.com:pudongping/larablog.git
 
 ```
