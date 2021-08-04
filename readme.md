@@ -101,10 +101,10 @@ git clone git@github.com:pudongping/larablog.git
 2. 安装扩展包依赖
 
 ```bash
-// 先切换到 larablog 项目根目录
+# 先切换到 larablog 项目根目录
 cd larablog
 
-// 执行安装命令，并忽略掉开发环境才需要的插件包
+# 执行安装命令，并忽略掉开发环境才需要的插件包
 composer install --no-dev
 ```
 
@@ -128,10 +128,10 @@ DB_PASSWORD=secret
 4. 生成数据表及生成测试数据
 
 ```bash
-// 需要生成测试数据则执行：
+# 需要生成测试数据则执行：
 php artisan migrate --seed
 
-// 不需要生成测试数据则执行：
+# 不需要生成测试数据则执行：
 php artisan migrate
 ```
 
@@ -155,13 +155,13 @@ php artisan storage:link
 
 ```bash
 
-// 建议在 Linux 系统中新建一个 www 用户，并设置该用户不可登录系统
+# 建议在 Linux 系统中新建一个 www 用户，并设置该用户不可登录系统
 useradd -s /sbin/nologin www
 
-// 将项目目录所有权赋予 www 用户
+# 将项目目录所有权赋予 www 用户
 chown -Rf www:www larablog
 
-// 给 storage 目录赋权限
+# 给 storage 目录赋权限
 chmod -Rf 0755 larablog/storage/
 
 ```
@@ -171,11 +171,11 @@ chmod -Rf 0755 larablog/storage/
 如果开发环境没有采用 Laravel Homestead 则 ip 映射以你实际为主，一般为 127.0.0.1。我这里使用的 Laravel Homestead 虚拟机的 ip 地址为：192.168.10.10
 
 ```bash
-// Linux 或 MacOS 环境
+# Linux 或 MacOS 环境
 
 echo "192.168.10.10   larablog.test" | sudo tee -a /etc/hosts
 
-// Windows 环境
+# Windows 环境
 需要打开 C:/Windows/System32/Drivers/etc/hosts  文件，然后新增一行
 
 192.168.10.10 larablog.test
